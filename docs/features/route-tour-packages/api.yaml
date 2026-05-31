@@ -1,0 +1,307 @@
+openapi: "3.0.3"
+info:
+  title: Route & Tour Packages
+  version: "1.0"
+paths:
+  /api/routes:
+    get:
+      summary: List active route packages (public)
+      responses:
+        "200":
+          description: Active routes
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/RoutePackage"
+
+  /api/routes/{id}:
+    get:
+      summary: Route detail (public)
+      parameters:
+        - $ref: "#/components/parameters/Id"
+      responses:
+        "200":
+          description: Route detail
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/RoutePackage"
+
+  /api/tours:
+    get:
+      summary: List active tour packages (public)
+      responses:
+        "200":
+          description: Active tours
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/TourPackage"
+
+  /api/tours/{id}:
+    get:
+      summary: Tour detail (public)
+      parameters:
+        - $ref: "#/components/parameters/Id"
+      responses:
+        "200":
+          description: Tour detail
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/TourPackage"
+
+  /api/admin/routes:
+    get:
+      summary: List all routes including inactive (admin)
+      security:
+        - ClerkAuth: []
+      parameters:
+        - name: is_active
+          in: query
+          schema:
+            type: boolean
+      responses:
+        "200":
+          description: All routes
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/RoutePackage"
+    post:
+      summary: Create route (admin)
+      security:
+        - ClerkAuth: []
+      requestBody:
+        required: true
+        content:
+          multipart/form-data:
+            schema:
+              $ref: "#/components/schemas/RouteInput"
+      responses:
+        "201":
+          description: Created route
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/RoutePackage"
+
+  /api/admin/routes/{id}:
+    put:
+      summary: Update route (admin)
+      security:
+        - ClerkAuth: []
+      parameters:
+        - $ref: "#/components/parameters/Id"
+      requestBody:
+        required: true
+        content:
+          multipart/form-data:
+            schema:
+              $ref: "#/components/schemas/RouteInput"
+      responses:
+        "200":
+          description: Updated route
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/RoutePackage"
+    delete:
+      summary: Delete route (admin)
+      security:
+        - ClerkAuth: []
+      parameters:
+        - $ref: "#/components/parameters/Id"
+      responses:
+        "204":
+          description: Deleted
+
+  /api/admin/routes/{id}/toggle:
+    patch:
+      summary: Toggle is_active (admin)
+      security:
+        - ClerkAuth: []
+      parameters:
+        - $ref: "#/components/parameters/Id"
+      responses:
+        "200":
+          description: Updated
+
+  /api/admin/tours:
+    get:
+      summary: List all tours including inactive (admin)
+      security:
+        - ClerkAuth: []
+      parameters:
+        - name: is_active
+          in: query
+          schema:
+            type: boolean
+      responses:
+        "200":
+          description: All tours
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/TourPackage"
+    post:
+      summary: Create tour (admin)
+      security:
+        - ClerkAuth: []
+      requestBody:
+        required: true
+        content:
+          multipart/form-data:
+            schema:
+              $ref: "#/components/schemas/TourInput"
+      responses:
+        "201":
+          description: Created tour
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/TourPackage"
+
+  /api/admin/tours/{id}:
+    put:
+      summary: Update tour (admin)
+      security:
+        - ClerkAuth: []
+      parameters:
+        - $ref: "#/components/parameters/Id"
+      requestBody:
+        required: true
+        content:
+          multipart/form-data:
+            schema:
+              $ref: "#/components/schemas/TourInput"
+      responses:
+        "200":
+          description: Updated tour
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/TourPackage"
+    delete:
+      summary: Delete tour (admin)
+      security:
+        - ClerkAuth: []
+      parameters:
+        - $ref: "#/components/parameters/Id"
+      responses:
+        "204":
+          description: Deleted
+
+  /api/admin/tours/{id}/toggle:
+    patch:
+      summary: Toggle is_active (admin)
+      security:
+        - ClerkAuth: []
+      parameters:
+        - $ref: "#/components/parameters/Id"
+      responses:
+        "200":
+          description: Updated
+
+components:
+  securitySchemes:
+    ClerkAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+
+  parameters:
+    Id:
+      name: id
+      in: path
+      required: true
+      schema:
+        type: string
+        format: uuid
+
+  schemas:
+    RouteInput:
+      type: object
+      required: [name, origin, destination, duration_hours, price]
+      properties:
+        name:
+          type: string
+        origin:
+          type: string
+        destination:
+          type: string
+        duration_hours:
+          type: number
+        price:
+          type: number
+        included_services:
+          type: string
+        recommended_vehicle:
+          type: string
+        image:
+          type: string
+          format: binary
+
+    RoutePackage:
+      allOf:
+        - $ref: "#/components/schemas/RouteInput"
+        - type: object
+          properties:
+            id:
+              type: string
+              format: uuid
+            image:
+              type: string
+              format: uri
+            is_active:
+              type: boolean
+            created_at:
+              type: string
+              format: date-time
+
+    TourInput:
+      type: object
+      required: [name, duration_hours, location, price]
+      properties:
+        name:
+          type: string
+        description:
+          type: string
+        duration_hours:
+          type: number
+        location:
+          type: string
+        included_services:
+          type: string
+        vehicle_type:
+          type: string
+        price:
+          type: number
+        image:
+          type: string
+          format: binary
+
+    TourPackage:
+      allOf:
+        - $ref: "#/components/schemas/TourInput"
+        - type: object
+          properties:
+            id:
+              type: string
+              format: uuid
+            image:
+              type: string
+              format: uri
+            is_active:
+              type: boolean
+            created_at:
+              type: string
+              format: date-time

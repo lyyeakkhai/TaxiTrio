@@ -1,0 +1,149 @@
+openapi: "3.0.3"
+info:
+  title: Tourist Assistance
+  version: "1.0"
+paths:
+  /api/assistance:
+    get:
+      summary: All active assistance content (public)
+      responses:
+        "200":
+          description: Active assistance items
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/AssistanceItem"
+
+  /api/assistance/{id}:
+    get:
+      summary: Single assistance item (public)
+      parameters:
+        - $ref: "#/components/parameters/Id"
+      responses:
+        "200":
+          description: Assistance item
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/AssistanceItem"
+
+  /api/admin/assistance:
+    get:
+      summary: All assistance items including inactive (admin)
+      security:
+        - ClerkAuth: []
+      responses:
+        "200":
+          description: All items
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/AssistanceItem"
+    post:
+      summary: Create assistance item (admin)
+      security:
+        - ClerkAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/AssistanceInput"
+      responses:
+        "201":
+          description: Created item
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/AssistanceItem"
+
+  /api/admin/assistance/{id}:
+    put:
+      summary: Update assistance item (admin)
+      security:
+        - ClerkAuth: []
+      parameters:
+        - $ref: "#/components/parameters/Id"
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/AssistanceInput"
+      responses:
+        "200":
+          description: Updated item
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/AssistanceItem"
+    delete:
+      summary: Delete assistance item (admin)
+      security:
+        - ClerkAuth: []
+      parameters:
+        - $ref: "#/components/parameters/Id"
+      responses:
+        "204":
+          description: Deleted
+
+  /api/admin/assistance/{id}/toggle:
+    patch:
+      summary: Toggle is_active (admin)
+      security:
+        - ClerkAuth: []
+      parameters:
+        - $ref: "#/components/parameters/Id"
+      responses:
+        "200":
+          description: Updated
+
+components:
+  securitySchemes:
+    ClerkAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+
+  parameters:
+    Id:
+      name: id
+      in: path
+      required: true
+      schema:
+        type: string
+        format: uuid
+
+  schemas:
+    AssistanceInput:
+      type: object
+      required: [category, title, content]
+      properties:
+        category:
+          type: string
+          enum: [emergency, language, route, whatsapp]
+        title:
+          type: string
+        content:
+          type: string
+        phone:
+          type: string
+          nullable: true
+
+    AssistanceItem:
+      allOf:
+        - $ref: "#/components/schemas/AssistanceInput"
+        - type: object
+          properties:
+            id:
+              type: string
+              format: uuid
+            is_active:
+              type: boolean
+            created_at:
+              type: string
+              format: date-time
