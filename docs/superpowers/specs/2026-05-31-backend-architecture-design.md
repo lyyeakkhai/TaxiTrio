@@ -169,7 +169,7 @@ Demonstrates the full pattern. All other modules follow identically.
 
 ## 9. `app.ts` Changes
 
-- Remove old `routes/health` import (or keep as-is)
+- Keep existing `routes/health` as-is (simple ping, no business logic, no use-case pattern needed)
 - Import and mount all module routers under `/api`
 - Register `errorHandler` as the last `app.use()`
 
