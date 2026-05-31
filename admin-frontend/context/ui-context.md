@@ -9,7 +9,7 @@ Dark-first. Default background is deep charcoal/near-black (`#121212`). Light mo
 | Role | CSS Variable | Value |
 | --- | --- | --- |
 | Page background | `--bg-base` | `#121212` |
-| Surface / card | `--bg-surface` | `#1e1e2e` |
+| Surface / card | `--bg-surface` | `#1a1a2e` |
 | Primary text | `--text-primary` | `#f0f0f0` |
 | Muted text | `--text-muted` | `#888899` |
 | Accent (electric yellow) | `--accent-primary` | `#f5e642` |
@@ -33,9 +33,7 @@ shadcn/ui on top of Tailwind CSS. Components live in `components/ui/`. Use the s
 
 ## Layout Patterns
 
-- **Customer dashboard**: sidebar nav + main content area
-- **Driver dashboard**: simple single-column with status cards
-- **Admin dashboard**: sidebar nav + data tables + stat cards
+- **Dashboard**: sidebar nav + main content area
 - **Modals**: centered overlay with backdrop blur (`Dialog` from shadcn/ui)
 - **Navbar**: top bar with role-based navigation links and Clerk `UserButton`
 

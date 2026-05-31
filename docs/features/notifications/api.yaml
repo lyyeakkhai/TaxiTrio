@@ -1,0 +1,81 @@
+openapi: "3.0.3"
+info:
+  title: Notifications
+  version: "1.0"
+paths:
+  /api/notifications:
+    get:
+      summary: My notifications
+      security:
+        - ClerkAuth: []
+      parameters:
+        - name: is_read
+          in: query
+          schema:
+            type: boolean
+      responses:
+        "200":
+          description: Notifications list
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/Notification"
+
+  /api/notifications/{id}/read:
+    put:
+      summary: Mark notification as read
+      security:
+        - ClerkAuth: []
+      parameters:
+        - $ref: "#/components/parameters/Id"
+      responses:
+        "200":
+          description: Marked as read
+
+  /api/notifications/read-all:
+    put:
+      summary: Mark all notifications as read
+      security:
+        - ClerkAuth: []
+      responses:
+        "200":
+          description: All marked as read
+
+components:
+  securitySchemes:
+    ClerkAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+
+  parameters:
+    Id:
+      name: id
+      in: path
+      required: true
+      schema:
+        type: string
+        format: uuid
+
+  schemas:
+    Notification:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+        user_id:
+          type: string
+          format: uuid
+        type:
+          type: string
+          enum: [booking_created, driver_assigned, booking_accepted, payment_verified, trip_completed, complaint_replied, new_booking_assigned]
+        message:
+          type: string
+        is_read:
+          type: boolean
+        created_at:
+          type: string
+          format: date-time

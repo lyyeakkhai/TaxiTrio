@@ -1,0 +1,224 @@
+openapi: "3.0.3"
+info:
+  title: Taxis
+  version: "1.0"
+paths:
+  /api/taxis:
+    get:
+      summary: List available taxis (public)
+      responses:
+        "200":
+          description: List of active taxis with driver info
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/TaxiPublic"
+
+  /api/taxis/{id}:
+    get:
+      summary: Get taxi detail (public)
+      parameters:
+        - $ref: "#/components/parameters/Id"
+      responses:
+        "200":
+          description: Taxi detail
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/TaxiPublic"
+        "404":
+          $ref: "#/components/responses/NotFound"
+
+  /api/admin/taxis:
+    get:
+      summary: List all taxis including inactive (admin)
+      security:
+        - ClerkAuth: []
+      parameters:
+        - name: is_active
+          in: query
+          schema:
+            type: boolean
+      responses:
+        "200":
+          description: All taxis
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/Taxi"
+    post:
+      summary: Create taxi (admin)
+      security:
+        - ClerkAuth: []
+      requestBody:
+        required: true
+        content:
+          multipart/form-data:
+            schema:
+              $ref: "#/components/schemas/TaxiInput"
+      responses:
+        "201":
+          description: Created taxi
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Taxi"
+
+  /api/admin/taxis/{id}:
+    get:
+      summary: Get taxi detail (admin)
+      security:
+        - ClerkAuth: []
+      parameters:
+        - $ref: "#/components/parameters/Id"
+      responses:
+        "200":
+          description: Taxi detail
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Taxi"
+    put:
+      summary: Update taxi (admin)
+      security:
+        - ClerkAuth: []
+      parameters:
+        - $ref: "#/components/parameters/Id"
+      requestBody:
+        required: true
+        content:
+          multipart/form-data:
+            schema:
+              $ref: "#/components/schemas/TaxiInput"
+      responses:
+        "200":
+          description: Updated taxi
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Taxi"
+    delete:
+      summary: Delete taxi (admin)
+      security:
+        - ClerkAuth: []
+      parameters:
+        - $ref: "#/components/parameters/Id"
+      responses:
+        "204":
+          description: Deleted
+
+  /api/admin/taxis/{id}/toggle:
+    patch:
+      summary: Toggle is_active (admin)
+      security:
+        - ClerkAuth: []
+      parameters:
+        - $ref: "#/components/parameters/Id"
+      responses:
+        "200":
+          description: Updated taxi
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Taxi"
+
+components:
+  securitySchemes:
+    ClerkAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+
+  parameters:
+    Id:
+      name: id
+      in: path
+      required: true
+      schema:
+        type: string
+        format: uuid
+
+  schemas:
+    TaxiInput:
+      type: object
+      required: [model, plate_number, type, passenger_capacity, luggage_capacity, comfort_category]
+      properties:
+        model:
+          type: string
+        plate_number:
+          type: string
+        type:
+          type: string
+          enum: [Sedan, SUV, Van, Minibus]
+        passenger_capacity:
+          type: integer
+        luggage_capacity:
+          type: integer
+        comfort_category:
+          type: string
+          enum: [Standard, Premium, VIP]
+        photo:
+          type: string
+          format: binary
+        driver_id:
+          type: string
+          format: uuid
+          nullable: true
+
+    Taxi:
+      allOf:
+        - $ref: "#/components/schemas/TaxiInput"
+        - type: object
+          properties:
+            id:
+              type: string
+              format: uuid
+            photo:
+              type: string
+              format: uri
+            is_active:
+              type: boolean
+            created_at:
+              type: string
+              format: date-time
+
+    TaxiPublic:
+      allOf:
+        - $ref: "#/components/schemas/Taxi"
+        - type: object
+          properties:
+            driver:
+              type: object
+              properties:
+                id:
+                  type: string
+                  format: uuid
+                name:
+                  type: string
+                rating:
+                  type: number
+                languages:
+                  type: array
+                  items:
+                    type: string
+                is_available:
+                  type: boolean
+                verification_status:
+                  type: string
+                  enum: [pending, approved, rejected]
+
+  responses:
+    NotFound:
+      description: Resource not found
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              error:
+                type: string
+                example: Not found
