@@ -34,6 +34,21 @@ Table: `tour_packages`
 | is_active | BOOLEAN | default true |
 | created_at | TIMESTAMP | |
 
-## Soft Delete
+## Backend Implementation
+
+Modules: `src/modules/routes/` and `src/modules/tours/`
+
+| Layer | File | Responsibility |
+|---|---|---|
+| Use Case | `use-cases/list-routes.usecase.ts` | Returns active route packages |
+| Use Case | `use-cases/get-route.usecase.ts` | Returns single route package |
+| Use Case | `use-cases/create-route.usecase.ts` | Admin: creates route, image → Cloudinary |
+| Use Case | `use-cases/update-route.usecase.ts` | Admin: updates route |
+| Use Case | `use-cases/toggle-route.usecase.ts` | Admin: sets `is_active` |
+| Use Case | `use-cases/delete-route.usecase.ts` | Admin: hard delete if no bookings, else 409 |
+| Controller | `route.controller.ts` | HTTP methods |
+| Routes | `route.routes.ts` | Public + admin route endpoints |
+
+Same pattern applies to `tours/` module for `tour_packages`.
 
 `PATCH /toggle` sets `is_active = false`. Hard `DELETE` only if no bookings reference the record.
