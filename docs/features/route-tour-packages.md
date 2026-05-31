@@ -1,25 +1,25 @@
 # Feature: Route & Tour Packages
 
-> Roles: Customer (browse + book) · Admin (create / update / delete)
+> Roles: Customer (browse + book) · Admin (full CRUD)
 
 ---
 
 ## Overview
 
-Admin creates fixed-price route packages (intercity travel) and tour packages. Customers browse and book them. Prices are set by admin — no negotiation.
+Admin creates and manages fixed-price route packages (intercity travel) and tour packages. Customers browse and book them. Prices are set by admin — no negotiation. Both resources support soft-delete via `is_active`.
 
 ---
 
 ## Frontend
 
-**Customer pages:** `pages/customer/Routes.tsx`, `pages/customer/RouteDetail.tsx`, `pages/customer/Tours.tsx`, `pages/customer/TourDetail.tsx`  
-**Admin pages:** `pages/admin/Routes.tsx`, `pages/admin/Tours.tsx`
+**User app:** `app/(customer)/routes/page.tsx`, `app/(customer)/routes/[id]/page.tsx`, `app/(customer)/tours/page.tsx`, `app/(customer)/tours/[id]/page.tsx`
+**Admin dashboard:** `app/routes/page.tsx`, `app/routes/[id]/page.tsx`, `app/tours/page.tsx`, `app/tours/[id]/page.tsx`
 
 ---
 
 ## Backend
 
-**Route file:** `routes/packages.ts`, `routes/admin.ts`  
+**Route file:** `routes/packages.ts`, `routes/admin.ts`
 **Controller:** `controllers/packageController.ts`
 
 ### Public Endpoints (no auth)
@@ -31,20 +31,23 @@ Admin creates fixed-price route packages (intercity travel) and tour packages. C
 | GET | `/api/tours` | List active tour packages |
 | GET | `/api/tours/:id` | Tour detail |
 
-### Admin Endpoints
+### Admin Endpoints (role: admin)
 
 | Method | Path | Description |
 |---|---|---|
+| GET | `/api/admin/routes` | List all routes (including inactive) |
 | POST | `/api/admin/routes` | Create route |
 | PUT | `/api/admin/routes/:id` | Update route |
+| PATCH | `/api/admin/routes/:id/toggle` | Toggle is_active |
 | DELETE | `/api/admin/routes/:id` | Delete route |
+| GET | `/api/admin/tours` | List all tours (including inactive) |
 | POST | `/api/admin/tours` | Create tour |
 | PUT | `/api/admin/tours/:id` | Update tour |
+| PATCH | `/api/admin/tours/:id/toggle` | Toggle is_active |
 | DELETE | `/api/admin/tours/:id` | Delete tour |
 
-### POST /api/admin/routes
-
 ```json
+// POST /api/admin/routes
 {
   "name": "Phnom Penh → Siem Reap",
   "origin": "Phnom Penh",
@@ -53,13 +56,10 @@ Admin creates fixed-price route packages (intercity travel) and tour packages. C
   "price": 45.00,
   "included_services": "string",
   "recommended_vehicle": "SUV",
-  "image": "file upload"
+  "image": "file upload → Cloudinary"
 }
-```
 
-### POST /api/admin/tours
-
-```json
+// POST /api/admin/tours
 {
   "name": "Angkor Sunrise Tour",
   "description": "string",
@@ -68,7 +68,7 @@ Admin creates fixed-price route packages (intercity travel) and tour packages. C
   "included_services": "string",
   "vehicle_type": "SUV",
   "price": 80.00,
-  "image": "file upload"
+  "image": "file upload → Cloudinary"
 }
 ```
 
@@ -76,6 +76,6 @@ Admin creates fixed-price route packages (intercity travel) and tour packages. C
 
 ## Database
 
-Tables used: `route_packages`, `tour_packages`
+Tables: `route_packages`, `tour_packages`
 
-Both have `is_active` flag — soft delete, admin can deactivate without removing history.
+Both have `is_active` — soft delete preserves booking history. Admin list returns all; public list returns `is_active = true` only.

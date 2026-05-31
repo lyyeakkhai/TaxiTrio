@@ -1,12 +1,12 @@
 # Feature: Tourist Assistance Center
 
-> Roles: Customer (read-only) · Admin (manage content)
+> Roles: Customer (read-only) · Admin (full CRUD)
 
 ---
 
 ## Overview
 
-A static-content section that reduces tourist travel anxiety. Provides emergency contacts, language guidance, route tips, and WhatsApp support links. Content is managed by admin.
+Static content section that reduces tourist travel anxiety. Admin fully controls all content — categories, titles, descriptions, and contact numbers.
 
 ---
 
@@ -23,24 +23,32 @@ A static-content section that reduces tourist travel anxiety. Provides emergency
 
 ## Frontend
 
-**Page:** `pages/customer/TouristAssistance.tsx`  
-**Admin page:** `pages/admin/AssistanceContent.tsx`
+**User app:** `app/(customer)/assistance/page.tsx`
+**Admin dashboard:** `app/assistance/page.tsx` (list + inline edit)
 
 ---
 
 ## Backend
 
-**Route file:** `routes/assistance.ts`  
+**Route file:** `routes/assistance.ts`, `routes/admin.ts`
 **Controller:** `controllers/assistanceController.ts`
 
-### Endpoints
+### Public Endpoints (no auth)
 
-| Method | Path | Auth | Description |
-|---|---|---|---|
-| GET | `/api/assistance` | — | Get all assistance content |
-| POST | `/api/admin/assistance` | Admin | Create content item |
-| PUT | `/api/admin/assistance/:id` | Admin | Update content item |
-| DELETE | `/api/admin/assistance/:id` | Admin | Delete content item |
+| Method | Path | Description |
+|---|---|---|
+| GET | `/api/assistance` | All active assistance content |
+| GET | `/api/assistance/:id` | Single item detail |
+
+### Admin Endpoints (role: admin)
+
+| Method | Path | Description |
+|---|---|---|
+| GET | `/api/admin/assistance` | All items (including inactive) |
+| POST | `/api/admin/assistance` | Create item |
+| PUT | `/api/admin/assistance/:id` | Update item |
+| PATCH | `/api/admin/assistance/:id/toggle` | Toggle is_active |
+| DELETE | `/api/admin/assistance/:id` | Delete item |
 
 ```json
 // POST /api/admin/assistance
@@ -56,7 +64,7 @@ A static-content section that reduces tourist travel anxiety. Provides emergency
 
 ## Database
 
-New table: `tourist_assistance`
+Table: `tourist_assistance`
 
 | Column | Type |
 |---|---|
@@ -65,4 +73,5 @@ New table: `tourist_assistance`
 | title | VARCHAR(150) |
 | content | TEXT |
 | phone | VARCHAR(20) nullable |
+| is_active | BOOLEAN default true |
 | created_at | TIMESTAMP |

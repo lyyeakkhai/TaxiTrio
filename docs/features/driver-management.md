@@ -1,12 +1,12 @@
 # Feature: Driver Management
 
-> Roles: Driver (self-manage) · Admin (approve / reject / monitor)
+> Roles: Driver (self-manage) · Admin (full CRUD + approve/reject/monitor)
 
 ---
 
 ## Overview
 
-Drivers register as users with `role: driver`, then submit profile details. Admin approves before they can receive bookings.
+Drivers register via Clerk, then submit profile details. Admin approves before they can receive bookings. Admin has full CRUD control over driver records.
 
 ---
 
@@ -21,34 +21,46 @@ Driver registers → pending → Admin approves → can receive bookings
 
 ## Frontend
 
-**Driver pages:** `pages/driver/Profile.tsx`, `pages/driver/Earnings.tsx`, `pages/driver/Reviews.tsx`  
-**Admin pages:** `pages/admin/Drivers.tsx`, `pages/admin/DriverDetail.tsx`
+**User app:** `app/(driver)/profile/page.tsx`, `app/(driver)/earnings/page.tsx`, `app/(driver)/reviews/page.tsx`
+**Admin dashboard:** `app/drivers/page.tsx` (list), `app/drivers/[id]/page.tsx` (detail + actions)
 
 ---
 
 ## Backend
 
-**Route file:** `routes/driver.ts`, `routes/admin.ts`  
+**Route file:** `routes/driver.ts`, `routes/admin.ts`
 **Controller:** `controllers/driverController.ts`
 
-### Driver Endpoints
+### Driver Endpoints (role: driver)
 
-| Method | Path | Auth | Description |
-|---|---|---|---|
-| GET | `/api/driver/profile` | Driver | View own profile |
-| PUT | `/api/driver/profile` | Driver | Update name, phone, languages, photo |
-| PUT | `/api/driver/availability` | Driver | Toggle is_available |
-| GET | `/api/driver/earnings` | Driver | Earnings summary |
-| GET | `/api/driver/reviews` | Driver | Reviews received |
+| Method | Path | Description |
+|---|---|---|
+| GET | `/api/driver/profile` | View own profile |
+| PUT | `/api/driver/profile` | Update name, phone, languages, photo (Cloudinary) |
+| PUT | `/api/driver/availability` | Toggle is_available |
+| GET | `/api/driver/earnings` | Earnings summary |
+| GET | `/api/driver/reviews` | Reviews received |
 
-### Admin Endpoints
+### Admin Endpoints (role: admin)
 
-| Method | Path | Auth | Description |
-|---|---|---|---|
-| GET | `/api/admin/drivers` | Admin | List all drivers |
-| GET | `/api/admin/drivers/:id` | Admin | Driver detail |
-| PUT | `/api/admin/drivers/:id/approve` | Admin | Approve driver |
-| PUT | `/api/admin/drivers/:id/reject` | Admin | Reject driver |
+| Method | Path | Description |
+|---|---|---|
+| GET | `/api/admin/drivers` | List all drivers (filter by status, availability) |
+| GET | `/api/admin/drivers/:id` | Driver detail + taxi + ratings |
+| PUT | `/api/admin/drivers/:id` | Update driver record (name, languages, taxi assignment) |
+| PUT | `/api/admin/drivers/:id/approve` | Set verification_status = approved |
+| PUT | `/api/admin/drivers/:id/reject` | Set verification_status = rejected |
+| DELETE | `/api/admin/drivers/:id` | Delete driver record |
+
+```json
+// PUT /api/admin/drivers/:id
+{
+  "name": "string",
+  "phone": "string",
+  "languages": ["en", "km"],
+  "taxi_id": "uuid | null"
+}
+```
 
 ---
 
@@ -56,4 +68,4 @@ Driver registers → pending → Admin approves → can receive bookings
 
 Tables used: `drivers`, `driver_earnings`
 
-Driver profile shows: verification status, rating (avg from `reviews`), languages, availability.
+Driver profile shows: verification_status, rating (avg from `reviews`), languages, is_available.

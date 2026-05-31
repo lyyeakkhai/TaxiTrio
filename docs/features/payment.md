@@ -1,12 +1,12 @@
 # Feature: Payment
 
-> Roles: Customer (upload proof) · Admin (verify / reject)
+> Roles: Customer (upload proof) · Admin (full CRUD + verify/reject)
 
 ---
 
 ## Overview
 
-Payment is manual-verification based. Customer uploads proof of payment; admin reviews and marks verified or rejected.
+Payment is manual-verification based. Customer uploads proof of payment; admin reviews and marks verified or rejected. Admin has full read access to all transactions.
 
 ---
 
@@ -25,35 +25,40 @@ unpaid → pending_verification → verified → captured
 
 ## Frontend
 
-**Customer pages:** `pages/customer/PaymentUpload.tsx`, `pages/customer/PaymentStatus.tsx`  
-**Admin pages:** `pages/admin/Payments.tsx`, `pages/admin/PaymentDetail.tsx`
+**User app:** `app/(customer)/bookings/[id]/payment/page.tsx`
+**Admin dashboard:** `app/payments/page.tsx`, `app/payments/[id]/page.tsx`
 
 ---
 
 ## Backend
 
-**Route file:** `routes/payments.ts`, `routes/admin.ts`  
+**Route file:** `routes/payments.ts`, `routes/admin.ts`
 **Controller:** `controllers/paymentController.ts`
 
-### Endpoints
+### Customer Endpoints (role: customer)
 
-| Method | Path | Auth | Description |
-|---|---|---|---|
-| POST | `/api/payments/:booking_id/upload-proof` | Customer | Upload proof image to Cloudinary |
-| GET | `/api/payments/:booking_id` | Customer | View payment status |
-| GET | `/api/admin/payments` | Admin | All payments |
-| GET | `/api/admin/payments/:id` | Admin | Detail + proof image URL |
-| PUT | `/api/admin/payments/:id/verify` | Admin | Verify payment |
-| PUT | `/api/admin/payments/:id/reject` | Admin | Reject payment |
+| Method | Path | Description |
+|---|---|---|
+| POST | `/api/payments/:booking_id/upload-proof` | Upload proof image to Cloudinary |
+| GET | `/api/payments/:booking_id` | View own payment status |
+
+### Admin Endpoints (role: admin)
+
+| Method | Path | Description |
+|---|---|---|
+| GET | `/api/admin/payments` | All payments (filter by status, method, date) |
+| GET | `/api/admin/payments/:id` | Detail + Cloudinary proof image URL |
+| PUT | `/api/admin/payments/:id/verify` | Set status = verified, record verified_by + verified_at |
+| PUT | `/api/admin/payments/:id/reject` | Set status = rejected |
 
 ---
 
 ## Database
 
-Tables used: `payments`
+Table: `payments`
 
 | Column | Notes |
 |---|---|
-| proof_image | Cloudinary `secure_url` — stored as string, served via Cloudinary CDN |
+| proof_image | Cloudinary `secure_url` |
 | verified_by | Admin user id |
 | fee / net_amount | Calculated on booking creation |
