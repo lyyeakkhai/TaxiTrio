@@ -17,6 +17,19 @@
 - Default to server components; add `"use client"` only when browser interactivity requires it
 - Server actions live in `features/<name>/actions.ts` — never inline in page files
 - Keep pages thin: import feature components, render, done
+- Use `await auth()` for server-side auth checks
+
+## Styling
+
+- Use CSS custom property tokens (`var(--accent-primary)`, `var(--bg-surface)`, etc.) — no hardcoded hex values
+- Follow shadcn/ui component conventions — use the CLI to add new components, don't write from scratch
+- Dark-first: default styles target dark theme
+
+## API
+
+- All requests go through `lib/api.ts` (Axios instance with Clerk token injection)
+- Validate inputs with Zod before calling the API
+- Return consistent response shapes from server actions
 
 ## File Organization — Feature Slice Pattern
 
@@ -35,14 +48,3 @@ features/manage-drivers/
 - Nothing inside `features/<name>/` is imported by another feature — no cross-feature imports
 - A component or utility moves to `components/` or `lib/` only when 2+ features need it
 - `components/ui/` — shadcn/ui generated files only; never edit manually
-
-## Styling
-
-- Tailwind utility classes only; no hardcoded hex values
-- Use shadcn/ui components — add via CLI, don't write from scratch
-
-## API
-
-- All requests go through `lib/api.ts`
-- Validate inputs with Zod before calling the API
-- Return consistent response shapes from server actions
