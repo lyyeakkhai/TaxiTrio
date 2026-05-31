@@ -1,4 +1,4 @@
-# TaxiTrio
+# TaxiTrio — User Frontend
 
 ## Overview
 
@@ -16,38 +16,54 @@ TaxiTrio is a Smart Tourist Transportation and Tour Booking Platform for interna
 2. Browses taxis, intercity routes, or tour packages
 3. Creates a booking with travel date, passenger count, and payment method
 4. Admin assigns a driver → driver accepts → driver arrives → trip starts → trip completes
-5. Customer rates the driver and optionally submits a complaint
+5. Customer uploads payment proof → admin verifies
+6. Customer rates the driver and optionally submits a complaint
 
 ## Features
 
 ### Customer
-- Browse taxis, intercity route packages, tour packages
-- Book and track bookings (status timeline)
-- Pay via Cash, ABA, KHQR, Wing, Card, Wallet, or Corporate
-- Rate driver, submit complaint, contact support via WhatsApp
-- View tourist assistance center (emergency contacts, route tips, language info)
+- Sign in via Clerk; redirected to customer dashboard by role
+- Browse taxis (with driver info: name, rating, languages, availability)
+- Browse intercity route packages and tour packages (active only)
+- Book taxi, route, or tour — single booking form, `booking_type` enum
+- Track booking status timeline: Pending → Assigned → Accepted → Driver Arrived → In Progress → Completed
+- Upload payment proof (Cloudinary); view payment status
+- Rate driver (1–5 stars + message) once per completed booking
+- Submit complaint (categories: driver_behavior, vehicle_condition, pricing, service_quality, other)
+- View complaint history and admin replies
+- View tourist assistance content (emergency contacts, language tips, route info, WhatsApp support)
+- Receive in-system notifications + email (booking_created, driver_assigned, payment_verified, trip_completed, complaint_replied)
+- Contact support via WhatsApp deep-link (pre-filled message, no API)
+- Multi-language UI: en, km, zh, ja, ko, fr (next-intl)
 
 ### Driver
-- Accept/reject assigned bookings, update trip status
-- View earnings, ratings, and assigned route/tour details
+- Sign in via Clerk; redirected to driver dashboard by role
+- View and manage profile (name, phone, languages, photo via Cloudinary)
 - Toggle online/offline availability
+- View assigned bookings; accept or reject
+- Update trip status: Driver Arrived → In Progress → Completed
+- View earnings per trip and total
+- View customer reviews and ratings
+- Link Telegram account (one-time code, 10-min expiry) to receive booking notifications and accept/reject via Telegram inline buttons
 
-### Admin
-- Manage users, drivers (verify/reject), taxis, routes, tours
-- Assign drivers to bookings, verify/reject payments
-- Reply to complaints, view analytics dashboard
+### Notifications (user-facing)
+- In-system notification inbox with unread count
+- Mark individual or all notifications as read
+- Email via Resend (fire-and-forget): booking confirmation, payment receipt
 
 ## Scope
 
 ### In Scope
-- Three-role system: Customer, Driver, Admin
+- Customer and Driver roles only (Admin lives in `admin-frontend/`)
 - Booking lifecycle: Pending → Assigned → Accepted → Driver Arrived → In Progress → Completed / Cancelled / Rejected
-- Payment proof upload and admin verification
-- WhatsApp deep-link integration (no API — pre-filled URL)
-- Multi-language support (en, km, zh, ja, ko, fr) via next-intl
-- Dark/light theme toggle
+- Payment proof upload and status tracking
+- WhatsApp deep-link (pre-filled URL, no WhatsApp Business API)
+- Telegram link flow for drivers
+- Multi-language support via next-intl
+- Dark-first theme (deep charcoal + electric yellow/cyan accents)
 
 ### Out of Scope
+- Admin operations (separate app: `admin-frontend/`)
 - Real-time GPS tracking
 - In-app chat (WhatsApp URL only)
 - Surge pricing (fixed prices only)
@@ -56,6 +72,7 @@ TaxiTrio is a Smart Tourist Transportation and Tour Booking Platform for interna
 ## Success Criteria
 
 1. A customer can complete the full booking flow end to end
-2. An admin can assign a driver and verify a payment
-3. A driver can accept a booking and progress it to Completed
-4. All routes are protected by role (customer/driver/admin)
+2. A driver can accept a booking and progress it to Completed
+3. Payment proof upload and status tracking works
+4. All routes are protected by role (customer / driver)
+5. Telegram link flow works for drivers

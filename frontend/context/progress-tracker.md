@@ -14,8 +14,9 @@ Foundation setup — Clerk auth, project structure, context files aligned with d
 
 - Clerk installed (`@clerk/nextjs`)
 - `middleware.ts` created with `clerkMiddleware()` and route matcher
-- `app/layout.tsx` updated with `ClerkProvider`, `Show` auth UI
+- `app/layout.tsx` updated with `ClerkProvider` and `Show` auth UI
 - `frontend/.env.local` created with Clerk key placeholders
+- `globals.css` updated with dark-first theme tokens (charcoal + yellow/cyan)
 - All context files updated to reflect actual project spec from `docs/`
 
 ## In Progress
@@ -24,11 +25,13 @@ Foundation setup — Clerk auth, project structure, context files aligned with d
 
 ## Next Up
 
-- Set up folder structure: `app/(customer)/`, `app/(driver)/`, `app/(admin)/`
+- Set up folder structure: `app/(customer)/`, `app/(driver)/` with all sub-routes
 - Add role-based middleware protection per route group
-- Install and configure: TanStack Query, Zustand, next-intl, Zod, Axios, shadcn/ui, Lucide React
+- Install: TanStack Query, Zustand, next-intl, Zod, Axios, shadcn/ui, Lucide React
 - Build `lib/api.ts` (Axios instance with Clerk token injection)
-- Build customer-facing pages: taxi browser, route packages, tour packages
+- Scaffold all feature slices under `features/`
+- Build customer features in priority order: taxi-browser → route-packages → tour-packages → booking → payment
+- Build driver features: driver-trips → driver-earnings → telegram-link
 
 ## Open Questions
 
@@ -38,10 +41,14 @@ Foundation setup — Clerk auth, project structure, context files aligned with d
 
 ## Architecture Decisions
 
-- Using Clerk `publicMetadata.role` for RBAC — not a custom roles table — because Clerk handles session security and role is set by admin in the dashboard
-- Single `bookings` table with `booking_type` enum (`taxi`, `route`, `tour`) — avoids three separate booking tables
-- WhatsApp integration is a pre-filled URL only — no WhatsApp Business API needed
+- Customer and Driver roles only — Admin lives in `admin-frontend/` (separate app)
+- Using Clerk `publicMetadata.role` for RBAC — not a custom roles table
+- Single `bookings` table with `booking_type` enum (`taxi`, `route`, `tour`)
+- WhatsApp integration is a pre-filled URL only — no WhatsApp Business API
+- Telegram link codes expire after 10 minutes, single-use — stored in DB
 - Images stored as Cloudinary `secure_url` strings — no local file storage
+- Email via Resend (fire-and-forget) — failure does not block API response
+- One review per completed booking enforced by UNIQUE constraint on `booking_id`
 
 ## Session Notes
 

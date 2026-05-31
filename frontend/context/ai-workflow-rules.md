@@ -2,13 +2,13 @@
 
 ## Approach
 
-Build TaxiTrio incrementally using a spec-driven workflow. The `docs/` folder is the source of truth — `PRD.md`, `ARCHITECTURE.md`, `DATABASE.md`, and `SETUP.md` define what to build and how. Always implement against these specs. Do not infer or invent behavior not defined there.
+Build TaxiTrio (user frontend) incrementally using a spec-driven workflow. The `docs/` folder at the repo root is the source of truth — `PRD.md`, `ARCHITECTURE.md`, `DATABASE.md`, `SETUP.md`, and `docs/features/*/` define what to build and how. Always implement against these specs. Do not infer or invent behavior not defined there.
 
 ## Scoping Rules
 
-- Work on one feature unit at a time (e.g. customer booking form, admin driver verification)
+- Work on one feature unit at a time (e.g. booking form, payment proof upload, telegram link)
 - Prefer small, verifiable increments over large speculative changes
-- Do not combine unrelated role boundaries (customer/driver/admin) in a single implementation step
+- Do not combine unrelated role boundaries (customer / driver) in a single implementation step
 
 ## When to Split Work
 
@@ -16,14 +16,14 @@ Split an implementation step if it combines:
 
 - UI changes and API route changes at the same time (unless trivially coupled)
 - Multiple unrelated domains (e.g. payments + complaints)
-- Behavior not clearly defined in `docs/`
+- Behavior not clearly defined in `docs/features/<name>/requirement.md`
 
 If a change cannot be verified end to end quickly, the scope is too broad — split it.
 
 ## Handling Missing Requirements
 
 - Do not invent product behavior not defined in `docs/`
-- If a requirement is ambiguous, resolve it in the relevant `docs/` file before implementing
+- If a requirement is ambiguous, resolve it in the relevant `docs/features/` file before implementing
 - If a requirement is missing, add it as an open question in `progress-tracker.md` before continuing
 
 ## Protected Files
