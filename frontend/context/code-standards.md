@@ -16,15 +16,16 @@
 ## Next.js
 
 - Default to server components; add `"use client"` only when browser interactivity requires it
-- Route groups: `(customer)`, `(driver)`, `(admin)` — keep role boundaries clean
-- Keep route handlers focused on a single responsibility
-- Use `await auth()` (async in Next.js 15+) for server-side auth checks
+- Route groups: `(customer)`, `(driver)` — keep role boundaries clean
+- Server actions live in `features/<name>/actions.ts` — never inline in page files
+- Keep pages thin: import feature components, render, done
+- Use `await auth()` for server-side auth checks
 
 ## Styling
 
-- Use Tailwind utility classes; no hardcoded hex values
+- Use CSS custom property tokens (`var(--accent-primary)`, `var(--bg-surface)`, etc.) — no hardcoded hex values
 - Follow shadcn/ui component conventions — use the CLI to add new components, don't write from scratch
-- Dark/light theme must be supported via Tailwind's `dark:` variant
+- Dark-first: default styles target dark theme; use `dark:` variant only for light-mode overrides
 
 ## API Routes / Axios
 
@@ -55,5 +56,5 @@ features/booking/
 **Rules:**
 - Nothing inside `features/<name>/` is imported by another feature — no cross-feature imports
 - A component or utility moves to `components/` or `lib/` only when 2+ features need it
-- Pages in `app/(customer|driver|admin)/` import from `features/` and compose — no business logic in pages
+- Pages in `app/(customer|driver)/` import from `features/` and compose — no business logic in pages
 - `components/ui/` — shadcn/ui generated files only; never edit manually

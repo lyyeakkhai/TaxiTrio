@@ -3,37 +3,6 @@ info:
   title: Payment
   version: "1.0"
 paths:
-  /api/payments/{booking_id}/upload-proof:
-    post:
-      summary: Upload payment proof (customer)
-      security:
-        - ClerkAuth: []
-      parameters:
-        - name: booking_id
-          in: path
-          required: true
-          schema:
-            type: string
-            format: uuid
-      requestBody:
-        required: true
-        content:
-          multipart/form-data:
-            schema:
-              type: object
-              required: [proof]
-              properties:
-                proof:
-                  type: string
-                  format: binary
-      responses:
-        "200":
-          description: Proof uploaded, status set to pending_verification
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/Payment"
-
   /api/payments/{booking_id}:
     get:
       summary: View own payment status (customer)
@@ -64,11 +33,7 @@ paths:
           in: query
           schema:
             type: string
-            enum: [unpaid, pending_verification, authorized, verified, captured, invoice_pending, rejected, refunded]
-        - name: method
-          in: query
-          schema:
-            type: string
+            enum: [unpaid, pending, paid, failed, refunded]
         - name: date
           in: query
           schema:
@@ -86,7 +51,7 @@ paths:
 
   /api/admin/payments/{id}:
     get:
-      summary: Payment detail with proof image URL (admin)
+      summary: Payment detail (admin)
       security:
         - ClerkAuth: []
       parameters:
@@ -99,27 +64,12 @@ paths:
               schema:
                 $ref: "#/components/schemas/Payment"
 
-  /api/admin/payments/{id}/verify:
-    put:
-      summary: Verify payment (admin)
-      security:
-        - ClerkAuth: []
-      parameters:
-        - $ref: "#/components/parameters/Id"
+  /api/webhooks/clerk/billing:
+    post:
+      summary: Clerk billing webhook handler
       responses:
         "200":
-          description: Payment verified
-
-  /api/admin/payments/{id}/reject:
-    put:
-      summary: Reject payment (admin)
-      security:
-        - ClerkAuth: []
-      parameters:
-        - $ref: "#/components/parameters/Id"
-      responses:
-        "200":
-          description: Payment rejected
+          description: OK
 
 components:
   securitySchemes:
@@ -153,26 +103,11 @@ components:
           type: number
         net_amount:
           type: number
-        method:
-          type: string
-          enum: [cash, aba, khqr, wing, card, wallet, corporate]
         status:
           type: string
-          enum: [unpaid, pending_verification, authorized, verified, captured, invoice_pending, rejected, refunded]
-        transaction_id:
+          enum: [unpaid, pending, paid, failed, refunded]
+        clerk_subscription_id:
           type: string
-          nullable: true
-        proof_image:
-          type: string
-          format: uri
-          nullable: true
-        verified_by:
-          type: string
-          format: uuid
-          nullable: true
-        verified_at:
-          type: string
-          format: date-time
           nullable: true
         created_at:
           type: string
