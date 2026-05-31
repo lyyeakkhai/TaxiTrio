@@ -13,18 +13,26 @@ Table: `notifications`
 | is_read | BOOLEAN | default false |
 | created_at | TIMESTAMP | |
 
-### Creation Pattern
+## Backend Implementation
 
-Created inside the relevant controller — not a separate service:
+Module: `src/modules/notifications/`
+
+| Layer | File | Responsibility |
+|---|---|---|
+| Use Case | `use-cases/list-notifications.usecase.ts` | Returns notifications for `req.user.id` |
+| Use Case | `use-cases/mark-read.usecase.ts` | Sets `is_read = true` for one notification |
+| Use Case | `use-cases/mark-all-read.usecase.ts` | Sets `is_read = true` for all user notifications |
+| Controller | `notification.controller.ts` | HTTP methods |
+| Routes | `notification.routes.ts` | Notification endpoints |
+
+Notifications are created inside the relevant use case (not a separate service). Email sends are fire-and-forget inside the use case, wrapped in try/catch so failure never blocks the response.
+
+### Creation Pattern (inside use cases)
 
 ```ts
-// Inside bookingController.ts after assign
-await prisma.notification.create({
-  data: {
-    user_id: booking.customer_id,
-    type: 'driver_assigned',
-    message: `Your driver has been assigned for booking #${booking.id}`
-  }
+// Inside assign-booking.usecase.ts
+await this.prisma.notification.create({
+  data: { user_id: booking.customer_id, type: 'driver_assigned', message: `...` }
 })
 ```
 

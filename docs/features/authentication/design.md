@@ -1,6 +1,17 @@
 # Authentication — Design
 
-## Flow
+## Backend Implementation
+
+Module: `src/modules/users/`
+
+| Layer | File | Responsibility |
+|---|---|---|
+| Middleware | `middleware/auth.ts` | `verifyClerkToken` — verifies Clerk JWT, attaches `req.user` |
+| Middleware | `middleware/role.ts` | `requireRole(...roles)` — 403 if role not in list |
+| Use Case | `use-cases/get-me.usecase.ts` | Fetches user by `clerkId` from DB |
+| Use Case | `use-cases/create-user.usecase.ts` | Creates user record on first sign-in |
+| Controller | `user.controller.ts` | `getMe`, `create` methods |
+| Routes | `user.routes.ts` | `GET /api/auth/me`, `POST /api/users` |
 
 ```
 User signs in via Clerk hosted UI
