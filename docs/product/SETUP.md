@@ -45,6 +45,10 @@ CLOUDINARY_CLOUD_NAME="..."
 CLOUDINARY_API_KEY="..."
 CLOUDINARY_API_SECRET="..."
 
+# Resend
+RESEND_API_KEY="re_..."
+EMAIL_FROM="TaxiTrio <bookings@taxitrio.com>"
+
 # Sentry (optional)
 SENTRY_DSN="https://..."
 ```
