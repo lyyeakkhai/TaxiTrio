@@ -26,8 +26,8 @@ System notifications are generated automatically on key booking events. WhatsApp
 
 ## Frontend
 
-**Component:** `components/NotificationBell.jsx` — polls or uses SSE for new notifications  
-**WhatsApp button:** `components/WhatsAppButton.jsx` — generates pre-filled URL
+**Component:** `components/NotificationBell.tsx` — polls or uses SSE for new notifications  
+**WhatsApp button:** `components/WhatsAppButton.tsx` — generates pre-filled URL
 
 ### WhatsApp URL Format
 
@@ -40,8 +40,8 @@ const url = `https://wa.me/855XXXXXXXXX?text=${encodeURIComponent(msg)}`
 
 ## Backend
 
-**Route file:** `routes/notifications.js`  
-**Controller:** `controllers/notificationController.js`
+**Route file:** `routes/notifications.ts`  
+**Controller:** `controllers/notificationController.ts`
 
 Notifications are created inside other controllers (booking, payment, complaint) — not a separate service.
 

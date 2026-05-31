@@ -25,21 +25,21 @@ unpaid → pending_verification → verified → captured
 
 ## Frontend
 
-**Customer pages:** `pages/customer/PaymentUpload.jsx`, `pages/customer/PaymentStatus.jsx`  
-**Admin pages:** `pages/admin/Payments.jsx`, `pages/admin/PaymentDetail.jsx`
+**Customer pages:** `pages/customer/PaymentUpload.tsx`, `pages/customer/PaymentStatus.tsx`  
+**Admin pages:** `pages/admin/Payments.tsx`, `pages/admin/PaymentDetail.tsx`
 
 ---
 
 ## Backend
 
-**Route file:** `routes/payments.js`, `routes/admin.js`  
-**Controller:** `controllers/paymentController.js`
+**Route file:** `routes/payments.ts`, `routes/admin.ts`  
+**Controller:** `controllers/paymentController.ts`
 
 ### Endpoints
 
 | Method | Path | Auth | Description |
 |---|---|---|---|
-| POST | `/api/payments/:booking_id/upload-proof` | Customer | Upload proof image (multipart/form-data) |
+| POST | `/api/payments/:booking_id/upload-proof` | Customer | Upload proof image to Cloudinary |
 | GET | `/api/payments/:booking_id` | Customer | View payment status |
 | GET | `/api/admin/payments` | Admin | All payments |
 | GET | `/api/admin/payments/:id` | Admin | Detail + proof image URL |
@@ -54,6 +54,6 @@ Tables used: `payments`
 
 | Column | Notes |
 |---|---|
-| proof_image | File path stored; served at `/uploads/<filename>` |
+| proof_image | Cloudinary `secure_url` — stored as string, served via Cloudinary CDN |
 | verified_by | Admin user id |
 | fee / net_amount | Calculated on booking creation |

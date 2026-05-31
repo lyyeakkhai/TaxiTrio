@@ -12,15 +12,15 @@ Admin creates fixed-price route packages (intercity travel) and tour packages. C
 
 ## Frontend
 
-**Customer pages:** `pages/customer/Routes.jsx`, `pages/customer/RouteDetail.jsx`, `pages/customer/Tours.jsx`, `pages/customer/TourDetail.jsx`  
-**Admin pages:** `pages/admin/Routes.jsx`, `pages/admin/Tours.jsx`
+**Customer pages:** `pages/customer/Routes.tsx`, `pages/customer/RouteDetail.tsx`, `pages/customer/Tours.tsx`, `pages/customer/TourDetail.tsx`  
+**Admin pages:** `pages/admin/Routes.tsx`, `pages/admin/Tours.tsx`
 
 ---
 
 ## Backend
 
-**Route file:** `routes/packages.js`, `routes/admin.js`  
-**Controller:** `controllers/packageController.js`
+**Route file:** `routes/packages.ts`, `routes/admin.ts`  
+**Controller:** `controllers/packageController.ts`
 
 ### Public Endpoints (no auth)
 

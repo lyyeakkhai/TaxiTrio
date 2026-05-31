@@ -2,7 +2,7 @@
 
 > Source of truth: [PRD.md](./PRD.md)
 
-Database: **PostgreSQL** via **Prisma ORM**
+Database: **Supabase (Managed PostgreSQL)** via **Prisma ORM**
 
 ---
 
@@ -12,11 +12,11 @@ Database: **PostgreSQL** via **Prisma ORM**
 | Column | Type | Notes |
 |---|---|---|
 | id | UUID PK | |
+| clerk_id | VARCHAR(255) UNIQUE | Clerk user ID — primary auth link |
 | name | VARCHAR(100) | |
 | email | VARCHAR(150) UNIQUE | |
-| password | VARCHAR(255) | bcrypt hashed |
 | phone | VARCHAR(20) | |
-| profile_photo | VARCHAR(255) | file path |
+| profile_photo | VARCHAR(500) | Cloudinary secure_url |
 | role | ENUM | `customer`, `driver`, `admin` |
 | created_at | TIMESTAMP | default now() |
 

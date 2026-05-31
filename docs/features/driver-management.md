@@ -21,15 +21,15 @@ Driver registers → pending → Admin approves → can receive bookings
 
 ## Frontend
 
-**Driver pages:** `pages/driver/Profile.jsx`, `pages/driver/Earnings.jsx`, `pages/driver/Reviews.jsx`  
-**Admin pages:** `pages/admin/Drivers.jsx`, `pages/admin/DriverDetail.jsx`
+**Driver pages:** `pages/driver/Profile.tsx`, `pages/driver/Earnings.tsx`, `pages/driver/Reviews.tsx`  
+**Admin pages:** `pages/admin/Drivers.tsx`, `pages/admin/DriverDetail.tsx`
 
 ---
 
 ## Backend
 
-**Route file:** `routes/driver.js`, `routes/admin.js`  
-**Controller:** `controllers/driverController.js`
+**Route file:** `routes/driver.ts`, `routes/admin.ts`  
+**Controller:** `controllers/driverController.ts`
 
 ### Driver Endpoints
 

@@ -7,8 +7,12 @@
 ## Prerequisites
 
 - Node.js >= 18
-- PostgreSQL >= 14
 - npm or yarn
+- Docker (for backend containerization)
+- A [Clerk](https://clerk.com) account
+- A [Supabase](https://supabase.com) project
+- A [Cloudinary](https://cloudinary.com) account
+- A [Sentry](https://sentry.io) project (optional for local dev)
 
 ---
 
@@ -18,10 +22,7 @@
 git clone <repo-url>
 cd TaxiTrio
 
-# Install backend dependencies
 cd backend && npm install
-
-# Install frontend dependencies
 cd ../frontend && npm install
 ```
 
@@ -31,77 +32,120 @@ cd ../frontend && npm install
 
 **backend/.env**
 ```env
-DATABASE_URL="postgresql://user:password@localhost:5432/taxitrio"
-JWT_SECRET="your-secret-key"
 PORT=5000
-UPLOAD_DIR="uploads"
+
+# Supabase
+DATABASE_URL="postgresql://postgres:[password]@db.[project].supabase.co:5432/postgres"
+
+# Clerk
+CLERK_SECRET_KEY="sk_test_..."
+
+# Cloudinary
+CLOUDINARY_CLOUD_NAME="..."
+CLOUDINARY_API_KEY="..."
+CLOUDINARY_API_SECRET="..."
+
+# Sentry (optional)
+SENTRY_DSN="https://..."
 ```
 
-**frontend/.env**
+**frontend/.env.local**
 ```env
-VITE_API_URL=http://localhost:5000/api
+NEXT_PUBLIC_API_URL=http://localhost:5000/api
+
+# Clerk
+NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY="pk_test_..."
+CLERK_SECRET_KEY="sk_test_..."
+NEXT_PUBLIC_CLERK_SIGN_IN_URL=/sign-in
+NEXT_PUBLIC_CLERK_SIGN_UP_URL=/sign-up
+NEXT_PUBLIC_CLERK_AFTER_SIGN_IN_URL=/
+
+# Sentry (optional)
+NEXT_PUBLIC_SENTRY_DSN="https://..."
 ```
 
 ---
 
-## 3. Database Setup
+## 3. Clerk Setup
+
+1. Create an application in the Clerk dashboard
+2. Enable the roles you need by adding `role` to `publicMetadata` for each user
+3. Set allowed roles: `customer`, `driver`, `admin`
+4. Admin users must have `publicMetadata: { role: "admin" }` set manually in the Clerk dashboard
+
+---
+
+## 4. Database Setup
 
 ```bash
 cd backend
 
-# Run migrations
+# Push schema to Supabase
 npx prisma migrate dev --name init
 
-# Seed initial admin account
+# Seed lookup data (assistance categories, etc.)
 npx prisma db seed
 ```
 
-Default admin credentials (from seed):
-- Email: `admin@taxitrio.com`
-- Password: `admin123` — **change this immediately**
-
 ---
 
-## 4. Run Development Servers
+## 5. Run Development Servers
 
 ```bash
 # Terminal 1 — Backend
 cd backend && npm run dev
 # Runs on http://localhost:5000
+# Swagger docs at http://localhost:5000/api/docs
 
 # Terminal 2 — Frontend
 cd frontend && npm run dev
-# Runs on http://localhost:5173
+# Runs on http://localhost:3000
 ```
 
 ---
 
-## 5. File Uploads
+## 6. Docker (Backend)
 
-Uploaded files (payment proofs, photos) are stored in `backend/uploads/`.
-
-The backend serves them statically at `http://localhost:5000/uploads/<filename>`.
+```bash
+cd backend
+docker build -t taxitrio-backend .
+docker run -p 5000:5000 --env-file .env taxitrio-backend
+```
 
 ---
 
-## 6. Project Scripts
+## 7. Testing
+
+```bash
+# Unit + integration tests (Vitest)
+cd backend && npm run test
+cd frontend && npm run test
+
+# End-to-end tests (Playwright)
+cd frontend && npx playwright test
+```
+
+---
+
+## 8. Project Scripts
 
 | Command | Location | Description |
 |---|---|---|
 | `npm run dev` | backend | Start backend with hot reload |
-| `npm run dev` | frontend | Start frontend with Vite |
-| `npx prisma studio` | backend | Open database GUI |
+| `npm run dev` | frontend | Start Next.js dev server |
+| `npm run test` | both | Run Vitest tests |
+| `npx playwright test` | frontend | Run E2E tests |
+| `npx prisma studio` | backend | Open Supabase DB GUI |
 | `npx prisma migrate dev` | backend | Run new migrations |
 | `npx prisma db seed` | backend | Seed database |
 
 ---
 
-## 7. Docs
+## 9. Docs
 
 | File | Purpose |
 |---|---|
 | [PRD.md](./PRD.md) | Source of truth — what we build |
 | [ARCHITECTURE.md](./ARCHITECTURE.md) | Tech stack, folder structure, design decisions |
 | [DATABASE.md](./DATABASE.md) | Schema, tables, relationships |
-| [API.md](./API.md) | All endpoints, request/response contracts |
 | [SETUP.md](./SETUP.md) | This file |

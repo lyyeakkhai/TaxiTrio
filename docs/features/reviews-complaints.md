@@ -12,16 +12,16 @@ After a trip is completed, customers can rate the driver. Separately, customers 
 
 ## Frontend
 
-**Customer pages:** `pages/customer/ReviewForm.jsx`, `pages/customer/ComplaintForm.jsx`, `pages/customer/Complaints.jsx`  
-**Driver pages:** `pages/driver/Reviews.jsx`  
-**Admin pages:** `pages/admin/Complaints.jsx`
+**Customer pages:** `pages/customer/ReviewForm.tsx`, `pages/customer/ComplaintForm.tsx`, `pages/customer/Complaints.tsx`  
+**Driver pages:** `pages/driver/Reviews.tsx`  
+**Admin pages:** `pages/admin/Complaints.tsx`
 
 ---
 
 ## Backend
 
-**Route file:** `routes/reviews.js`, `routes/complaints.js`, `routes/admin.js`  
-**Controller:** `controllers/reviewController.js`, `controllers/complaintController.js`
+**Route file:** `routes/reviews.ts`, `routes/complaints.ts`, `routes/admin.ts`  
+**Controller:** `controllers/reviewController.ts`, `controllers/complaintController.ts`
 
 ### Review Endpoints
 

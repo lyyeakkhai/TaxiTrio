@@ -21,16 +21,16 @@ PENDING → ASSIGNED → ACCEPTED → DRIVER_ARRIVED → IN_PROGRESS → COMPLET
 
 ## Frontend
 
-**Customer pages:** `pages/customer/BookingForm.jsx`, `pages/customer/BookingDetail.jsx`, `pages/customer/BookingHistory.jsx`  
-**Driver pages:** `pages/driver/TripList.jsx`, `pages/driver/TripDetail.jsx`  
-**Admin pages:** `pages/admin/Bookings.jsx`
+**Customer pages:** `pages/customer/BookingForm.tsx`, `pages/customer/BookingDetail.tsx`, `pages/customer/BookingHistory.tsx`  
+**Driver pages:** `pages/driver/TripList.tsx`, `pages/driver/TripDetail.tsx`  
+**Admin pages:** `pages/admin/Bookings.tsx`
 
 ---
 
 ## Backend
 
-**Route file:** `routes/bookings.js`, `routes/driver.js`, `routes/admin.js`  
-**Controller:** `controllers/bookingController.js`
+**Route file:** `routes/bookings.ts`, `routes/driver.ts`, `routes/admin.ts`  
+**Controller:** `controllers/bookingController.ts`
 
 ### Customer Endpoints
 

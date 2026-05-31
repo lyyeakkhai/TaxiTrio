@@ -23,15 +23,15 @@ A static-content section that reduces tourist travel anxiety. Provides emergency
 
 ## Frontend
 
-**Page:** `pages/customer/TouristAssistance.jsx`  
-**Admin page:** `pages/admin/AssistanceContent.jsx`
+**Page:** `pages/customer/TouristAssistance.tsx`  
+**Admin page:** `pages/admin/AssistanceContent.tsx`
 
 ---
 
 ## Backend
 
-**Route file:** `routes/assistance.js`  
-**Controller:** `controllers/assistanceController.js`
+**Route file:** `routes/assistance.ts`  
+**Controller:** `controllers/assistanceController.ts`
 
 ### Endpoints
 

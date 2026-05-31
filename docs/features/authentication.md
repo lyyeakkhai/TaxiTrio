@@ -6,55 +6,38 @@
 
 ## Overview
 
-All three roles share the same login endpoint. The JWT payload contains `role`, which the frontend uses to redirect to the correct dashboard and the backend uses to guard routes.
+Authentication is fully handled by **Clerk**. There are no custom login/register endpoints. The backend verifies Clerk session tokens on every protected request. Role is stored in Clerk `publicMetadata.role`.
 
 ---
 
 ## Frontend
 
-**Pages:** `pages/auth/Login.jsx`, `pages/auth/Register.jsx`
+**Pages:** `app/sign-in/page.tsx`, `app/sign-up/page.tsx` — Clerk hosted UI components
 
 **Flow:**
-1. User submits email + password
-2. `api/auth.js` calls `POST /api/auth/login`
-3. Token + user stored in `AuthContext`
-4. Redirect based on `user.role` → `/customer`, `/driver`, or `/admin`
+1. User signs in via Clerk (`<SignIn />` component)
+2. Clerk issues a session token
+3. `middleware.ts` reads `publicMetadata.role` and redirects to `/customer`, `/driver`, or `/admin`
+4. `lib/api.ts` Axios instance auto-injects `Authorization: Bearer <clerk_token>` on every request
 
-**Route guard:** `components/ProtectedRoute.jsx` — wraps all role-specific routes, redirects to `/login` if no token.
+**Route guard:** Next.js `middleware.ts` using `clerkMiddleware()` — protects all role-specific routes.
 
 ---
 
 ## Backend
 
-**Route file:** `routes/auth.js`  
-**Controller:** `controllers/authController.js`
+**Middleware:** `middleware/auth.ts` — calls Clerk SDK `verifyToken()`, attaches `req.user`  
+**Middleware:** `middleware/role.ts` — reads `req.user.publicMetadata.role`, guards by role
 
-### Endpoints
+No `/api/auth/*` endpoints. Clerk handles all session management.
 
-| Method | Path | Auth | Description |
-|---|---|---|---|
-| POST | `/api/auth/register` | — | Register new customer |
-| POST | `/api/auth/login` | — | Login all roles |
-| GET | `/api/auth/me` | Any | Get current user from token |
-
-### POST /api/auth/register
+### GET /api/auth/me
 
 ```json
-// Request
-{ "name": "string", "email": "string", "password": "string", "phone": "string" }
-
-// Response 201
-{ "token": "string", "user": { "id", "name", "email", "role": "customer" } }
-```
-
-### POST /api/auth/login
-
-```json
-// Request
-{ "email": "string", "password": "string" }
+// Headers: Authorization: Bearer <clerk_token>
 
 // Response 200
-{ "token": "string", "user": { "id", "name", "email", "role" } }
+{ "id": "clerk_user_id", "name": "string", "email": "string", "role": "customer | driver | admin" }
 ```
 
 ---
@@ -65,5 +48,6 @@ Tables used: `users`
 
 | Column | Notes |
 |---|---|
-| role | ENUM: `customer`, `driver`, `admin` |
-| password | bcrypt hashed, never returned in responses |
+| clerk_id | Clerk user ID — primary link between Clerk and DB |
+| role | ENUM: `customer`, `driver`, `admin` — mirrors Clerk `publicMetadata.role` |
+| password | Not stored — Clerk manages credentials |
