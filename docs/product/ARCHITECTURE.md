@@ -106,6 +106,7 @@ admin-dashboard/app/
 | Cloudinary SDK | Image uploads — no local storage |
 | multer | Parse multipart/form-data (in-memory only) |
 | grammy | Telegram bot — driver notifications |
+| resend | Email — booking confirmation + payment receipt to customers |
 
 ### Folder Structure
 

@@ -47,6 +47,7 @@
 | Tool | Purpose |
 |---|---|
 | `grammy` | Telegram bot — notify drivers on booking assignment |
+| `resend` | Email — booking confirmation and payment receipt to customers |
 
 ## Logging & Docs
 
