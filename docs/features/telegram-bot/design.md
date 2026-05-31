@@ -24,7 +24,21 @@ Driver taps [Accept] or [Reject]
 6. Bot replies: "Telegram linked to your TaxiTrio account"
 ```
 
-## Callback Data Format
+## Backend Implementation
+
+Module: `src/bot/` (shared utility, not a module slice)
+
+| File | Responsibility |
+|---|---|
+| `src/bot/index.ts` | grammY bot instance |
+| `src/bot/notify.ts` | `notifyDriver(chatId, booking)` — called from `assign-booking.usecase.ts` |
+
+Telegram endpoints live in `src/modules/drivers/` and a dedicated `telegram` route:
+
+| Use Case | File | Responsibility |
+|---|---|---|
+| Generate link code | `drivers/use-cases/generate-telegram-code.usecase.ts` | Creates 6-digit code in `telegram_link_codes` (10 min TTL) |
+| Webhook handler | `src/modules/telegram/telegram.routes.ts` | `/link <code>` saves `telegram_chat_id`; Accept/Reject callbacks call `transition-booking.usecase.ts` |
 
 ```
 accept:<booking_uuid>

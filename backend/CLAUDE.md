@@ -11,10 +11,16 @@ npm start        # node dist/index.js
 ## Architecture
 
 - Entry: `src/index.ts` → `src/app.ts` (middleware + routers)
-- Pattern: `routes/` → `controllers/`, validators in `validators/`, logger singleton in `lib/logger.ts`
-- Auth middleware (pending): `middleware/auth.ts` verifies Clerk tokens; `middleware/role.ts` guards by role
-- All request bodies validated with **Zod** before reaching controllers
+- Pattern: **Vertical Slice + OOP Use-Case** — all code grouped by domain in `src/modules/<feature>/`
+- Each module: `[feature].routes.ts` → `[feature].controller.ts` → `use-cases/[action].usecase.ts`
+- Every directory has an `index.ts` barrel export
+- Auth: `middleware/auth.ts` verifies Clerk tokens → `req.user`; `middleware/role.ts` guards by role
+- Validation: `middleware/validate.ts` — `validateRequest(schema)` factory, runs before every controller
+- Errors: thrown from use cases with `statusCode` property; caught by `middleware/error.ts` (last middleware)
+- `this` binding: routes use arrow functions `(req, res) => controller.method(req, res)`
+- Express 5 — no `asyncHandler` needed; async errors propagate automatically
 - Images go to **Cloudinary** — never stored locally
+- Full spec: `../docs/superpowers/specs/2026-05-31-backend-architecture-design.md`
 
 ## Implementation State
 

@@ -31,7 +31,21 @@ Table: `booking_status_history`
 | changed_by | UUID FK → users | |
 | changed_at | TIMESTAMP | default now() |
 
-## Status Transition Rules
+## Backend Implementation
+
+Module: `src/modules/bookings/`
+
+| Layer | File | Responsibility |
+|---|---|---|
+| Use Case | `use-cases/create-booking.usecase.ts` | Validates booking type refs, creates booking + status history entry |
+| Use Case | `use-cases/list-my-bookings.usecase.ts` | Returns bookings for `req.user.id` |
+| Use Case | `use-cases/get-booking.usecase.ts` | Returns booking + status history |
+| Use Case | `use-cases/cancel-booking.usecase.ts` | Enforces `pending → cancelled` transition |
+| Use Case | `use-cases/transition-booking.usecase.ts` | Shared state machine — validates allowed transition, writes history |
+| Controller | `booking.controller.ts` | HTTP methods, calls use cases |
+| Routes | `booking.routes.ts` | All booking endpoints |
+
+State machine lives in `transition-booking.usecase.ts` — throws `400` on invalid transition.
 
 | From | To | Actor |
 |---|---|---|

@@ -14,7 +14,18 @@ Table: `tourist_assistance`
 | is_active | BOOLEAN | default true |
 | created_at | TIMESTAMP | |
 
-## Categories
+## Backend Implementation
+
+Module: `src/modules/assistance/`
+
+| Layer | File | Responsibility |
+|---|---|---|
+| Use Case | `use-cases/list-assistance.usecase.ts` | Returns active assistance items (public) |
+| Use Case | `use-cases/create-assistance.usecase.ts` | Admin: creates item |
+| Use Case | `use-cases/update-assistance.usecase.ts` | Admin: updates item |
+| Use Case | `use-cases/delete-assistance.usecase.ts` | Admin: sets `is_active = false` |
+| Controller | `assistance.controller.ts` | HTTP methods |
+| Routes | `assistance.routes.ts` | Public + admin assistance endpoints |
 
 | Category | Purpose |
 |---|---|
