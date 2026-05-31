@@ -21,15 +21,16 @@ Build a secure, well-structured Express.js + TypeScript API that:
 | `../docs/product/ARCHITECTURE.md` | Full stack design, request lifecycle, auth flow |
 | `../docs/product/DATABASE.md` | Every table, column, type, and relationship |
 | `../docs/product/SETUP.md` | Env vars, Clerk setup, Supabase, Cloudinary, Docker |
-| `../docs/features/authentication.md` | Clerk token flow, `GET /api/auth/me`, `clerk_id` on users table |
-| `../docs/features/booking.md` | Booking endpoints (all roles), status state machine |
-| `../docs/features/driver-management.md` | Driver profile, availability, approval endpoints |
-| `../docs/features/payment.md` | Payment upload, verify/reject, Cloudinary proof image |
-| `../docs/features/reviews-complaints.md` | Review + complaint endpoints, admin reply |
-| `../docs/features/route-tour-packages.md` | Public browse + admin CRUD for routes and tours |
-| `../docs/features/notifications-whatsapp.md` | Notification endpoints, auto-trigger events |
-| `../docs/features/tourist-assistance.md` | Assistance content endpoints |
-| `../docs/features/telegram-bot.md` | grammY setup, driver linking flow, webhook handler |
+| `../docs/features/authentication/` | Clerk token flow, `GET /api/auth/me`, `clerk_id` on users table |
+| `../docs/features/booking/` | Booking endpoints (all roles), status state machine |
+| `../docs/features/driver-management/` | Driver profile, availability, approval endpoints |
+| `../docs/features/payment/` | Payment upload, verify/reject, Cloudinary proof image |
+| `../docs/features/reviews-complaints/` | Review + complaint endpoints, admin reply |
+| `../docs/features/route-tour-packages/` | Public browse + admin CRUD for routes and tours |
+| `../docs/features/notifications/` | Notification endpoints, auto-trigger events |
+| `../docs/features/tourist-assistance/` | Assistance content endpoints |
+| `../docs/features/taxis/` | Taxi fleet CRUD, public browse |
+| `../docs/features/telegram-bot/` | grammY setup, driver linking flow, webhook handler |
 
 ## Non-Negotiables
 

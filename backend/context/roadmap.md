@@ -6,7 +6,7 @@ Full implementation is split into 5 phases. Complete phases in order — each ph
 
 ## Phase 1 — Project Foundation
 **Goal:** Runnable Express server with auth middleware, Prisma connected to Supabase, and Swagger docs wired up.
-**Refs:** `tech-stack.md`, `../docs/product/DATABASE.md`, `../docs/product/SETUP.md`, `../docs/features/authentication.md`
+**Refs:** `tech-stack.md`, `../docs/product/DATABASE.md`, `../docs/product/SETUP.md`, `../docs/features/authentication/`
 
 - [x] Init Node.js + TypeScript project (`tsconfig.json`, `package.json`)
 - [x] Install core dependencies (express, cors, helmet, express-rate-limit, pino, pino-http, tsx)
@@ -17,7 +17,7 @@ Full implementation is split into 5 phases. Complete phases in order — each ph
 - [ ] Connect Prisma to Supabase (`prisma/schema.prisma`, `lib/prisma.ts`)
 - [ ] Write full Prisma schema — all tables from `../docs/product/DATABASE.md`
 - [ ] Run initial migration
-- [ ] `middleware/auth.ts` — verify Clerk token, attach `req.user` (see `../docs/features/authentication.md`)
+- [ ] `middleware/auth.ts` — verify Clerk token, attach `req.user` (see `../docs/features/authentication/`)
 - [ ] `middleware/role.ts` — `requireRole(...roles)`
 - [ ] Cloudinary client (`lib/cloudinary.ts`) — see `../docs/product/SETUP.md` for env vars
 - [ ] Swagger at `/api/docs`
@@ -26,7 +26,7 @@ Full implementation is split into 5 phases. Complete phases in order — each ph
 
 ## Phase 2 — Core Customer Features
 **Goal:** Customers can browse, book, and track.
-**Refs:** `../docs/features/route-tour-packages.md`, `../docs/features/booking.md`, `../docs/features/tourist-assistance.md`, `../docs/features/authentication.md`
+**Refs:** `../docs/features/route-tour-packages/`, `../docs/features/booking/`, `../docs/features/tourist-assistance/`, `../docs/features/taxis/`, `../docs/features/authentication/`
 
 - [ ] `GET /api/auth/me` — return user from Clerk token
 - [ ] `GET /api/routes` — list active route packages
@@ -44,7 +44,7 @@ Full implementation is split into 5 phases. Complete phases in order — each ph
 
 ## Phase 3 — Driver Features
 **Goal:** Drivers can manage trips and view earnings.
-**Refs:** `../docs/features/driver-management.md`, `../docs/features/booking.md`, `../docs/features/reviews-complaints.md`, `../docs/features/telegram-bot.md`
+**Refs:** `../docs/features/driver-management/`, `../docs/features/booking/`, `../docs/features/reviews-complaints/`, `../docs/features/telegram-bot/`
 
 - [ ] `GET /api/driver/profile`
 - [ ] `PUT /api/driver/profile` — update name, phone, languages, photo (upload to Cloudinary)
@@ -65,7 +65,7 @@ Full implementation is split into 5 phases. Complete phases in order — each ph
 
 ## Phase 4 — Admin Features
 **Goal:** Admins can manage the full platform.
-**Refs:** `../docs/features/driver-management.md`, `../docs/features/booking.md`, `../docs/features/route-tour-packages.md`, `../docs/features/payment.md`, `../docs/features/reviews-complaints.md`, `../docs/features/tourist-assistance.md`, `../docs/features/telegram-bot.md`
+**Refs:** `../docs/features/driver-management/`, `../docs/features/booking/`, `../docs/features/route-tour-packages/`, `../docs/features/taxis/`, `../docs/features/payment/`, `../docs/features/reviews-complaints/`, `../docs/features/tourist-assistance/`, `../docs/features/telegram-bot/`
 
 - [ ] `GET /api/admin/dashboard` — revenue, completed trips, pending bookings, open complaints
 - [ ] `GET /api/admin/users`, `GET /api/admin/users/:id`
@@ -88,7 +88,7 @@ Full implementation is split into 5 phases. Complete phases in order — each ph
 
 ## Phase 5 — Payments, Reviews, Notifications
 **Goal:** Complete the payment and feedback loop.
-**Refs:** `../docs/features/payment.md`, `../docs/features/reviews-complaints.md`, `../docs/features/notifications-whatsapp.md`
+**Refs:** `../docs/features/payment/`, `../docs/features/reviews-complaints/`, `../docs/features/notifications/`
 
 - [ ] `POST /api/payments/:booking_id/upload-proof` — multer in-memory → upload to Cloudinary, store `secure_url`
 - [ ] `GET /api/payments/:booking_id`
