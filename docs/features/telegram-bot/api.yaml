@@ -1,0 +1,47 @@
+openapi: "3.0.3"
+info:
+  title: Telegram Bot
+  version: "1.0"
+paths:
+  /api/driver/telegram/generate-code:
+    post:
+      summary: Generate one-time Telegram link code (driver)
+      security:
+        - ClerkAuth: []
+      responses:
+        "200":
+          description: Link code generated
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  code:
+                    type: string
+                    example: "482910"
+                  expires_at:
+                    type: string
+                    format: date-time
+                  bot_link:
+                    type: string
+                    format: uri
+                    example: "https://t.me/taxitrio_bot?start=482910"
+
+  /api/telegram/webhook:
+    post:
+      summary: Telegram webhook — receives all bot updates
+      description: |
+        Called by Telegram servers only. Handles:
+        - /link <code> command — links driver Telegram account
+        - callback_query accept:<id> — driver accepts booking
+        - callback_query reject:<id> — driver rejects booking
+      responses:
+        "200":
+          description: Update processed
+
+components:
+  securitySchemes:
+    ClerkAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT

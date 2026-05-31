@@ -1,0 +1,64 @@
+openapi: "3.0.3"
+info:
+  title: Authentication
+  version: "1.0"
+paths:
+  /api/auth/me:
+    get:
+      summary: Get current authenticated user
+      security:
+        - ClerkAuth: []
+      responses:
+        "200":
+          description: Current user profile
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/User"
+        "401":
+          $ref: "#/components/responses/Unauthorized"
+
+components:
+  securitySchemes:
+    ClerkAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+
+  schemas:
+    User:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+        clerk_id:
+          type: string
+        name:
+          type: string
+        email:
+          type: string
+          format: email
+        phone:
+          type: string
+        profile_photo:
+          type: string
+          format: uri
+        role:
+          type: string
+          enum: [customer, driver, admin]
+        created_at:
+          type: string
+          format: date-time
+
+  responses:
+    Unauthorized:
+      description: Missing or invalid Clerk token
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              error:
+                type: string
+                example: Unauthorized

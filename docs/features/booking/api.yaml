@@ -1,0 +1,306 @@
+openapi: "3.0.3"
+info:
+  title: Booking
+  version: "1.0"
+paths:
+  /api/bookings:
+    post:
+      summary: Create booking (customer)
+      security:
+        - ClerkAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/BookingInput"
+      responses:
+        "201":
+          description: Booking created
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Booking"
+
+  /api/bookings/my:
+    get:
+      summary: My booking history (customer)
+      security:
+        - ClerkAuth: []
+      responses:
+        "200":
+          description: List of customer bookings
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/Booking"
+
+  /api/bookings/{id}:
+    get:
+      summary: Booking detail + status history (customer)
+      security:
+        - ClerkAuth: []
+      parameters:
+        - $ref: "#/components/parameters/Id"
+      responses:
+        "200":
+          description: Booking detail
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/BookingDetail"
+
+  /api/bookings/{id}/cancel:
+    put:
+      summary: Cancel pending booking (customer)
+      security:
+        - ClerkAuth: []
+      parameters:
+        - $ref: "#/components/parameters/Id"
+      responses:
+        "200":
+          description: Booking cancelled
+        "400":
+          description: Cannot cancel — invalid status
+
+  /api/driver/bookings:
+    get:
+      summary: Assigned bookings (driver)
+      security:
+        - ClerkAuth: []
+      responses:
+        "200":
+          description: Driver's assigned bookings
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/Booking"
+
+  /api/driver/bookings/{id}/accept:
+    put:
+      summary: Accept booking (driver)
+      security:
+        - ClerkAuth: []
+      parameters:
+        - $ref: "#/components/parameters/Id"
+      responses:
+        "200":
+          description: Booking accepted
+
+  /api/driver/bookings/{id}/reject:
+    put:
+      summary: Reject booking (driver)
+      security:
+        - ClerkAuth: []
+      parameters:
+        - $ref: "#/components/parameters/Id"
+      responses:
+        "200":
+          description: Booking rejected
+
+  /api/driver/bookings/{id}/arrived:
+    put:
+      summary: Mark driver arrived
+      security:
+        - ClerkAuth: []
+      parameters:
+        - $ref: "#/components/parameters/Id"
+      responses:
+        "200":
+          description: Status updated
+
+  /api/driver/bookings/{id}/start:
+    put:
+      summary: Start trip (driver)
+      security:
+        - ClerkAuth: []
+      parameters:
+        - $ref: "#/components/parameters/Id"
+      responses:
+        "200":
+          description: Trip started
+
+  /api/driver/bookings/{id}/complete:
+    put:
+      summary: Complete trip (driver)
+      security:
+        - ClerkAuth: []
+      parameters:
+        - $ref: "#/components/parameters/Id"
+      responses:
+        "200":
+          description: Trip completed
+
+  /api/admin/bookings:
+    get:
+      summary: All bookings (admin)
+      security:
+        - ClerkAuth: []
+      parameters:
+        - name: status
+          in: query
+          schema:
+            type: string
+        - name: driver_id
+          in: query
+          schema:
+            type: string
+            format: uuid
+        - name: date
+          in: query
+          schema:
+            type: string
+            format: date
+      responses:
+        "200":
+          description: All bookings
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/Booking"
+
+  /api/admin/bookings/{id}:
+    get:
+      summary: Booking detail (admin)
+      security:
+        - ClerkAuth: []
+      parameters:
+        - $ref: "#/components/parameters/Id"
+      responses:
+        "200":
+          description: Booking detail with payment
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/BookingDetail"
+
+  /api/admin/bookings/{id}/assign:
+    put:
+      summary: Assign driver (admin)
+      security:
+        - ClerkAuth: []
+      parameters:
+        - $ref: "#/components/parameters/Id"
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [driver_id]
+              properties:
+                driver_id:
+                  type: string
+                  format: uuid
+      responses:
+        "200":
+          description: Driver assigned, Telegram notification sent
+
+  /api/admin/bookings/{id}/cancel:
+    put:
+      summary: Cancel any booking (admin)
+      security:
+        - ClerkAuth: []
+      parameters:
+        - $ref: "#/components/parameters/Id"
+      responses:
+        "200":
+          description: Booking cancelled
+
+components:
+  securitySchemes:
+    ClerkAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+
+  parameters:
+    Id:
+      name: id
+      in: path
+      required: true
+      schema:
+        type: string
+        format: uuid
+
+  schemas:
+    BookingInput:
+      type: object
+      required: [booking_type, travel_date, travel_time, passenger_count, payment_method]
+      properties:
+        booking_type:
+          type: string
+          enum: [taxi, route, tour]
+        route_package_id:
+          type: string
+          format: uuid
+          nullable: true
+        tour_package_id:
+          type: string
+          format: uuid
+          nullable: true
+        taxi_id:
+          type: string
+          format: uuid
+          nullable: true
+        travel_date:
+          type: string
+          format: date
+        travel_time:
+          type: string
+          example: "08:00"
+        passenger_count:
+          type: integer
+        payment_method:
+          type: string
+          enum: [cash, aba, khqr, wing, card, wallet, corporate]
+        special_notes:
+          type: string
+          nullable: true
+
+    Booking:
+      allOf:
+        - $ref: "#/components/schemas/BookingInput"
+        - type: object
+          properties:
+            id:
+              type: string
+              format: uuid
+            customer_id:
+              type: string
+              format: uuid
+            driver_id:
+              type: string
+              format: uuid
+              nullable: true
+            status:
+              type: string
+              enum: [pending, assigned, accepted, driver_arrived, in_progress, completed, cancelled, rejected]
+            created_at:
+              type: string
+              format: date-time
+
+    BookingDetail:
+      allOf:
+        - $ref: "#/components/schemas/Booking"
+        - type: object
+          properties:
+            status_history:
+              type: array
+              items:
+                type: object
+                properties:
+                  status:
+                    type: string
+                  changed_by:
+                    type: string
+                    format: uuid
+                  changed_at:
+                    type: string
+                    format: date-time

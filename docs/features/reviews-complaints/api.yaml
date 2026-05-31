@@ -1,0 +1,267 @@
+openapi: "3.0.3"
+info:
+  title: Reviews & Complaints
+  version: "1.0"
+paths:
+  /api/reviews:
+    post:
+      summary: Submit review (customer)
+      security:
+        - ClerkAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/ReviewInput"
+      responses:
+        "201":
+          description: Review submitted
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Review"
+
+  /api/driver/reviews:
+    get:
+      summary: Reviews received (driver)
+      security:
+        - ClerkAuth: []
+      responses:
+        "200":
+          description: Driver reviews
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/Review"
+
+  /api/admin/reviews:
+    get:
+      summary: All reviews (admin)
+      security:
+        - ClerkAuth: []
+      responses:
+        "200":
+          description: All reviews
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/Review"
+
+  /api/admin/reviews/{id}:
+    delete:
+      summary: Delete review (admin)
+      security:
+        - ClerkAuth: []
+      parameters:
+        - $ref: "#/components/parameters/Id"
+      responses:
+        "204":
+          description: Deleted
+
+  /api/complaints:
+    post:
+      summary: Submit complaint (customer)
+      security:
+        - ClerkAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/ComplaintInput"
+      responses:
+        "201":
+          description: Complaint submitted
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Complaint"
+
+  /api/complaints/my:
+    get:
+      summary: My complaints with admin replies (customer)
+      security:
+        - ClerkAuth: []
+      responses:
+        "200":
+          description: Customer complaints
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/Complaint"
+
+  /api/admin/complaints:
+    get:
+      summary: All complaints (admin)
+      security:
+        - ClerkAuth: []
+      parameters:
+        - name: status
+          in: query
+          schema:
+            type: string
+            enum: [open, replied, resolved]
+        - name: category
+          in: query
+          schema:
+            type: string
+      responses:
+        "200":
+          description: All complaints
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/Complaint"
+
+  /api/admin/complaints/{id}:
+    get:
+      summary: Complaint detail (admin)
+      security:
+        - ClerkAuth: []
+      parameters:
+        - $ref: "#/components/parameters/Id"
+      responses:
+        "200":
+          description: Complaint detail
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Complaint"
+    delete:
+      summary: Delete complaint (admin)
+      security:
+        - ClerkAuth: []
+      parameters:
+        - $ref: "#/components/parameters/Id"
+      responses:
+        "204":
+          description: Deleted
+
+  /api/admin/complaints/{id}/reply:
+    put:
+      summary: Reply to complaint (admin)
+      security:
+        - ClerkAuth: []
+      parameters:
+        - $ref: "#/components/parameters/Id"
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [admin_reply]
+              properties:
+                admin_reply:
+                  type: string
+      responses:
+        "200":
+          description: Reply sent, status set to replied
+
+  /api/admin/complaints/{id}/resolve:
+    put:
+      summary: Mark complaint resolved (admin)
+      security:
+        - ClerkAuth: []
+      parameters:
+        - $ref: "#/components/parameters/Id"
+      responses:
+        "200":
+          description: Complaint resolved
+
+components:
+  securitySchemes:
+    ClerkAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+
+  parameters:
+    Id:
+      name: id
+      in: path
+      required: true
+      schema:
+        type: string
+        format: uuid
+
+  schemas:
+    ReviewInput:
+      type: object
+      required: [booking_id, rating]
+      properties:
+        booking_id:
+          type: string
+          format: uuid
+        rating:
+          type: integer
+          minimum: 1
+          maximum: 5
+        message:
+          type: string
+          nullable: true
+
+    Review:
+      allOf:
+        - $ref: "#/components/schemas/ReviewInput"
+        - type: object
+          properties:
+            id:
+              type: string
+              format: uuid
+            customer_id:
+              type: string
+              format: uuid
+            driver_id:
+              type: string
+              format: uuid
+            created_at:
+              type: string
+              format: date-time
+
+    ComplaintInput:
+      type: object
+      required: [booking_id, category, description]
+      properties:
+        booking_id:
+          type: string
+          format: uuid
+        category:
+          type: string
+          enum: [driver_behavior, vehicle_condition, pricing, service_quality, other]
+        description:
+          type: string
+
+    Complaint:
+      allOf:
+        - $ref: "#/components/schemas/ComplaintInput"
+        - type: object
+          properties:
+            id:
+              type: string
+              format: uuid
+            customer_id:
+              type: string
+              format: uuid
+            status:
+              type: string
+              enum: [open, replied, resolved]
+            admin_reply:
+              type: string
+              nullable: true
+            replied_at:
+              type: string
+              format: date-time
+              nullable: true
+            created_at:
+              type: string
+              format: date-time
