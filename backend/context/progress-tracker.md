@@ -14,8 +14,8 @@ Update this file as each item is completed. Mark items `[x]` when done.
 - [x] `GET /health` working
 - [x] Remaining dependencies installed (@clerk/backend, prisma, zod, cloudinary, multer, grammy, swagger-jsdoc, swagger-ui-express, vitest, supertest, @sentry/node)
 - [x] Prisma schema written (all tables from `../docs/product/DATABASE.md`)
-- [ ] Prisma connected to Supabase
-- [ ] Initial migration run
+- [ ] Prisma connected to Supabase — **fill `DATABASE_URL` in `.env` first**
+- [ ] Initial migration run — `npx prisma migrate dev --name init`
 - [x] `middleware/auth.ts` — Clerk token verification
 - [x] `middleware/role.ts` — role guard
 - [x] Cloudinary client configured (`lib/cloudinary.ts`)
@@ -43,7 +43,9 @@ Update this file as each item is completed. Mark items `[x]` when done.
 - [ ] Cancel booking
 - [ ] Tourist assistance endpoint
 
-**Status:** 🔴 Not started
+- [x] Feature spec created (`context/feature-specs/2026-06-01-phase-2-core-customer-features/`)
+
+**Status:** 🟡 In progress — spec written, implementation pending
 
 ---
 

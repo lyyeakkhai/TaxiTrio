@@ -6,9 +6,7 @@ generator client {
 }
 
 datasource db {
-  provider  = "postgresql"
-  url       = env("DATABASE_URL")
-  directUrl = env("DIRECT_URL")
+  provider = "postgresql"
 }
 
 enum UserRole {
@@ -73,6 +71,25 @@ enum ComplaintStatus {
   open
   replied
   resolved
+}
+
+enum TouristAssistanceCategory {
+  emergency
+  language
+  route
+  whatsapp
+}
+
+model TouristAssistance {
+  id        String   @id @default(uuid())
+  category  TouristAssistanceCategory
+  title     String   @db.VarChar(150)
+  content   String
+  phone     String?  @db.VarChar(20)
+  is_active Boolean  @default(true)
+  created_at DateTime @default(now()) @map("created_at")
+
+  @@map("tourist_assistance")
 }
 
 model User {
