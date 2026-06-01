@@ -1,4 +1,5 @@
 import 'express'
+import { UserRole } from '@prisma/client'
 
 declare global {
   namespace Express {
@@ -6,7 +7,7 @@ declare global {
       user?: {
         id: string
         clerkId: string
-        role: string
+        role: UserRole
       }
     }
   }

@@ -219,14 +219,14 @@ model Booking {
 }
 
 model BookingStatusHistory {
-  id          String   @id @default(uuid())
+  id          String          @id @default(uuid())
   booking_id  String
-  status      String
+  status      BookingStatus
   changed_by  String
-  changed_at  DateTime @default(now()) @map("changed_at")
+  changed_at  DateTime        @default(now()) @map("changed_at")
 
-  booking     Booking  @relation(fields: [booking_id], references: [id])
-  user        User     @relation(fields: [changed_by], references: [id])
+  booking     Booking         @relation(fields: [booking_id], references: [id])
+  user        User            @relation(fields: [changed_by], references: [id])
 
   @@map("booking_status_history")
 }
@@ -237,7 +237,7 @@ model Payment {
   amount          Decimal       @db.Decimal(10, 2)
   fee             Decimal       @db.Decimal(10, 2)
   net_amount      Decimal       @db.Decimal(10, 2)
-  method          String
+  method          PaymentMethod
   status          PaymentStatus
   transaction_id  String?
   proof_image     String?
