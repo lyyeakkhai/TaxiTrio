@@ -1,4 +1,5 @@
 import { v2 as cloudinary } from 'cloudinary'
+import { env } from '../config/env'
 
 const cloudName = process.env.CLOUDINARY_CLOUD_NAME
 const apiKey = process.env.CLOUDINARY_API_KEY
@@ -9,9 +10,9 @@ if (!cloudName || !apiKey || !apiSecret) {
 }
 
 cloudinary.config({
-  cloud_name: cloudName,
-  api_key: apiKey,
-  api_secret: apiSecret,
+  cloud_name: env.CLOUDINARY_CLOUD_NAME,
+  api_key: env.CLOUDINARY_API_KEY,
+  api_secret: env.CLOUDINARY_API_SECRET,
 })
 
 export { cloudinary }

@@ -1,5 +1,6 @@
 import { Request, Response, NextFunction } from 'express'
 import { verifyToken } from '@clerk/backend'
+import { env } from '../config/env'
 
 export async function verifyClerkToken(
   req: Request,
@@ -20,9 +21,7 @@ export async function verifyClerkToken(
   const token = authHeader.slice(7)
 
   try {
-    const payload = await verifyToken(token, {
-      secretKey,
-    })
+    const payload = await verifyToken(token, { secretKey: env.CLERK_SECRET_KEY })
 
     const role = (payload as any).publicMetadata?.role as string
     if (!['customer', 'driver', 'admin'].includes(role)) {
