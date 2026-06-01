@@ -13,11 +13,6 @@ export async function verifyClerkToken(
     return res.status(401).json({ error: 'Unauthorized' })
   }
 
-  const secretKey = process.env.CLERK_SECRET_KEY
-  if (!secretKey) {
-    return res.status(500).json({ error: 'Internal server error' })
-  }
-
   const token = authHeader.slice(7)
 
   try {
@@ -28,7 +23,7 @@ export async function verifyClerkToken(
       return res.status(401).json({ error: 'Unauthorized' })
     }
 
-    req.user = { id: payload.sub, clerkId: payload.sub, role }
+    req.user = { id: payload.sub, clerkId: payload.sub, role: role as import('@prisma/client').UserRole }
 
     next()
   } catch {

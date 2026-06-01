@@ -14,6 +14,8 @@ import tourRouter from './modules/tours'
 import taxiRouter from './modules/taxis'
 import bookingRouter from './modules/bookings'
 import assistanceRouter from './modules/assistance'
+import driverRouter from './modules/drivers'
+import { driverTelegramRouter, telegramWebhookRouter } from './modules/telegram'
 
 const app = express()
 
@@ -36,6 +38,9 @@ app.use('/api/tours', tourRouter)
 app.use('/api/taxis', taxiRouter)
 app.use('/api/bookings', bookingRouter)
 app.use('/api/assistance', assistanceRouter)
+app.use('/api/driver', driverRouter)
+app.use('/api/driver/telegram', driverTelegramRouter)
+app.use('/api/telegram', telegramWebhookRouter)
 
 app.use(errorHandler)
 
