@@ -1,6 +1,6 @@
-import prisma from '../../../lib/prisma';
+import { prisma } from '../../../lib/prisma'
 
-type PrismaClient = typeof prisma;
+type PrismaClient = typeof prisma
 
 export class ListNotificationsUseCase {
   constructor(private readonly prisma: PrismaClient) {}
@@ -12,6 +12,6 @@ export class ListNotificationsUseCase {
         ...(isRead !== undefined && { is_read: isRead }),
       },
       orderBy: { created_at: 'desc' },
-    });
+    })
   }
 }

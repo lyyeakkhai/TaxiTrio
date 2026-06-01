@@ -2,16 +2,22 @@ import { Router } from 'express'
 import { prisma } from '../../lib/prisma'
 import { verifyClerkToken } from '../../middleware/auth'
 import { requireRole } from '../../middleware/role'
-import { ListPaymentsAdminUseCase, GetPaymentAdminUseCase } from './use-cases'
+import { ListPaymentsAdminUseCase, GetPaymentAdminUseCase, GetPaymentCustomerUseCase } from './use-cases'
 import { PaymentController } from './payment.controller'
 
-const router = Router()
 const listPayments = new ListPaymentsAdminUseCase(prisma)
 const getPayment = new GetPaymentAdminUseCase(prisma)
-const controller = new PaymentController(listPayments, getPayment)
+const getPaymentCustomer = new GetPaymentCustomerUseCase(prisma)
+const controller = new PaymentController(listPayments, getPayment, getPaymentCustomer)
 
-router.use(verifyClerkToken, requireRole('admin'))
-router.get('/', (req, res) => controller.adminList(req, res))
-router.get('/:id', (req, res) => controller.adminGet(req, res))
+const adminRouter = Router()
+adminRouter.use(verifyClerkToken, requireRole('admin'))
+adminRouter.get('/', (req, res) => controller.adminList(req, res))
+adminRouter.get('/:id', (req, res) => controller.adminGet(req, res))
 
-export default router
+const customerRouter = Router()
+customerRouter.use(verifyClerkToken, requireRole('customer'))
+customerRouter.get('/:booking_id', (req, res) => controller.customerGet(req, res))
+
+export default adminRouter
+export { customerRouter as paymentCustomerRouter }

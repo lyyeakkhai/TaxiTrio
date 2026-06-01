@@ -1,31 +1,18 @@
-import { Router } from 'express';
-import { verifyClerkToken } from '../../middleware/auth';
-import prisma from '../../../lib/prisma';
-import {
-  ListNotificationsUseCase,
-  MarkReadUseCase,
-  MarkAllReadUseCase,
-} from './use-cases';
-import { NotificationController } from './notification.controller';
+import { Router } from 'express'
+import { prisma } from '../../lib/prisma'
+import { verifyClerkToken } from '../../middleware/auth'
+import { ListNotificationsUseCase, MarkReadUseCase, MarkAllReadUseCase } from './use-cases'
+import { NotificationController } from './notification.controller'
 
-const router = Router();
+const listNotifications = new ListNotificationsUseCase(prisma)
+const markRead = new MarkReadUseCase(prisma)
+const markAllRead = new MarkAllReadUseCase(prisma)
+const controller = new NotificationController(listNotifications, markRead, markAllRead)
 
-const listNotificationsUseCase = new ListNotificationsUseCase(prisma);
-const markReadUseCase = new MarkReadUseCase(prisma);
-const markAllReadUseCase = new MarkAllReadUseCase(prisma);
+const router = Router()
+router.use(verifyClerkToken)
+router.get('/', (req, res) => controller.list(req, res))
+router.put('/read-all', (req, res) => controller.markAllRead(req, res))
+router.put('/:id/read', (req, res) => controller.markRead(req, res))
 
-const controller = new NotificationController(
-  listNotificationsUseCase,
-  markReadUseCase,
-  markAllReadUseCase,
-);
-
-router.get('/', verifyClerkToken, (req, res) => controller.list(req, res));
-router.put('/read-all', verifyClerkToken, (req, res) =>
-  controller.markAllRead(req, res),
-);
-router.put('/:id/read', verifyClerkToken, (req, res) =>
-  controller.markRead(req, res),
-);
-
-export default router;
+export default router

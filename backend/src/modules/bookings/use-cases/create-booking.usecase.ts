@@ -1,5 +1,6 @@
 import { prisma } from '../../../lib/prisma'
 import { CreateBookingDto } from '../booking.schema'
+import { sendBookingConfirmation } from '../../../lib/email-templates/booking-confirmation'
 
 type PrismaClient = typeof prisma
 
@@ -21,11 +22,23 @@ export class CreateBookingUseCase {
         special_notes: dto.special_notes,
         status: 'pending',
       },
+      include: { customer: true },
     })
 
     await this.prisma.bookingStatusHistory.create({
       data: { booking_id: booking.id, status: 'pending', changed_by: customerId },
     })
+
+    await this.prisma.notification.create({
+      data: {
+        user_id: customerId,
+        type: 'booking_created',
+        message: `Your booking has been created`,
+        is_read: false,
+      },
+    })
+
+    sendBookingConfirmation(booking.customer.email, booking.id)
 
     return booking
   }

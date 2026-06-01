@@ -1,40 +1,23 @@
-import { Request, Response } from 'express';
-import {
-  ListNotificationsUseCase,
-  MarkReadUseCase,
-  MarkAllReadUseCase,
-} from './use-cases';
+import { Request, Response } from 'express'
+import { ListNotificationsUseCase, MarkReadUseCase, MarkAllReadUseCase } from './use-cases'
 
 export class NotificationController {
   constructor(
     private readonly listNotifications: ListNotificationsUseCase,
-    private readonly markRead: MarkReadUseCase,
-    private readonly markAllRead: MarkAllReadUseCase,
+    private readonly markReadUseCase: MarkReadUseCase,
+    private readonly markAllReadUseCase: MarkAllReadUseCase,
   ) {}
 
-  async list(req: Request, res: Response) {
-    const userId = req.user!.id;
-    const isRead =
-      req.query.is_read !== undefined
-        ? req.query.is_read === 'true'
-        : undefined;
-
-    const notifications = await this.listNotifications.execute(userId, isRead);
-    res.json(notifications);
+  async list(req: Request, res: Response): Promise<void> {
+    const isRead = req.query.is_read !== undefined ? req.query.is_read === 'true' : undefined
+    res.json(await this.listNotifications.execute(req.user!.id, isRead))
   }
 
-  async markRead(req: Request, res: Response) {
-    const { id } = req.params;
-    const userId = req.user!.id;
-
-    const notification = await this.markRead.execute(id, userId);
-    res.json(notification);
+  async markRead(req: Request, res: Response): Promise<void> {
+    res.json(await this.markReadUseCase.execute(req.params.id as string, req.user!.id))
   }
 
-  async markAllRead(req: Request, res: Response) {
-    const userId = req.user!.id;
-
-    const result = await this.markAllRead.execute(userId);
-    res.json(result);
+  async markAllRead(req: Request, res: Response): Promise<void> {
+    res.json(await this.markAllReadUseCase.execute(req.user!.id))
   }
 }
