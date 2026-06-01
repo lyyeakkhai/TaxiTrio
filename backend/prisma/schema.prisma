@@ -1,0 +1,306 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider  = "postgresql"
+  url       = env("DATABASE_URL")
+  directUrl = env("DIRECT_URL")
+}
+
+enum UserRole {
+  customer
+  driver
+  admin
+}
+
+enum VerificationStatus {
+  pending
+  approved
+  rejected
+}
+
+enum BookingType {
+  taxi
+  route
+  tour
+}
+
+enum PaymentMethod {
+  cash
+  aba
+  khqr
+  wing
+  card
+  wallet
+  corporate
+}
+
+enum BookingStatus {
+  pending
+  assigned
+  accepted
+  driver_arrived
+  in_progress
+  completed
+  cancelled
+  rejected
+}
+
+enum PaymentStatus {
+  unpaid
+  pending_verification
+  authorized
+  verified
+  captured
+  invoice_pending
+  rejected
+  refunded
+}
+
+enum ComplaintCategory {
+  driver_behavior
+  vehicle_condition
+  pricing
+  service_quality
+  other
+}
+
+enum ComplaintStatus {
+  open
+  replied
+  resolved
+}
+
+model User {
+  id                String   @id @default(uuid())
+  clerk_id          String   @unique
+  name              String
+  email             String   @unique
+  phone             String?
+  profile_photo     String?
+  role              UserRole
+  created_at        DateTime @default(now()) @map("created_at")
+
+  driver            Driver?
+  bookings          Booking[]
+  notifications     Notification[]
+  complaints        Complaint[]
+  reviews           Review[]
+  booking_status_history BookingStatusHistory[]
+  verified_payments Payment[] @relation("verifier")
+
+  @@map("users")
+}
+
+model Driver {
+  id                    String             @id @default(uuid())
+  user_id               String             @unique
+  taxi_id               String?
+  license_number        String
+  languages             String[]
+  verification_status   VerificationStatus
+  rating                Decimal?           @db.Decimal(3, 2)
+  is_available          Boolean            @default(false)
+  created_at            DateTime           @default(now()) @map("created_at")
+
+  user                  User               @relation(fields: [user_id], references: [id])
+  taxi                  Taxi?              @relation(fields: [taxi_id], references: [id])
+  bookings              Booking[]
+  reviews               Review[]
+  driver_earnings       DriverEarning[]
+  telegram_link_codes   TelegramLinkCode[]
+
+  @@map("drivers")
+}
+
+model Taxi {
+  id                String   @id @default(uuid())
+  model             String
+  plate_number      String   @unique
+  type              String
+  passenger_capacity Int
+  luggage_capacity  Int
+  comfort_category  String
+  photo             String?
+  is_active         Boolean  @default(true)
+  created_at        DateTime @default(now()) @map("created_at")
+
+  drivers           Driver[]
+  bookings          Booking[]
+
+  @@map("taxis")
+}
+
+model RoutePackage {
+  id                  String   @id @default(uuid())
+  name                String
+  origin              String
+  destination         String
+  duration_hours      Decimal  @db.Decimal(4, 1)
+  price               Decimal  @db.Decimal(10, 2)
+  included_services   String?
+  recommended_vehicle String?
+  image               String?
+  is_active           Boolean  @default(true)
+  created_at          DateTime @default(now()) @map("created_at")
+
+  bookings            Booking[]
+
+  @@map("route_packages")
+}
+
+model TourPackage {
+  id                String   @id @default(uuid())
+  name              String
+  description       String?
+  duration_hours    Decimal  @db.Decimal(4, 1)
+  location          String
+  included_services String?
+  vehicle_type      String?
+  price             Decimal  @db.Decimal(10, 2)
+  image             String?
+  is_active         Boolean  @default(true)
+  created_at        DateTime @default(now()) @map("created_at")
+
+  bookings          Booking[]
+
+  @@map("tour_packages")
+}
+
+model Booking {
+  id                  String          @id @default(uuid())
+  customer_id         String
+  driver_id           String?
+  taxi_id             String?
+  route_package_id    String?
+  tour_package_id     String?
+  booking_type        BookingType
+  travel_date         DateTime        @db.Date
+  travel_time         String
+  passenger_count     Int
+  payment_method      PaymentMethod
+  special_notes       String?
+  status              BookingStatus
+  created_at          DateTime        @default(now()) @map("created_at")
+
+  customer            User            @relation(fields: [customer_id], references: [id])
+  driver              Driver?         @relation(fields: [driver_id], references: [id])
+  taxi                Taxi?           @relation(fields: [taxi_id], references: [id])
+  route_package       RoutePackage?   @relation(fields: [route_package_id], references: [id])
+  tour_package        TourPackage?    @relation(fields: [tour_package_id], references: [id])
+  status_history      BookingStatusHistory[]
+  payment             Payment?
+  review              Review?
+  complaints          Complaint[]
+  driver_earnings     DriverEarning[]
+
+  @@map("bookings")
+}
+
+model BookingStatusHistory {
+  id          String          @id @default(uuid())
+  booking_id  String
+  status      BookingStatus
+  changed_by  String
+  changed_at  DateTime        @default(now()) @map("changed_at")
+
+  booking     Booking         @relation(fields: [booking_id], references: [id])
+  user        User            @relation(fields: [changed_by], references: [id])
+
+  @@map("booking_status_history")
+}
+
+model Payment {
+  id              String        @id @default(uuid())
+  booking_id      String        @unique
+  amount          Decimal       @db.Decimal(10, 2)
+  fee             Decimal       @db.Decimal(10, 2)
+  net_amount      Decimal       @db.Decimal(10, 2)
+  method          PaymentMethod
+  status          PaymentStatus
+  transaction_id  String?
+  proof_image     String?
+  verified_by     String?
+  verified_at     DateTime?
+  created_at      DateTime      @default(now()) @map("created_at")
+
+  booking         Booking       @relation(fields: [booking_id], references: [id])
+  verifier        User?         @relation("verifier", fields: [verified_by], references: [id])
+
+  @@map("payments")
+}
+
+model Review {
+  id          String   @id @default(uuid())
+  booking_id  String   @unique
+  customer_id String
+  driver_id   String
+  rating      Int
+  message     String?
+  created_at  DateTime @default(now()) @map("created_at")
+
+  booking     Booking  @relation(fields: [booking_id], references: [id])
+  customer    User     @relation(fields: [customer_id], references: [id])
+  driver      Driver   @relation(fields: [driver_id], references: [id])
+
+  @@map("reviews")
+}
+
+model Complaint {
+  id          String             @id @default(uuid())
+  booking_id  String
+  customer_id String
+  category    ComplaintCategory
+  description String
+  status      ComplaintStatus
+  admin_reply String?
+  replied_at  DateTime?
+  created_at  DateTime           @default(now()) @map("created_at")
+
+  booking     Booking            @relation(fields: [booking_id], references: [id])
+  customer    User               @relation(fields: [customer_id], references: [id])
+
+  @@map("complaints")
+}
+
+model Notification {
+  id          String   @id @default(uuid())
+  user_id     String
+  type        String
+  message     String
+  is_read     Boolean  @default(false)
+  created_at  DateTime @default(now()) @map("created_at")
+
+  user        User     @relation(fields: [user_id], references: [id])
+
+  @@map("notifications")
+}
+
+model DriverEarning {
+  id          String   @id @default(uuid())
+  driver_id   String
+  booking_id  String
+  amount      Decimal  @db.Decimal(10, 2)
+  created_at  DateTime @default(now()) @map("created_at")
+
+  driver      Driver   @relation(fields: [driver_id], references: [id])
+  booking     Booking  @relation(fields: [booking_id], references: [id])
+
+  @@map("driver_earnings")
+}
+
+model TelegramLinkCode {
+  id          String   @id @default(uuid())
+  driver_id   String
+  code        String   @unique
+  expires_at  DateTime
+  created_at  DateTime @default(now()) @map("created_at")
+
+  driver      Driver   @relation(fields: [driver_id], references: [id])
+
+  @@map("telegram_link_codes")
+}
