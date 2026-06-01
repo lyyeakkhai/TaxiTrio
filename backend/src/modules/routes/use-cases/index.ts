@@ -1,2 +1,6 @@
 export { ListRoutesUseCase } from './list-routes.usecase'
 export { GetRouteUseCase } from './get-route.usecase'
+export { CreateRouteUseCase } from './create-route.usecase'
+export { UpdateRouteUseCase } from './update-route.usecase'
+export { DeleteRouteUseCase } from './delete-route.usecase'
+export { ToggleRouteUseCase } from './toggle-route.usecase'

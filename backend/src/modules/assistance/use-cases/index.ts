@@ -1,1 +1,5 @@
 export { ListAssistanceUseCase } from './list-assistance.usecase'
+export { CreateAssistanceUseCase } from './create-assistance.usecase'
+export { UpdateAssistanceUseCase } from './update-assistance.usecase'
+export { DeleteAssistanceUseCase } from './delete-assistance.usecase'
+export { ToggleAssistanceUseCase } from './toggle-assistance.usecase'
