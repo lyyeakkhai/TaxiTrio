@@ -12,16 +12,22 @@ Update this file as each item is completed. Mark items `[x]` when done.
 - [x] Express app with cors, helmet, rate-limit, pino-http
 - [x] Pino logger configured (`lib/logger.ts`)
 - [x] `GET /health` working
-- [ ] Remaining dependencies installed (@clerk/backend, prisma, zod, cloudinary, multer, grammy, swagger-jsdoc, swagger-ui-express, vitest, supertest, @sentry/node)
-- [ ] Prisma schema written (all tables from `../docs/product/DATABASE.md`)
+- [x] Remaining dependencies installed (@clerk/backend, prisma, zod, cloudinary, multer, grammy, swagger-jsdoc, swagger-ui-express, vitest, supertest, @sentry/node)
+- [x] Prisma schema written (all tables from `../docs/product/DATABASE.md`)
 - [ ] Prisma connected to Supabase
 - [ ] Initial migration run
-- [ ] `middleware/auth.ts` — Clerk token verification
-- [ ] `middleware/role.ts` — role guard
-- [ ] Cloudinary client configured (`lib/cloudinary.ts`)
-- [ ] Swagger at `/api/docs`
+- [x] `middleware/auth.ts` — Clerk token verification
+- [x] `middleware/role.ts` — role guard
+- [x] Cloudinary client configured (`lib/cloudinary.ts`)
+- [x] Swagger at `/api/docs`
+- [x] `middleware/validate.ts` — Zod request validation
+- [x] `middleware/error.ts` — centralized error handler
+- [x] `src/types/express.d.ts` — req.user type augmentation
+- [x] `prisma/seed.ts` — admin user seed
+- [x] 10 middleware unit tests passing (vitest + supertest)
+- [x] Feature spec created (`context/feature-specs/2026-06-01-phase-1-foundation/`)
 
-**Status:** 🟡 In progress
+**Status:** 🟡 In progress — awaiting Supabase DATABASE_URL to run migration + seed
 
 ---
 

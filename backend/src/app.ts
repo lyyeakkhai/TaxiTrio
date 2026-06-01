@@ -3,8 +3,10 @@ import cors from 'cors'
 import helmet from 'helmet'
 import rateLimit from 'express-rate-limit'
 import pinoHttp from 'pino-http'
+import swaggerUi from 'swagger-ui-express'
 import { logger } from './lib/logger'
-import healthRouter from './routes/health'
+import { errorHandler } from './middleware/error'
+import { swaggerSpec } from './swagger'
 
 const app = express()
 
@@ -14,6 +16,12 @@ app.use(rateLimit({ windowMs: 15 * 60 * 1000, max: 100 }))
 app.use(express.json())
 app.use(pinoHttp({ logger }))
 
-app.use('/health', healthRouter)
+app.get('/health', (req, res) => {
+  res.status(200).json({ status: 'ok' })
+})
+
+app.use('/api/docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec))
+
+app.use(errorHandler)
 
 export default app
