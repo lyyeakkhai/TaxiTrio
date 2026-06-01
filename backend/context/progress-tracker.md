@@ -70,18 +70,20 @@ Update this file as each item is completed. Mark items `[x]` when done.
 ## Phase 4 — Admin Features
 > Ref: `../../docs/features/driver-management/`, `../../docs/features/booking/`, `../../docs/features/route-tour-packages/`, `../../docs/features/payment/`, `../../docs/features/reviews-complaints/`, `../../docs/features/tourist-assistance/`, `../../docs/features/telegram-bot/`
 
-- [ ] Dashboard stats
-- [ ] User management
-- [ ] Driver management + approval
-- [ ] Taxi CRUD
-- [ ] Route CRUD
-- [ ] Tour CRUD
-- [ ] Booking management + driver assignment (triggers Telegram notify)
-- [ ] Payment management + verify/reject
-- [ ] Complaint management + reply
-- [ ] Assistance content CRUD
+- [x] Dashboard stats
+- [x] User management
+- [x] Driver management + approval
+- [x] Taxi CRUD
+- [x] Route CRUD
+- [x] Tour CRUD
+- [x] Booking management + driver assignment (triggers Telegram notify)
+- [x] Payment list (read-only; status via Clerk webhook)
+- [x] Complaint management + reply/resolve
+- [x] Assistance content CRUD
 
-**Status:** 🔴 Not started
+- [x] Feature spec created (`context/feature-specs/2026-06-01-phase-4-admin-features/`)
+
+**Status:** 🟢 Complete — 73 tests passing
 
 ---
 

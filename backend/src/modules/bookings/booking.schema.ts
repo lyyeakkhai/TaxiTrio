@@ -23,3 +23,6 @@ export const CreateBookingSchema = z.object({
 })
 
 export type CreateBookingDto = z.infer<typeof CreateBookingSchema>
+
+export const AssignBookingSchema = z.object({ driver_id: z.string().uuid() })
+export type AssignBookingDto = z.infer<typeof AssignBookingSchema>

@@ -1,2 +1,6 @@
 export { ListToursUseCase } from './list-tours.usecase'
 export { GetTourUseCase } from './get-tour.usecase'
+export { CreateTourUseCase } from './create-tour.usecase'
+export { UpdateTourUseCase } from './update-tour.usecase'
+export { DeleteTourUseCase } from './delete-tour.usecase'
+export { ToggleTourUseCase } from './toggle-tour.usecase'

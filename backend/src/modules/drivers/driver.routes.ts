@@ -17,9 +17,15 @@ import {
   ArrivedBookingUseCase,
   StartBookingUseCase,
   CompleteBookingUseCase,
+  ListDriversUseCase,
+  GetDriverUseCase,
+  UpdateDriverAdminUseCase,
+  DeleteDriverUseCase,
+  ApproveDriverUseCase,
+  RejectDriverUseCase,
 } from './use-cases'
 import { DriverController } from './driver.controller'
-import { UpdateDriverProfileSchema, ToggleAvailabilitySchema } from './driver.schema'
+import { UpdateDriverProfileSchema, ToggleAvailabilitySchema, UpdateDriverAdminSchema } from './driver.schema'
 
 const router = Router()
 const upload = multer({ storage: multer.memoryStorage() })
@@ -36,6 +42,12 @@ const rejectBooking = new RejectBookingUseCase(prisma, transition)
 const arrivedBooking = new ArrivedBookingUseCase(prisma, transition)
 const startBooking = new StartBookingUseCase(prisma, transition)
 const completeBooking = new CompleteBookingUseCase(prisma, transition)
+const listDrivers = new ListDriversUseCase(prisma)
+const getDriver = new GetDriverUseCase(prisma)
+const updateDriverAdmin = new UpdateDriverAdminUseCase(prisma)
+const deleteDriver = new DeleteDriverUseCase(prisma)
+const approveDriver = new ApproveDriverUseCase(prisma)
+const rejectDriver = new RejectDriverUseCase(prisma)
 
 const controller = new DriverController(
   getProfile,
@@ -49,6 +61,12 @@ const controller = new DriverController(
   arrivedBooking,
   startBooking,
   completeBooking,
+  listDrivers,
+  getDriver,
+  updateDriverAdmin,
+  deleteDriver,
+  approveDriver,
+  rejectDriver,
 )
 
 router.use(verifyClerkToken, requireRole('driver'))
@@ -71,4 +89,15 @@ router.put('/bookings/:id/arrived', (req, res) => controller.arrivedBookingHandl
 router.put('/bookings/:id/start', (req, res) => controller.startBookingHandler(req, res))
 router.put('/bookings/:id/complete', (req, res) => controller.completeBookingHandler(req, res))
 
+const adminRouter = Router()
+adminRouter.use(verifyClerkToken, requireRole('admin'))
+
+adminRouter.get('/', (req, res) => controller.adminList(req, res))
+adminRouter.get('/:id', (req, res) => controller.adminGet(req, res))
+adminRouter.put('/:id', validateRequest(UpdateDriverAdminSchema), (req, res) => controller.adminUpdate(req, res))
+adminRouter.delete('/:id', (req, res) => controller.adminDelete(req, res))
+adminRouter.put('/:id/approve', (req, res) => controller.adminApprove(req, res))
+adminRouter.put('/:id/reject', (req, res) => controller.adminReject(req, res))
+
 export default router
+export { adminRouter }
