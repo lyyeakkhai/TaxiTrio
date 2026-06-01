@@ -1,1 +1,1 @@
-export { default } from './taxi.routes'
+export { default, adminRouter } from './taxi.routes'

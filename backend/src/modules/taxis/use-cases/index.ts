@@ -1,1 +1,5 @@
 export { ListTaxisUseCase } from './list-taxis.usecase'
+export { CreateTaxiUseCase } from './create-taxi.usecase'
+export { UpdateTaxiUseCase } from './update-taxi.usecase'
+export { DeleteTaxiUseCase } from './delete-taxi.usecase'
+export { ToggleTaxiUseCase } from './toggle-taxi.usecase'
