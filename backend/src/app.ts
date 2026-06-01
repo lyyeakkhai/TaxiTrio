@@ -7,6 +7,12 @@ import swaggerUi from 'swagger-ui-express'
 import { logger } from './lib/logger'
 import { errorHandler } from './middleware/error'
 import { swaggerSpec } from './swagger'
+import userRouter from './modules/users'
+import routeRouter from './modules/routes'
+import tourRouter from './modules/tours'
+import taxiRouter from './modules/taxis'
+import bookingRouter from './modules/bookings'
+import assistanceRouter from './modules/assistance'
 
 const app = express()
 
@@ -22,6 +28,15 @@ app.get('/health', (req, res) => {
 
 app.use('/api/docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec))
 
+app.use('/api/users', userRouter)
+app.use('/api/auth', userRouter)
+app.use('/api/routes', routeRouter)
+app.use('/api/tours', tourRouter)
+app.use('/api/taxis', taxiRouter)
+app.use('/api/bookings', bookingRouter)
+app.use('/api/assistance', assistanceRouter)
+
 app.use(errorHandler)
 
 export default app
+
