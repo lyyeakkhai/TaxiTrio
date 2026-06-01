@@ -2,17 +2,21 @@ import { describe, it, expect, vi, beforeEach } from 'vitest'
 import express, { Request, Response, NextFunction } from 'express'
 import request from 'supertest'
 import { z } from 'zod'
-import { validateRequest } from '../validate'
-import { requireRole } from '../role'
-import { errorHandler } from '../error'
-import app from '../../app'
 
 vi.mock('@clerk/backend', () => ({
   verifyToken: vi.fn(),
 }))
 
+vi.mock('../../lib/prisma', () => ({
+  prisma: {},
+}))
+
 import { verifyToken } from '@clerk/backend'
+import { validateRequest } from '../validate'
+import { requireRole } from '../role'
+import { errorHandler } from '../error'
 import { verifyClerkToken } from '../auth'
+import app from '../../app'
 
 function makeApp(...middlewares: any[]) {
   const a = express()
