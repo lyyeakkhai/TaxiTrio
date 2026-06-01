@@ -1,1 +1,1 @@
-export { default } from './user.routes'
+export { default, adminRouter } from './user.routes'

@@ -1,1 +1,1 @@
-export { default } from './tour.routes'
+export { default, adminTourRouter } from './tour.routes'

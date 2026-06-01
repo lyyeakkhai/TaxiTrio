@@ -1,3 +1,4 @@
-import driverRouter from './driver.routes'
+import driverRouter, { adminRouter } from './driver.routes'
 
 export default driverRouter
+export { adminRouter }

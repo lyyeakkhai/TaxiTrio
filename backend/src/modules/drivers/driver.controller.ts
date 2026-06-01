@@ -11,6 +11,12 @@ import {
   ArrivedBookingUseCase,
   StartBookingUseCase,
   CompleteBookingUseCase,
+  ListDriversUseCase,
+  GetDriverUseCase,
+  UpdateDriverAdminUseCase,
+  DeleteDriverUseCase,
+  ApproveDriverUseCase,
+  RejectDriverUseCase,
 } from './use-cases'
 
 export class DriverController {
@@ -26,6 +32,12 @@ export class DriverController {
     private readonly arrivedBooking: ArrivedBookingUseCase,
     private readonly startBooking: StartBookingUseCase,
     private readonly completeBooking: CompleteBookingUseCase,
+    private readonly listDrivers: ListDriversUseCase,
+    private readonly getDriver: GetDriverUseCase,
+    private readonly updateDriverAdmin: UpdateDriverAdminUseCase,
+    private readonly deleteDriver: DeleteDriverUseCase,
+    private readonly approveDriver: ApproveDriverUseCase,
+    private readonly rejectDriver: RejectDriverUseCase,
   ) {}
 
   async getProfileHandler(req: Request, res: Response): Promise<void> {
@@ -72,5 +84,35 @@ export class DriverController {
 
   async completeBookingHandler(req: Request, res: Response): Promise<void> {
     res.json(await this.completeBooking.execute(req.params.id as string, req.user!.id))
+  }
+
+  async adminList(req: Request, res: Response): Promise<void> {
+    const verification_status = typeof req.query.verification_status === 'string' ? req.query.verification_status : undefined
+    const is_available = req.query.is_available === 'true' ? true : req.query.is_available === 'false' ? false : undefined
+    const filters: { verification_status?: string; is_available?: boolean } = {}
+    if (verification_status) filters.verification_status = verification_status
+    if (is_available !== undefined) filters.is_available = is_available
+    res.json(await this.listDrivers.execute(filters))
+  }
+
+  async adminGet(req: Request, res: Response): Promise<void> {
+    res.json(await this.getDriver.execute(req.params.id as string))
+  }
+
+  async adminUpdate(req: Request, res: Response): Promise<void> {
+    res.json(await this.updateDriverAdmin.execute(req.params.id as string, req.body))
+  }
+
+  async adminDelete(req: Request, res: Response): Promise<void> {
+    await this.deleteDriver.execute(req.params.id as string)
+    res.status(204).send()
+  }
+
+  async adminApprove(req: Request, res: Response): Promise<void> {
+    res.json(await this.approveDriver.execute(req.params.id as string))
+  }
+
+  async adminReject(req: Request, res: Response): Promise<void> {
+    res.json(await this.rejectDriver.execute(req.params.id as string))
   }
 }

@@ -1,1 +1,1 @@
-export { default } from './booking.routes'
+export { default, adminBookingRouter } from './booking.routes'
