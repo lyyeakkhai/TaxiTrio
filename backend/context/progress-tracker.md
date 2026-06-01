@@ -43,7 +43,9 @@ Update this file as each item is completed. Mark items `[x]` when done.
 - [ ] Cancel booking
 - [ ] Tourist assistance endpoint
 
-**Status:** 🔴 Not started
+- [x] Feature spec created (`context/feature-specs/2026-06-01-phase-2-core-customer-features/`)
+
+**Status:** 🟡 In progress — spec written, implementation pending
 
 ---
 
