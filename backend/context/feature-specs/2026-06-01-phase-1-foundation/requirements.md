@@ -32,7 +32,7 @@ Complete the remaining Phase 1 items so the server is fully runnable with auth, 
 - `src/middleware/error.ts` — centralized error handler (last middleware)
 
 ### 4. Prisma schema
-All tables from `../docs/product/DATABASE.md`:
+All tables from `../../../../docs/product/DATABASE.md`:
 - `users`, `drivers`, `taxis`, `route_packages`, `tour_packages`
 - `bookings`, `booking_status_history`, `payments`
 - `reviews`, `complaints`, `notifications`, `driver_earnings`
