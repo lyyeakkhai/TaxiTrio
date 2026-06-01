@@ -61,7 +61,9 @@ Update this file as each item is completed. Mark items `[x]` when done.
 - [ ] Driver Telegram linking flow (`telegram_link_codes` table)
 - [ ] Telegram webhook handler (Accept/Reject callbacks)
 
-**Status:** 🔴 Not started
+- [x] Feature spec created (`context/feature-specs/2026-06-01-phase-3-driver-features/`)
+
+**Status:** 🟡 In progress — spec written, implementation pending
 
 ---
 
