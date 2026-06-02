@@ -90,17 +90,21 @@ Update this file as each item is completed. Mark items `[x]` when done.
 ## Phase 5 — Payments, Reviews, Notifications
 > Ref: `../../docs/features/payment/`, `../../docs/features/reviews-complaints/`, `../../docs/features/notifications/`
 
-- [ ] Payment proof upload (Cloudinary)
-- [ ] Payment status endpoint
-- [ ] Reviews
-- [ ] Complaints
-- [ ] Notifications
-- [ ] Auto-notifications wired into controllers
+- [x] `GET /api/payments/:booking_id` — customer view own payment
+- [x] `GET /api/admin/payments` + `GET /api/admin/payments/:id`
+- [x] `POST /api/webhooks/clerk/billing` — handle `payment.succeeded`, `payment.failed`, `refund.created`
+- [x] Reviews endpoints (customer submit, driver view, admin list/delete)
+- [x] Complaints endpoints (customer submit/view, admin reply/resolve/delete)
+- [x] Notifications endpoints (list, mark-read, mark-all-read)
+- [x] Auto-notifications wired into existing use cases (bookings, assignments, complaints)
+- [x] Resend email — `src/lib/resend.ts` + templates + wired into booking + webhook
 - [ ] Sentry integration
 - [ ] Docker setup
 - [ ] GitHub Actions CI
 
-**Status:** 🔴 Not started
+- [x] Feature spec created (`context/feature-specs/2026-06-01-phase-5-payments-reviews-notifications/`)
+
+**Status:** 🟡 In progress — core implementation complete; Sentry/Docker/CI pending
 
 ---
 

@@ -8,21 +8,37 @@ import {
   GetComplaintUseCase,
   ReplyComplaintUseCase,
   ResolveComplaintUseCase,
+  CreateComplaintUseCase,
+  ListMyComplaintsUseCase,
+  DeleteComplaintUseCase,
 } from './use-cases'
 import { ComplaintController } from './complaint.controller'
-import { ReplyComplaintSchema } from './complaint.schema'
+import { ReplyComplaintSchema, CreateComplaintSchema } from './complaint.schema'
 
-const router = Router()
 const listComplaints = new ListComplaintsAdminUseCase(prisma)
 const getComplaint = new GetComplaintUseCase(prisma)
 const replyComplaint = new ReplyComplaintUseCase(prisma)
 const resolveComplaint = new ResolveComplaintUseCase(prisma)
-const controller = new ComplaintController(listComplaints, getComplaint, replyComplaint, resolveComplaint)
+const createComplaint = new CreateComplaintUseCase(prisma)
+const listMyComplaints = new ListMyComplaintsUseCase(prisma)
+const deleteComplaint = new DeleteComplaintUseCase(prisma)
+const controller = new ComplaintController(
+  listComplaints, getComplaint, replyComplaint, resolveComplaint,
+  createComplaint, listMyComplaints, deleteComplaint,
+)
 
-router.use(verifyClerkToken, requireRole('admin'))
-router.get('/', (req, res) => controller.adminList(req, res))
-router.get('/:id', (req, res) => controller.adminGet(req, res))
-router.put('/:id/reply', validateRequest(ReplyComplaintSchema), (req, res) => controller.adminReply(req, res))
-router.put('/:id/resolve', (req, res) => controller.adminResolve(req, res))
+const adminRouter = Router()
+adminRouter.use(verifyClerkToken, requireRole('admin'))
+adminRouter.get('/', (req, res) => controller.adminList(req, res))
+adminRouter.get('/:id', (req, res) => controller.adminGet(req, res))
+adminRouter.put('/:id/reply', validateRequest(ReplyComplaintSchema), (req, res) => controller.adminReply(req, res))
+adminRouter.put('/:id/resolve', (req, res) => controller.adminResolve(req, res))
+adminRouter.delete('/:id', (req, res) => controller.adminDelete(req, res))
 
-export default router
+const customerRouter = Router()
+customerRouter.use(verifyClerkToken, requireRole('customer'))
+customerRouter.post('/', validateRequest(CreateComplaintSchema), (req, res) => controller.create(req, res))
+customerRouter.get('/my', (req, res) => controller.listMy(req, res))
+
+export default adminRouter
+export { customerRouter as complaintCustomerRouter }

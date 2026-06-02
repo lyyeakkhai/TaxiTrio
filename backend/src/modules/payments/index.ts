@@ -1,1 +1,1 @@
-export { default } from './payment.routes'
+export { default, paymentCustomerRouter } from './payment.routes'

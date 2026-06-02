@@ -16,9 +16,12 @@ import bookingRouter, { adminBookingRouter } from './modules/bookings'
 import assistanceRouter, { adminAssistanceRouter } from './modules/assistance'
 import driverRouter, { adminRouter as driverAdminRouter } from './modules/drivers'
 import { driverTelegramRouter, telegramWebhookRouter } from './modules/telegram'
-import adminPaymentRouter from './modules/payments'
-import adminComplaintRouter from './modules/complaints'
+import adminPaymentRouter, { paymentCustomerRouter } from './modules/payments'
+import adminComplaintRouter, { complaintCustomerRouter } from './modules/complaints'
 import adminRouter from './modules/admin'
+import reviewRouter, { adminReviewRouter } from './modules/reviews'
+import notificationRouter from './modules/notifications'
+import webhookRouter from './modules/webhooks'
 
 const app = express()
 
@@ -52,8 +55,14 @@ app.use('/api/admin/drivers', driverAdminRouter)
 app.use('/api/driver/telegram', driverTelegramRouter)
 app.use('/api/telegram', telegramWebhookRouter)
 app.use('/api/admin/payments', adminPaymentRouter)
+app.use('/api/payments', paymentCustomerRouter)
 app.use('/api/admin/complaints', adminComplaintRouter)
+app.use('/api/complaints', complaintCustomerRouter)
 app.use('/api/admin', adminRouter)
+app.use('/api/reviews', reviewRouter)
+app.use('/api/admin/reviews', adminReviewRouter)
+app.use('/api/notifications', notificationRouter)
+app.use('/api/webhooks', webhookRouter)
 
 app.use(errorHandler)
 
