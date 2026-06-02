@@ -17,6 +17,17 @@ export class AcceptBookingUseCase {
     if (!booking) throw Object.assign(new Error('Booking not found'), { statusCode: 404 })
     if (booking.driver_id !== driver.id) throw Object.assign(new Error('Forbidden'), { statusCode: 403 })
 
-    return await this.transition.execute(bookingId, 'accepted', userId)
+    const updated = await this.transition.execute(bookingId, 'accepted', userId)
+
+    await this.prisma.notification.create({
+      data: {
+        user_id: booking.customer_id,
+        type: 'booking_accepted',
+        message: 'Your booking has been accepted by the driver',
+        is_read: false,
+      },
+    })
+
+    return updated
   }
 }
