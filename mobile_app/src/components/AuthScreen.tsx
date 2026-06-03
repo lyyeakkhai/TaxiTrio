@@ -69,7 +69,7 @@ export function AuthScreen() {
         <TouchableOpacity 
           disabled={isLoading}
           onPress={() => onSelectAuth('google')}
-          className="w-full py-4 rounded-2xl bg-[#1E1C18] border border-white/10 flex-row items-center justify-center gap-3 active:scale-[0.98] transition-transform"
+          className="w-full py-4 rounded-2xl bg-[#1E1C18] border border-white/10 flex-row items-center justify-center gap-3"
         >
           {isLoading ? <ActivityIndicator color="#F7F5F0" /> : (
             <>
@@ -83,7 +83,7 @@ export function AuthScreen() {
           <TouchableOpacity 
             disabled={isLoading}
             onPress={() => onSelectAuth('apple')}
-            className="w-full py-4 rounded-2xl bg-[#F7F5F0] flex-row items-center justify-center gap-3 active:scale-[0.98] transition-transform"
+            className="w-full py-4 rounded-2xl bg-[#F7F5F0] flex-row items-center justify-center gap-3"
           >
             {isLoading ? <ActivityIndicator color="#0B0A08" /> : (
               <>
@@ -100,7 +100,7 @@ export function AuthScreen() {
           <View className="flex-1 h-px bg-[#A39E93]" />
         </View>
 
-        <TouchableOpacity className="w-full py-4 rounded-2xl bg-[#D4AF37] flex-row items-center justify-center shadow-[0_0_20px_rgba(212,175,55,0.3)] active:scale-[0.98] transition-transform">
+        <TouchableOpacity className="w-full py-4 rounded-2xl bg-[#D4AF37] flex-row items-center justify-center shadow-[0_0_20px_rgba(212,175,55,0.3)]">
           <Text className="text-[#0B0A08] font-bold text-lg">Sign In with Email</Text>
         </TouchableOpacity>
       </View>
