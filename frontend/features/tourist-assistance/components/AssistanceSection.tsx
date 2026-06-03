@@ -1,6 +1,7 @@
 "use client";
 
 import { useAssistance } from "../hooks";
+import { AssistanceItem } from "../types";
 import { Skeleton } from "@/components/ui/skeleton";
 import { HelpCircle, Phone, Languages, Map, HeadphonesIcon } from "lucide-react";
 
@@ -52,7 +53,7 @@ export function AssistanceSection() {
               </p>
             ) : (
               <div className="space-y-4">
-                {categoryItems.filter((i: any) => i.is_active).map((item: any) => (
+                {categoryItems.filter((i: AssistanceItem) => i.is_active).map((item: AssistanceItem) => (
                   <div key={item.id} className="bg-surface-dim/50 rounded-lg p-4 hover:bg-surface-dim transition-colors">
                     <h4 className="font-medium text-sm mb-1">{item.title}</h4>
                     <p className="text-sm text-muted-foreground whitespace-pre-wrap">{item.content}</p>

@@ -1,1 +1,13 @@
-{"Index": {"title": "TaxiTrio"}}
+{
+  "Index": { "title": "택시트리오 (TaxiTrio)" },
+  "Navigation": {
+    "dashboard": "대시보드",
+    "taxis": "택시",
+    "routes": "경로 패키지",
+    "tours": "투어 패키지",
+    "bookings": "내 예약",
+    "complaints": "불만 사항",
+    "notifications": "알림",
+    "assistance": "지원"
+  }
+}

@@ -1,1 +1,13 @@
-{"Index": {"title": "TaxiTrio"}}
+{
+  "Index": { "title": "តាក់ស៊ីទ្រីអូ (TaxiTrio)" },
+  "Navigation": {
+    "dashboard": "ផ្ទាំងគ្រប់គ្រង",
+    "taxis": "តាក់ស៊ី",
+    "routes": "កញ្ចប់ផ្លូវ",
+    "tours": "កញ្ចប់ទេសចរណ៍",
+    "bookings": "ការកក់របស់ខ្ញុំ",
+    "complaints": "ពាក្យបណ្តឹង",
+    "notifications": "ការជូនដំណឹង",
+    "assistance": "ជំនួយ"
+  }
+}

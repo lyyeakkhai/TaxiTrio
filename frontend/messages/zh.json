@@ -1,1 +1,13 @@
-{"Index": {"title": "TaxiTrio"}}
+{
+  "Index": { "title": "出租车三人组 (TaxiTrio)" },
+  "Navigation": {
+    "dashboard": "仪表板",
+    "taxis": "出租车",
+    "routes": "路线套餐",
+    "tours": "旅游套餐",
+    "bookings": "我的预订",
+    "complaints": "投诉",
+    "notifications": "通知",
+    "assistance": "协助"
+  }
+}

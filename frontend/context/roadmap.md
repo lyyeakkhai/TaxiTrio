@@ -228,34 +228,34 @@ Complete phases in order — each phase depends on the previous.
 
 ### 6.1 i18n Completion
 
-- [ ] Fill all `messages/*.json` locale files with real translations (km, zh, ja, ko, fr)
-- [ ] Add locale switcher component to both layout navbars
-- [ ] Verify all user-facing strings use `useTranslations()` — no hardcoded English strings in components
+- [x] Fill all `messages/*.json` locale files with real translations (km, zh, ja, ko, fr)
+- [x] Add locale switcher component to both layout navbars
+- [x] Verify all user-facing strings use `useTranslations()` — no hardcoded English strings in components
 
 ### 6.2 Theme Toggle
 
-- [ ] `components/ThemeToggle.tsx` — light/dark toggle using `next-themes`; install `next-themes`
-- [ ] Update `app/providers.tsx` — wrap with `ThemeProvider` from `next-themes`
-- [ ] Add `ThemeToggle` to both layout navbars
+- [x] `components/ThemeToggle.tsx` — light/dark toggle using `next-themes`; install `next-themes`
+- [x] Update `app/providers.tsx` — wrap with `ThemeProvider` from `next-themes`
+- [x] Add `ThemeToggle` to both layout navbars
 
 ### 6.3 Error Handling
 
-- [ ] `app/error.tsx` — global error boundary page
-- [ ] `app/(customer)/error.tsx` and `app/(driver)/error.tsx` — role-scoped error boundaries
-- [ ] `app/not-found.tsx` — 404 page
-- [ ] Add Sentry: `npm install @sentry/nextjs`; `sentry.client.config.ts`, `sentry.server.config.ts`; wrap `app/layout.tsx`
+- [x] `app/error.tsx` — global error boundary page
+- [x] `app/(customer)/error.tsx` and `app/(driver)/error.tsx` — role-scoped error boundaries
+- [x] `app/not-found.tsx` — 404 page
+- [x] Add Sentry: `npm install @sentry/nextjs`; `sentry.client.config.ts`, `sentry.server.config.ts`; wrap `app/layout.tsx`
 
 ### 6.4 Responsive QA
 
-- [ ] Audit all pages at mobile (375px), tablet (768px), desktop (1280px)
-- [ ] Fix any layout overflow or unreadable text at small breakpoints
-- [ ] Verify touch targets are ≥ 44px on mobile
+- [x] Audit all pages at mobile (375px), tablet (768px), desktop (1280px)
+- [x] Fix any layout overflow or unreadable text at small breakpoints
+- [x] Verify touch targets are ≥ 44px on mobile
 
 ### 6.5 Build Verification
 
-- [ ] `npm run build` passes with zero errors and zero TypeScript errors
-- [ ] `npm run lint` passes clean
-- [ ] Update `context/progress-tracker.md` to reflect all completed phases
+- [x] `npm run build` passes with zero errors and zero TypeScript errors
+- [x] `npm run lint` passes clean
+- [x] Update `context/progress-tracker.md` to reflect all completed phases
 
 ---
 
