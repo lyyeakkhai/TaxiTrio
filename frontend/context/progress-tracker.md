@@ -18,6 +18,7 @@ Foundation setup — Clerk auth, project structure, context files aligned with d
 - `frontend/.env.local` created with Clerk key placeholders
 - `globals.css` updated with dark-first theme tokens (charcoal + yellow/cyan)
 - All context files updated to reflect actual project spec from `docs/`
+- Install: TanStack Query, Zustand, next-intl, Zod, Axios, shadcn/ui, Lucide React
 
 ## In Progress
 
@@ -27,7 +28,6 @@ Foundation setup — Clerk auth, project structure, context files aligned with d
 
 - Set up folder structure: `app/(customer)/`, `app/(driver)/` with all sub-routes
 - Add role-based middleware protection per route group
-- Install: TanStack Query, Zustand, next-intl, Zod, Axios, shadcn/ui, Lucide React
 - Build `lib/api.ts` (Axios instance with Clerk token injection)
 - Scaffold all feature slices under `features/`
 - Build customer features in priority order: taxi-browser → route-packages → tour-packages → booking → payment
