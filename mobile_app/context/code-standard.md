@@ -1,48 +1,50 @@
 # Code Standard
 
-## React Native & Expo
-- Use functional components with hooks; keep components small and composable.
-- Prefer Expo SDK APIs over bare React Native when available.
-- Follow file-based routing conventions from Expo Router.
+## Architecture & Directory Structure
+Adhere to a Feature-Sliced Design / Domain-Driven structure:
+- `src/app/`: Expo Router screens and layouts.
+- `src/components/`: Reusable, generic UI components (buttons, inputs, cards).
+- `src/features/`: Domain-specific modules (e.g., `booking`, `auth`, `driver`). Each feature contains its own `api`, `components`, `hooks`, and `types`.
+- `src/hooks/`: Global custom hooks.
+- `src/store/`: Zustand global stores.
+- `src/lib/`: Third-party library configurations (Axios, Clerk).
+- `src/i18n/`: Translation files and setup.
+- `src/types/`: Global TypeScript definitions.
+- `src/theme/`: Design tokens and tailwind config.
+
+## React Native & Expo Best Practices
+- Use functional components with hooks. Keep components small, modular, and composable.
+- Prefer Expo SDK APIs over bare React Native community packages when available to ensure compatibility.
+- Use `Platform.select` for platform-specific tweaks only when necessary.
 
 ## TypeScript
-- Explicit types for props, API responses, and domain models.
-- Avoid `any`; use Zod for runtime validation.
-- Keep shared types near their domain (feature-first structure).
+- Define explicit interfaces/types for all Component props, API requests, and responses.
+- Avoid `any` at all costs. Use `unknown` if the type is truly dynamic, and narrow it down.
+- Use Zod schemas to validate API responses at runtime and infer TypeScript types from them.
 
-## State & Data
-- React Query or equivalent for server state.
-- Zustand or context for local UI state.
-- Separate API layer (`src/api/`) from UI components.
+## State Management
+- **Server State:** Use `TanStack Query` for all API calls. Handle loading, error, and empty states gracefully.
+- **Client State:** Use `Zustand` for global UI state. Keep stores granular.
+- **Local State:** Use `useState`/`useReducer` for component-level state.
 
-## Styling
-- Use StyleSheet or design tokens; avoid inline styles for complex components.
-- Support light and dark themes via tokens and conditional palettes.
-- Respect safe area insets; support dynamic type where possible.
+## Styling (NativeWind/Tailwind)
+- Use NativeWind for utility-first styling.
+- Extract complex or repeated styles into reusable UI components rather than bloating JSX with huge class strings.
+- Respect safe area insets using `useSafeAreaInsets`.
 
-## I18n
-- All user-facing strings in translation files.
-- Use locale-aware formatting for dates, currency, and numbers.
-
-## File Structure (Recommended)
-- `src/` with `app/` (Expo Router), `components/`, `screens/`, `features/`, `api/`, `hooks/`, `lib/`, `i18n/`, `assets/`, `types/`.
-- One feature folder per domain (booking, payment, assistance, etc.).
-
-## Code Quality
-- Keep functions under ~50 lines when practical.
-- Single responsibility per file; extract tools and helpers.
-- Write readable code over clever abstractions.
-- Prefer composition over inheritance.
+## Performance Optimization
+- Memoize heavy computations with `useMemo` and stable callbacks with `useCallback`.
+- Use `React.memo` for list items and heavy components to prevent unnecessary re-renders.
+- Use `FlashList` or `FlatList` with `getItemLayout` for long lists.
+- Offload heavy animations to the UI thread using `React Native Reanimated`.
+- Optimize images using `expo-image` with appropriate resizing and caching.
 
 ## Error Handling & Logging
-- Surface meaningful errors to users; log technical details.
-- Handle loading, empty, and error states for every list.
+- Wrap app root and specific features in Error Boundaries.
+- Show user-friendly error messages (toast notifications or fallback UI).
+- Log technical details/errors using a centralized logger (e.g., Sentry for prod).
 
 ## Security
-- Never store secrets in mobile code.
-- Use `expo-secure-store` for tokens; validate session with backend.
-- Use HTTPS for all API requests.
-
-## Performance
-- Avoid unnecessary re-renders and heavy work on the JS thread.
-- Use optimized image components and list virtualization where needed.
+- Never store API keys or secrets in mobile source code.
+- Use `expo-secure-store` for authentication tokens.
+- Ensure all API communications are over HTTPS.

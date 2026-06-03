@@ -1,46 +1,55 @@
 # UI Context
 
 ## Theme Model
-- Light theme defaults.
-- Dark theme inverts surface and text roles while keeping the same token names.
-- Theme preference is stored locally and respected in safe areas and system bars.
+TaxiTrio uses a premium **Dark Gold** luxury theme to instill trust, professionalism, and exclusivity. 
+- **Style:** Deep dark backgrounds paired with vibrant Gold accents. 
+- **Effects:** Glassmorphism (translucent surfaces with blur and subtle light borders) provides depth and modern appeal.
 
 ## Core Palette
-- Brand
-  - Primary: #0EA5E9
-  - Primary hover: #0284C7
-  - Primary soft: #E0F2FE
-- Semantic
-  - Success: #16A34A
-  - Warning: #D97706
-  - Danger: #DC2626
-  - Info: #2563EB
-- Neutrals
-  - Background: #F8FAFC
-  - Surface: #FFFFFF
-  - Border: #E2E8F0
-  - Muted text: #64748B
-  - Body text: #0F172A
+- **Brand Colors:**
+  - Primary (Gold): `#D4AF37` (Used for primary buttons, active icons, highlights)
+  - Primary Muted: `#8A7323` (Used for disabled states, secondary borders)
+- **Backgrounds (Neutrals):**
+  - Deep Background: `#0B0A08` (App background)
+  - Surface: `#14120F` (Bottom sheets, modals)
+  - Card Surface: `#1E1C18` (Cards, list items)
+  - Subtle Border: `rgba(255, 255, 255, 0.1)` (Dividers, card outlines)
+- **Typography:**
+  - Text Primary: `#F7F5F0` (Headings, primary body text)
+  - Text Secondary: `#A39E93` (Subtitles, placeholders, captions)
+- **Semantic Colors:**
+  - Success: `#16A34A` (Completed bookings, online status)
+  - Warning: `#D97706` (Pending, alerts)
+  - Danger: `#DC2626` (Errors, cancellations, offline status)
+  - Info: `#2563EB` (Informational banners)
 
-## Dark Theme Mapping
-- Background: #0B1220
-- Surface: #111827
-- Border: #1F2937
-- Muted text: #94A3B8
-- Body text: #F8FAFC
+## Typography Scale
+- **Headings:** Bold, clean sans-serif. 
+  - H1: 32px
+  - H2: 24px
+  - H3: 20px
+- **Body:**
+  - Body Large: 18px
+  - Body Regular: 16px
+  - Body Small: 14px (Secondary info)
+  - Caption: 12px
 
-## Accent Usage
-- Use primary for CTAs, active navigation, and selected states.
-- Use semantic colors for status chips, alerts, and payment states.
-- Use neutrals for text hierarchy, dividers, and empty states.
+## Component Guidelines
+- **Buttons:**
+  - Primary: Gold background, Deep Background text, slight border radius (8px or 12px).
+  - Secondary: Transparent background, Gold border, Gold text.
+  - Ghost: Transparent, Text Primary.
+- **Cards:**
+  - Background: Card Surface (`#1E1C18`).
+  - Border: 1px solid Subtle Border.
+  - Border Radius: 16px.
+  - Padding: 16px inside.
+- **Inputs:**
+  - Background: Surface (`#14120F`).
+  - Border: Subtle Border (focus changes to Gold).
+  - Text: Primary Text.
 
-## Tokens to Expose
-- Background: `bg.primary`, `bg.secondary`, `bg.tertiary`
-- Text: `text.primary`, `text.secondary`, `text.disabled`
-- Border: `border.default`, `border.focus`
-- Status: `status.success`, `status.warning`, `status.danger`, `status.info`
-
-## Implementation Notes
-- Keep theme values in a single source of truth, not hardcoded in components.
-- Use these tokens for all customer and driver surfaces; the admin dashboard is separate.
-- Ensure WCAG contrast is met for primary text and interactive controls.
+## Implementation via NativeWind
+- Expose these colors in `tailwind.config.js`.
+- Use classes like `bg-bgDeep`, `text-goldPrimary`, `border-white/10`.
+- Maintain strict WCAG contrast ratios, particularly for Gold text on Dark backgrounds.
