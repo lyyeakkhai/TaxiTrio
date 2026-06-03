@@ -1,16 +1,20 @@
 import { View, type ViewProps } from 'react-native';
-
-import { ThemeColor } from '@/constants/theme';
+import { Colors, GlassStyle, ThemeColor } from '@/constants/theme';
 import { useTheme } from '@/hooks/use-theme';
 
 export type ThemedViewProps = ViewProps & {
-  lightColor?: string;
-  darkColor?: string;
+  /** Maps to a key of Colors.dark for background. */
   type?: ThemeColor;
+  /** Applies a glass surface style. Overrides `type`. */
+  glass?: 'light' | 'heavy' | 'card';
 };
 
-export function ThemedView({ style, lightColor, darkColor, type, ...otherProps }: ThemedViewProps) {
+export function ThemedView({ style, type, glass, ...otherProps }: ThemedViewProps) {
   const theme = useTheme();
 
-  return <View style={[{ backgroundColor: theme[type ?? 'background'] }, style]} {...otherProps} />;
+  const bgStyle = glass
+    ? GlassStyle[glass]
+    : { backgroundColor: theme[type ?? 'background'] };
+
+  return <View style={[bgStyle, style]} {...otherProps} />;
 }

@@ -1,9 +1,118 @@
+/* ════════════════════════════════════════════════════════════════
+   TaxiTrio — Liquid Gold Glass  (web CSS variables)
+════════════════════════════════════════════════════════════════ */
 :root {
-  --font-display:
-    Spline Sans, Inter, ui-sans-serif, system-ui, sans-serif, Apple Color Emoji, Segoe UI Emoji,
-    Segoe UI Symbol, Noto Color Emoji;
-  --font-mono:
-    ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, Liberation Mono, Courier New, monospace;
-  --font-rounded: 'SF Pro Rounded', 'Hiragino Maru Gothic ProN', Meiryo, 'MS PGothic', sans-serif;
-  --font-serif: Georgia, 'Times New Roman', serif;
+  /* ── Fonts ─────────────────────────────────────────────────── */
+  --font-display: 'Playfair Display', Georgia, 'Times New Roman', serif;
+  --font-body:    'Outfit', Inter, ui-sans-serif, system-ui, sans-serif,
+                  'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol',
+                  'Noto Color Emoji';
+  --font-mono:    ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas,
+                  'Liberation Mono', 'Courier New', monospace;
+  --font-rounded: 'Outfit', 'SF Pro Rounded', 'Hiragino Maru Gothic ProN',
+                  Meiryo, 'MS PGothic', sans-serif;
+  --font-serif:   'Playfair Display', Georgia, 'Times New Roman', serif;
+
+  /* ── Surfaces ──────────────────────────────────────────────── */
+  --color-background:               #141311;
+  --color-background-dim:           #0f0e0c;
+  --color-surface:                  #1d1b19;
+  --color-surface-container:        #211f1d;
+  --color-surface-container-high:   #2b2a27;
+  --color-surface-container-highest:#363432;
+
+  /* ── Text ──────────────────────────────────────────────────── */
+  --color-text:           #e7e2dd;
+  --color-text-secondary: #A39E93;
+  --color-text-muted:     #99907c;
+  --color-text-on-gold:   #0B0A08;
+
+  /* ── Gold ──────────────────────────────────────────────────── */
+  --color-gold:           #f2ca50;
+  --color-gold-metallic:  #D4AF37;
+  --color-gold-muted:     #8A7323;
+  --color-gold-bright:    #F9D976;
+  --color-gold-dark:      #B8860B;
+  --gold-gradient:        linear-gradient(135deg, #F9D976 0%, #E9B649 50%, #B8860B 100%);
+  --gold-border:          rgba(212, 175, 55, 0.18);
+  --gold-border-strong:   rgba(212, 175, 55, 0.38);
+  --gold-glow:            rgba(212, 175, 55, 0.25);
+
+  /* ── Glass ─────────────────────────────────────────────────── */
+  --glass-light-bg:  rgba(30, 28, 24, 0.45);
+  --glass-heavy-bg:  rgba(11, 10, 8, 0.72);
+  --glass-blur:      blur(16px) saturate(120%);
+  --glass-blur-heavy:blur(24px) saturate(150%);
+
+  /* ── Utility ───────────────────────────────────────────────── */
+  --color-success: #2E8B57;
+  --color-warning: #FF8C00;
+  --color-error:   #8B0000;
+  --color-outline: #99907c;
+
+  /* ── Radius ────────────────────────────────────────────────── */
+  --radius-sm:   0.5rem;
+  --radius-md:   1rem;
+  --radius-lg:   1.5rem;
+  --radius-xl:   2rem;
+  --radius-full: 9999px;
+}
+
+/* ── Base ───────────────────────────────────────────────────── */
+body {
+  background-color: var(--color-background);
+  color: var(--color-text);
+  font-family: var(--font-body);
+}
+
+/* ── Gold gradient text ─────────────────────────────────────── */
+.text-gold {
+  background: var(--gold-gradient);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* ── Glass card ─────────────────────────────────────────────── */
+.glass-card {
+  background: var(--glass-light-bg);
+  backdrop-filter: var(--glass-blur);
+  -webkit-backdrop-filter: var(--glass-blur);
+  border: 1px solid var(--gold-border);
+  border-radius: var(--radius-lg);
+}
+
+/* ── Gold button ────────────────────────────────────────────── */
+.btn-gold {
+  background: var(--gold-gradient);
+  color: var(--color-text-on-gold);
+  border: none;
+  border-radius: var(--radius-full);
+  font-family: var(--font-body);
+  font-weight: 700;
+  cursor: pointer;
+  transition: transform 0.3s cubic-bezier(0.4,0,0.2,1),
+              box-shadow 0.3s cubic-bezier(0.4,0,0.2,1);
+}
+.btn-gold:hover {
+  transform: scale(1.02) translateY(-1px);
+  box-shadow: 0 0 28px rgba(212,175,55,0.5), 0 8px 24px rgba(0,0,0,0.3);
+}
+
+/* ── Glass button ───────────────────────────────────────────── */
+.btn-glass {
+  background: var(--glass-light-bg);
+  backdrop-filter: var(--glass-blur);
+  -webkit-backdrop-filter: var(--glass-blur);
+  color: var(--color-gold);
+  border: 1px solid rgba(212,175,55,0.3);
+  border-radius: var(--radius-full);
+  font-family: var(--font-body);
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.3s ease, border-color 0.3s ease;
+}
+.btn-glass:hover {
+  background: rgba(212,175,55,0.1);
+  border-color: rgba(212,175,55,0.55);
 }
