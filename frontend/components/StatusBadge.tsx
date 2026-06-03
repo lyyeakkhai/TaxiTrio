@@ -1,0 +1,1 @@
+export function StatusBadge({ status }: { status: string }) { return <span className="px-2 py-1 bg-primary text-primary-foreground text-xs rounded-full">{status}</span>; }
