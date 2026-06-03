@@ -2,9 +2,20 @@
 @tailwind components;
 @tailwind utilities;
 
+@layer base {
+  :root {
+    --bg-deep: #0B0A08;
+    --bg-surface: #14120F;
+    --bg-card: #1E1C18;
+    --gold-primary: #D4AF37;
+    --gold-muted: #8A7323;
+    --text-primary: #F7F5F0;
+    --text-secondary: #A39E93;
+  }
+}
+
 @layer utilities {
   .gold-gradient {
-    background-color: #F9D976;
-    /* NativeWind doesn't support complex CSS gradients perfectly yet, but we'll use solid colors or expo-linear-gradient in components */
+    background-color: var(--gold-primary);
   }
 }

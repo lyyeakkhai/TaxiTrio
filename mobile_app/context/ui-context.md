@@ -1,46 +1,34 @@
 # UI Context
 
 ## Theme Model
-- Light theme defaults.
-- Dark theme inverts surface and text roles while keeping the same token names.
-- Theme preference is stored locally and respected in safe areas and system bars.
+- The app uses a single unified **Dark Gold** luxury theme.
+- Focuses on deep dark backgrounds (`#0B0A08`) paired with vibrant Gold (`#D4AF37`) accents for a premium feel.
+- Glassmorphism effects (translucent surfaces with light borders) are heavily utilized to provide depth.
 
 ## Core Palette
 - Brand
-  - Primary: #0EA5E9
-  - Primary hover: #0284C7
-  - Primary soft: #E0F2FE
+  - Primary (Gold): `#D4AF37`
+  - Primary Muted: `#8A7323`
+- Neutrals / Backgrounds
+  - Deep Background: `#0B0A08`
+  - Surface: `#14120F`
+  - Card Surface: `#1E1C18`
+  - Border (Subtle): `rgba(255, 255, 255, 0.1)`
+- Typography
+  - Text Primary: `#F7F5F0`
+  - Text Secondary: `#A39E93`
 - Semantic
-  - Success: #16A34A
-  - Warning: #D97706
-  - Danger: #DC2626
-  - Info: #2563EB
-- Neutrals
-  - Background: #F8FAFC
-  - Surface: #FFFFFF
-  - Border: #E2E8F0
-  - Muted text: #64748B
-  - Body text: #0F172A
+  - Success: `#16A34A`
+  - Warning: `#D97706`
+  - Danger: `#DC2626`
+  - Info: `#2563EB`
 
-## Dark Theme Mapping
-- Background: #0B1220
-- Surface: #111827
-- Border: #1F2937
-- Muted text: #94A3B8
-- Body text: #F8FAFC
-
-## Accent Usage
-- Use primary for CTAs, active navigation, and selected states.
-- Use semantic colors for status chips, alerts, and payment states.
-- Use neutrals for text hierarchy, dividers, and empty states.
-
-## Tokens to Expose
-- Background: `bg.primary`, `bg.secondary`, `bg.tertiary`
-- Text: `text.primary`, `text.secondary`, `text.disabled`
-- Border: `border.default`, `border.focus`
-- Status: `status.success`, `status.warning`, `status.danger`, `status.info`
+## Tokens to Expose (CSS Variables / Tailwind)
+- Background: `--bg-deep`, `--bg-surface`, `--bg-card`
+- Text: `--text-primary`, `--text-secondary`
+- Brand: `--gold-primary`, `--gold-muted`
 
 ## Implementation Notes
-- Keep theme values in a single source of truth, not hardcoded in components.
-- Use these tokens for all customer and driver surfaces; the admin dashboard is separate.
-- Ensure WCAG contrast is met for primary text and interactive controls.
+- Theme values are configured in `tailwind.config.js` and `global.css`.
+- Use the configured Tailwind classes (`bg-bgDeep`, `text-goldPrimary`, etc.) instead of hardcoding hex values in components where possible.
+- Ensure WCAG contrast is met for primary text on dark backgrounds.
