@@ -9,6 +9,7 @@ import { Button } from "@/components/ui/button";
 import { ArrowLeft, AlertCircle, Calendar, Clock, Users, FileText, CreditCard } from "lucide-react";
 import { Link } from "@/i18n/routing";
 import { toast } from "sonner";
+import { ReviewForm } from "@/features/reviews/components/ReviewForm";
 
 export default function BookingDetailPage() {
   const params = useParams();
@@ -117,6 +118,10 @@ export default function BookingDetailPage() {
             <h2 className="text-xl font-display font-semibold mb-8">Status Timeline</h2>
             <BookingStatusTimeline booking={booking} />
           </div>
+
+          {booking.status === "completed" && (
+            <ReviewForm bookingId={booking.id} />
+          )}
         </div>
 
         <div className="md:col-span-1 space-y-6">
