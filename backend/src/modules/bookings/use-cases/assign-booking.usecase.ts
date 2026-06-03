@@ -34,8 +34,17 @@ export class AssignBookingUseCase {
 
     await this.prisma.notification.create({
       data: {
-        user_id: driver.user_id,
+        user_id: booking.customer_id,
         type: 'driver_assigned',
+        message: 'A driver has been assigned to your booking',
+        is_read: false,
+      },
+    })
+
+    await this.prisma.notification.create({
+      data: {
+        user_id: driver.user_id,
+        type: 'new_booking_assigned',
         message: 'You have a new booking assignment',
         is_read: false,
       },

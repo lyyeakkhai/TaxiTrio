@@ -1,1 +1,1 @@
-export { default } from './complaint.routes'
+export { default, complaintCustomerRouter } from './complaint.routes'

@@ -17,6 +17,17 @@ export class CompleteBookingUseCase {
     if (!booking) throw Object.assign(new Error('Booking not found'), { statusCode: 404 })
     if (booking.driver_id !== driver.id) throw Object.assign(new Error('Forbidden'), { statusCode: 403 })
 
-    return await this.transition.execute(bookingId, 'completed', userId)
+    const updated = await this.transition.execute(bookingId, 'completed', userId)
+
+    await this.prisma.notification.create({
+      data: {
+        user_id: booking.customer_id,
+        type: 'trip_completed',
+        message: 'Your trip has been completed',
+        is_read: false,
+      },
+    })
+
+    return updated
   }
 }
