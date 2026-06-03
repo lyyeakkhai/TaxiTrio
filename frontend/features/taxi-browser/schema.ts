@@ -1,6 +1,7 @@
 import { z } from "zod";
 
 export const TaxiDriverSchema = z.object({
+  id: z.string().uuid(),
   name: z.string(),
   rating: z.number(),
   languages: z.array(z.string()),
@@ -10,6 +11,7 @@ export const TaxiDriverSchema = z.object({
 
 export const TaxiSchema = z.object({
   id: z.string().uuid(),
+  driver_id: z.string().nullable().optional(),
   model: z.string(),
   plate_number: z.string(),
   type: z.enum(["Sedan", "SUV", "Van", "Minibus"]),
@@ -18,6 +20,7 @@ export const TaxiSchema = z.object({
   comfort_category: z.enum(["Standard", "Premium", "VIP"]),
   photo: z.string().url(),
   is_active: z.boolean(),
+  created_at: z.string().optional(),
   driver: TaxiDriverSchema,
 });
 
