@@ -185,38 +185,38 @@ Complete phases in order — each phase depends on the previous.
 
 ### 5.1 Customer Reviews (`features/reviews/`)
 
-- [ ] `features/reviews/schema.ts` — `CreateReviewSchema`: `booking_id` (uuid), `rating` (1–5 int), `message` (string, optional)
-- [ ] `features/reviews/actions.ts` — `createReview(data)` calling `POST /api/reviews`
-- [ ] `features/reviews/components/ReviewForm.tsx` — star rating selector (1–5), message textarea, submit; only shown when booking status is `completed` and no review exists yet
-- [ ] `app/(customer)/bookings/[id]/page.tsx` — append `ReviewForm` below booking detail when eligible
+- [x] `features/reviews/schema.ts` — `CreateReviewSchema`: `booking_id` (uuid), `rating` (1–5 int), `message` (string, optional)
+- [x] `features/reviews/actions.ts` — `createReview(data)` calling `POST /api/reviews`
+- [x] `features/reviews/components/ReviewForm.tsx` — star rating selector (1–5), message textarea, submit; only shown when booking status is `completed` and no review exists yet
+- [x] `app/(customer)/bookings/[id]/page.tsx` — append `ReviewForm` below booking detail when eligible
 
 ### 5.2 Complaints (`features/complaints/`)
 
-- [ ] `features/complaints/types.ts` — `Complaint` type (id, booking_id, category, description, status, admin_reply, created_at)
-- [ ] `features/complaints/schema.ts` — `CreateComplaintSchema`: `booking_id`, `category` enum (driver_behavior | vehicle_condition | pricing | service_quality | other), `description`
-- [ ] `features/complaints/actions.ts` — `createComplaint(data)` calling `POST /api/complaints`
-- [ ] `features/complaints/hooks.ts` — `useMyComplaints()` calling `GET /api/complaints/my`
-- [ ] `features/complaints/components/ComplaintForm.tsx` — category select, description textarea, submit
-- [ ] `features/complaints/components/ComplaintCard.tsx` — category, status badge, description, admin reply (if present)
-- [ ] `app/(customer)/complaints/page.tsx` — complaint list + "New Complaint" button → opens `ComplaintForm` in a dialog
-- [ ] `app/(customer)/complaints/new/page.tsx` — standalone `ComplaintForm` page (linked from booking detail)
+- [x] `features/complaints/types.ts` — `Complaint` type (id, booking_id, category, description, status, admin_reply, created_at)
+- [x] `features/complaints/schema.ts` — `CreateComplaintSchema`: `booking_id`, `category` enum (driver_behavior | vehicle_condition | pricing | service_quality | other), `description`
+- [x] `features/complaints/actions.ts` — `createComplaint(data)` calling `POST /api/complaints`
+- [x] `features/complaints/hooks.ts` — `useMyComplaints()` calling `GET /api/complaints/my`
+- [x] `features/complaints/components/ComplaintForm.tsx` — category select, description textarea, submit
+- [x] `features/complaints/components/ComplaintCard.tsx` — category, status badge, description, admin reply (if present)
+- [x] `app/(customer)/complaints/page.tsx` — complaint list + "New Complaint" button → opens `ComplaintForm` in a dialog
+- [x] `app/(customer)/complaints/new/page.tsx` — standalone `ComplaintForm` page (linked from booking detail)
 
 ### 5.3 Notifications (`features/notifications/`)
 
-- [ ] `features/notifications/types.ts` — `Notification` type (id, type, message, is_read, created_at)
-- [ ] `features/notifications/hooks.ts` — `useNotifications()` calling `GET /api/notifications`; `useMarkRead()` and `useMarkAllRead()` mutations
-- [ ] `features/notifications/components/NotificationList.tsx` — list of notifications; unread items highlighted; "Mark all read" button
-- [ ] `features/notifications/components/NotificationBell.tsx` — bell icon with unread count badge; used in layout nav
-- [ ] Update `app/(customer)/layout.tsx` — add `NotificationBell` to nav header
-- [ ] `app/(customer)/notifications/page.tsx` — full `NotificationList`
+- [x] `features/notifications/types.ts` — `Notification` type (id, type, message, is_read, created_at)
+- [x] `features/notifications/hooks.ts` — `useNotifications()` calling `GET /api/notifications`; `useMarkRead()` and `useMarkAllRead()` mutations
+- [x] `features/notifications/components/NotificationList.tsx` — list of notifications; unread items highlighted; "Mark all read" button
+- [x] `features/notifications/components/NotificationBell.tsx` — bell icon with unread count badge; used in layout nav
+- [x] Update `app/(customer)/layout.tsx` — add `NotificationBell` to nav header
+- [x] `app/(customer)/notifications/page.tsx` — full `NotificationList`
 
 ### 5.4 Tourist Assistance (`features/tourist-assistance/`)
 
-- [ ] `features/tourist-assistance/types.ts` — `AssistanceItem` type (id, category, title, content, is_active)
-- [ ] `features/tourist-assistance/hooks.ts` — `useAssistance()` calling `GET /api/assistance`
-- [ ] `features/tourist-assistance/components/AssistanceSection.tsx` — grouped by category (Emergency Support, Language Support, Route Assistance, Support Contact); each item as an accordion card
-- [ ] `features/tourist-assistance/components/WhatsAppButton.tsx` — renders a WhatsApp deep-link button with pre-filled message; accepts `message` prop; opens `https://wa.me/<number>?text=<encoded>`
-- [ ] `app/(customer)/assistance/page.tsx` — `AssistanceSection` + prominent `WhatsAppButton` for general support
+- [x] `features/tourist-assistance/types.ts` — `AssistanceItem` type (id, category, title, content, is_active)
+- [x] `features/tourist-assistance/hooks.ts` — `useAssistance()` calling `GET /api/assistance`
+- [x] `features/tourist-assistance/components/AssistanceSection.tsx` — grouped by category (Emergency Support, Language Support, Route Assistance, Support Contact); each item as an accordion card
+- [x] `features/tourist-assistance/components/WhatsAppButton.tsx` — renders a WhatsApp deep-link button with pre-filled message; accepts `message` prop; opens `https://wa.me/<number>?text=<encoded>`
+- [x] `app/(customer)/assistance/page.tsx` — `AssistanceSection` + prominent `WhatsAppButton` for general support
 
 ---
 
