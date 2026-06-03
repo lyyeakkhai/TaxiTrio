@@ -1,34 +1,55 @@
 # UI Context
 
 ## Theme Model
-- The app uses a single unified **Dark Gold** luxury theme.
-- Focuses on deep dark backgrounds (`#0B0A08`) paired with vibrant Gold (`#D4AF37`) accents for a premium feel.
-- Glassmorphism effects (translucent surfaces with light borders) are heavily utilized to provide depth.
+TaxiTrio uses a premium **Dark Gold** luxury theme to instill trust, professionalism, and exclusivity. 
+- **Style:** Deep dark backgrounds paired with vibrant Gold accents. 
+- **Effects:** Glassmorphism (translucent surfaces with blur and subtle light borders) provides depth and modern appeal.
 
 ## Core Palette
-- Brand
-  - Primary (Gold): `#D4AF37`
-  - Primary Muted: `#8A7323`
-- Neutrals / Backgrounds
-  - Deep Background: `#0B0A08`
-  - Surface: `#14120F`
-  - Card Surface: `#1E1C18`
-  - Border (Subtle): `rgba(255, 255, 255, 0.1)`
-- Typography
-  - Text Primary: `#F7F5F0`
-  - Text Secondary: `#A39E93`
-- Semantic
-  - Success: `#16A34A`
-  - Warning: `#D97706`
-  - Danger: `#DC2626`
-  - Info: `#2563EB`
+- **Brand Colors:**
+  - Primary (Gold): `#D4AF37` (Used for primary buttons, active icons, highlights)
+  - Primary Muted: `#8A7323` (Used for disabled states, secondary borders)
+- **Backgrounds (Neutrals):**
+  - Deep Background: `#0B0A08` (App background)
+  - Surface: `#14120F` (Bottom sheets, modals)
+  - Card Surface: `#1E1C18` (Cards, list items)
+  - Subtle Border: `rgba(255, 255, 255, 0.1)` (Dividers, card outlines)
+- **Typography:**
+  - Text Primary: `#F7F5F0` (Headings, primary body text)
+  - Text Secondary: `#A39E93` (Subtitles, placeholders, captions)
+- **Semantic Colors:**
+  - Success: `#16A34A` (Completed bookings, online status)
+  - Warning: `#D97706` (Pending, alerts)
+  - Danger: `#DC2626` (Errors, cancellations, offline status)
+  - Info: `#2563EB` (Informational banners)
 
-## Tokens to Expose (CSS Variables / Tailwind)
-- Background: `--bg-deep`, `--bg-surface`, `--bg-card`
-- Text: `--text-primary`, `--text-secondary`
-- Brand: `--gold-primary`, `--gold-muted`
+## Typography Scale
+- **Headings:** Bold, clean sans-serif. 
+  - H1: 32px
+  - H2: 24px
+  - H3: 20px
+- **Body:**
+  - Body Large: 18px
+  - Body Regular: 16px
+  - Body Small: 14px (Secondary info)
+  - Caption: 12px
 
-## Implementation Notes
-- Theme values are configured in `tailwind.config.js` and `global.css`.
-- Use the configured Tailwind classes (`bg-bgDeep`, `text-goldPrimary`, etc.) instead of hardcoding hex values in components where possible.
-- Ensure WCAG contrast is met for primary text on dark backgrounds.
+## Component Guidelines
+- **Buttons:**
+  - Primary: Gold background, Deep Background text, slight border radius (8px or 12px).
+  - Secondary: Transparent background, Gold border, Gold text.
+  - Ghost: Transparent, Text Primary.
+- **Cards:**
+  - Background: Card Surface (`#1E1C18`).
+  - Border: 1px solid Subtle Border.
+  - Border Radius: 16px.
+  - Padding: 16px inside.
+- **Inputs:**
+  - Background: Surface (`#14120F`).
+  - Border: Subtle Border (focus changes to Gold).
+  - Text: Primary Text.
+
+## Implementation via NativeWind
+- Expose these colors in `tailwind.config.js`.
+- Use classes like `bg-bgDeep`, `text-goldPrimary`, `border-white/10`.
+- Maintain strict WCAG contrast ratios, particularly for Gold text on Dark backgrounds.
