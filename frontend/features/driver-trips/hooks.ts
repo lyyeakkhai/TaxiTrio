@@ -1,5 +1,6 @@
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import { api } from "@/lib/api";
+import { API_ENDPOINTS } from "@/lib/api-endpoints";
 import { Booking, BookingDetail } from "./types";
 import { toast } from "sonner";
 
@@ -7,7 +8,7 @@ export function useDriverBookings() {
   return useQuery<Booking[]>({
     queryKey: ["driverBookings"],
     queryFn: async () => {
-      const response = await api.get("/api/driver/bookings");
+      const response = await api.get(API_ENDPOINTS.DRIVER.BOOKINGS.LIST);
       return response.data;
     },
   });
@@ -17,7 +18,7 @@ export function useDriverBooking(id: string) {
   return useQuery<BookingDetail>({
     queryKey: ["driverBookings", id],
     queryFn: async () => {
-      const response = await api.get(`/api/driver/bookings/${id}`);
+      const response = await api.get(API_ENDPOINTS.DRIVER.BOOKINGS.DETAIL(id));
       return response.data;
     },
     enabled: !!id,
@@ -28,7 +29,7 @@ function useBookingMutation(action: string, successMessage: string) {
   const queryClient = useQueryClient();
   return useMutation({
     mutationFn: async (id: string) => {
-      const response = await api.put(`/api/driver/bookings/${id}/${action}`);
+      const response = await api.put(API_ENDPOINTS.DRIVER.BOOKINGS.ACTION(id, action));
       return response.data;
     },
     onSuccess: (_, id) => {
