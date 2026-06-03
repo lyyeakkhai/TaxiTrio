@@ -1,0 +1,25 @@
+# Progress Tracker
+
+- Phase 1: Foundation — Not Started
+  - [ ] Expo app scaffolded with TypeScript
+  - [ ] File structure implemented
+  - [ ] Auth module with Clerk wired
+  - [ ] i18n setup with all 6 locales
+  - [ ] Light/dark theme configured
+- Phase 2: Core Customer Experience — Not Started
+  - [ ] Browse screens for taxis, routes, tours
+  - [ ] Booking flow completed
+  - [ ] Booking tracking live
+- Phase 3: Payments & Support — Not Started
+  - [ ] Payment selection and tracking
+  - [ ] Payment proof upload flow
+  - [ ] Reviews and complaints implemented
+  - [ ] Tourist assistance and WhatsApp integration done
+- Phase 4: Driver Experience — Not Started
+  - [ ] Driver dashboard implemented
+  - [ ] Trip status workflow completed
+  - [ ] Earnings screen delivered
+- Phase 5: Polish & Release — Not Started
+  - [ ] Offline support and notifications implemented
+  - [ ] Accessibility and QA completed
+  - [ ] Performance, build, and app store submission finished
