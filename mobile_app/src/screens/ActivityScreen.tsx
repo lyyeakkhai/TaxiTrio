@@ -18,7 +18,7 @@ export function ActivityScreen() {
 
       <View className={`p-1.5 rounded-full ${GLASS_STYLES.input} flex-row items-center justify-between relative`}>
          <View 
-           className={`absolute top-1.5 bottom-1.5 w-[32%] bg-[#D4AF37] rounded-full transition-all`} 
+           className={`absolute top-1.5 bottom-1.5 w-[32%] bg-[#D4AF37] rounded-full`} 
            style={{
              left: activeTab === 'upcoming' ? '1.5%' : activeTab === 'completed' ? '34%' : '66.5%',
            }}

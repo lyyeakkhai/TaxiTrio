@@ -45,7 +45,7 @@ function NavButton({ icon: Icon, label, active, onClick }: { icon: any, label: s
       className="items-center justify-center gap-1 w-16"
       activeOpacity={0.7}
     >
-      <View className="transition-all duration-300">
+      <View>
         <Icon 
           size={24} 
           strokeWidth={active ? 2.5 : 2}
