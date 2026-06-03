@@ -1,6 +1,8 @@
 import type { Metadata } from "next";
 import { Playfair_Display, Outfit } from "next/font/google";
 import { ClerkProvider } from "@clerk/nextjs";
+import { getMessages } from 'next-intl/server';
+import { Providers } from '../providers';
 import "./globals.css";
 
 const playfair = Playfair_Display({
@@ -36,30 +38,40 @@ export const metadata: Metadata = {
   },
 };
 
-export default function RootLayout({
+
+export default async function RootLayout({
   children,
-}: Readonly<{ children: React.ReactNode }>) {
+  params,
+}: {
+  children: React.ReactNode;
+  params: Promise<{ locale: string }>;
+}) {
+  const { locale } = await params;
+  const messages = await getMessages();
+
   return (
-    <html lang="en" className={`${playfair.variable} ${outfit.variable} scroll-smooth`}>
+    <html lang={locale} className={`${playfair.variable} ${outfit.variable} scroll-smooth`}>
       <body className="min-h-screen antialiased">
         <ClerkProvider
           signInUrl="/sign-in"
           signUpUrl="/sign-up"
           appearance={{
             variables: {
-              colorPrimary: "#D4AF37",
-              colorBackground: "#1D1B19",
-              colorForeground: "#E7E2DD",
-              colorMutedForeground: "#A39E93",
-              colorInputForeground: "#E7E2DD",
-              colorNeutral: "#99907C",
-              borderRadius: "0.875rem",
-              fontFamily: "Outfit, system-ui, sans-serif",
+              colorPrimary: "#e11d48",
+              colorBackground: "#09090b",
+              colorForeground: "#fafafa",
+              colorMutedForeground: "#a1a1aa",
+              colorInputForeground: "#fafafa",
+              colorNeutral: "#27272a",
+              borderRadius: "0.75rem",
+              fontFamily: "Work Sans, system-ui, sans-serif",
               fontSize: "0.9375rem",
             },
           }}
         >
-          {children}
+          <Providers locale={locale} messages={messages}>
+            {children}
+          </Providers>
         </ClerkProvider>
       </body>
     </html>
