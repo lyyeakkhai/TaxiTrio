@@ -1,0 +1,3 @@
+# Mission
+
+TaxiTrio is a smart tourist transportation and tour booking platform for international travelers in Cambodia. The mobile app lets customers browse verified taxis, intercity route packages, and tour packages; create and track bookings; choose from multiple payment methods; and access tourist assistance like emergency contacts and travel tips. Drivers use the app to go online/offline, accept assigned bookings, update trip status, and track earnings. The platform solves HCI pain points — hidden fees, scam drivers, booking uncertainty, and language barriers — through upfront pricing, verified drivers, transparent status tracking, and WhatsApp support.
