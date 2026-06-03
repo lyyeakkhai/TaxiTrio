@@ -1,106 +1,40 @@
 import { useAuth, useUser, useClerk, useUserProfileModal } from '@clerk/expo'
-import { AuthView, UserButton } from '@clerk/expo/native'
-import { Text, View, StyleSheet, Image, TouchableOpacity, ActivityIndicator } from 'react-native'
+import { View, ActivityIndicator, Text } from 'react-native'
+import { AuthScreen } from '../components/AuthScreen'
+import { useAppSelector } from '../store/hooks'
+import { BottomNav } from '../components/BottomNav'
+import { HomeScreen } from '../screens/HomeScreen'
+import { BookingScreen } from '../screens/BookingScreen'
+import { ActivityScreen } from '../screens/ActivityScreen'
+import { ConciergeScreen } from '../screens/ConciergeScreen'
+import { ProfileScreen } from '../screens/ProfileScreen'
 
 export default function MainScreen() {
   const { isSignedIn, isLoaded } = useAuth({ treatPendingAsSignedOut: false })
-  const { user } = useUser()
-  const { signOut } = useClerk()
-  const { presentUserProfile } = useUserProfileModal()
+  const currentScreen = useAppSelector((state) => state.app.currentScreen);
 
   if (!isLoaded) {
     return (
-      <View style={styles.centered}>
-        <ActivityIndicator size="large" />
+      <View className="flex-1 justify-center items-center bg-[#0B0A08]">
+        <ActivityIndicator size="large" color="#D4AF37" />
       </View>
     )
   }
 
   if (!isSignedIn) {
-    return <AuthView mode="signInOrUp" />
+    return <AuthScreen />;
   }
 
   return (
-    <View style={styles.container}>
-      <View style={styles.header}>
-        <Text style={styles.title}>Welcome</Text>
-        <View style={{ width: 44, height: 44, borderRadius: 22, overflow: 'hidden' }}>
-          <UserButton />
-        </View>
-      </View>
-      <View style={styles.profileCard}>
-        {user?.imageUrl && <Image source={{ uri: user.imageUrl }} style={styles.avatar} />}
-        <View>
-          <Text>Hello {user?.id}</Text>
-        </View>
-      </View>
-      <TouchableOpacity style={styles.linkButton} onPress={presentUserProfile}>
-        <Text style={styles.linkButtonText}>Manage Profile</Text>
-      </TouchableOpacity>
-      <TouchableOpacity
-        style={[styles.linkButton, { backgroundColor: '#666' }]}
-        onPress={() => signOut()}
-      >
-        <Text style={styles.linkButtonText}>Sign Out</Text>
-      </TouchableOpacity>
+    <View className="flex-1 bg-[#0B0A08] relative">
+      {currentScreen === 'home' && <HomeScreen />}
+      {currentScreen === 'booking' && <BookingScreen />}
+      {currentScreen === 'activity' && <ActivityScreen />}
+      {currentScreen === 'concierge' && <ConciergeScreen />}
+      {currentScreen === 'profile' && <ProfileScreen />}
+
+      {currentScreen !== 'booking' && <BottomNav />}
     </View>
   )
 }
 
-const styles = StyleSheet.create({
-  centered: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: '#fff',
-    padding: 40,
-  },
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    padding: 20,
-    paddingTop: 60,
-    gap: 16,
-  },
-  header: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'space-between',
-  },
-  title: {
-    fontSize: 28,
-    fontWeight: 'bold',
-  },
-  profileCard: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    padding: 16,
-    backgroundColor: '#f5f5f5',
-    borderRadius: 12,
-    gap: 12,
-  },
-  avatar: {
-    width: 48,
-    height: 48,
-    borderRadius: 24,
-  },
-  name: {
-    fontSize: 18,
-    fontWeight: '600',
-  },
-  email: {
-    fontSize: 14,
-    color: '#666',
-  },
-  linkButton: {
-    backgroundColor: '#007AFF',
-    padding: 16,
-    borderRadius: 12,
-    alignItems: 'center',
-  },
-  linkButtonText: {
-    color: '#fff',
-    fontSize: 16,
-    fontWeight: '600',
-  },
-})
