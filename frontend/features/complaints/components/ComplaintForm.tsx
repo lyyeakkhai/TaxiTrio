@@ -27,12 +27,12 @@ export function ComplaintForm() {
     try {
       await createComplaint({
         booking_id: bookingId,
-        category: category as any,
+        category: category as "driver_behavior" | "vehicle_condition" | "pricing" | "service_quality" | "other",
         description,
       });
       toast.success("Complaint submitted successfully");
       router.push("/customer/complaints");
-    } catch (error) {
+    } catch {
       toast.error("Failed to submit complaint.");
     }
   };

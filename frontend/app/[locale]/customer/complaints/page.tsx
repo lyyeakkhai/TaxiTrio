@@ -30,7 +30,7 @@ export default function ComplaintsPage() {
         <div className="glass-card py-16 text-center">
           <MessageSquareWarning className="h-12 w-12 text-muted-foreground mx-auto mb-4" />
           <h2 className="text-xl font-semibold mb-2">No Complaints Found</h2>
-          <p className="text-muted-foreground">You haven't submitted any complaints yet.</p>
+          <p className="text-muted-foreground">You haven&apos;t submitted any complaints yet.</p>
         </div>
       ) : (
         <div className="grid gap-4">

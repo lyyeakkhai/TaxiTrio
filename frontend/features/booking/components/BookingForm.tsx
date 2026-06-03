@@ -7,7 +7,7 @@ import { CreateBookingSchema, type CreateBookingInput } from "../types";
 import { useCreateBooking } from "../hooks";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
+
 import { Textarea } from "@/components/ui/textarea";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
@@ -23,7 +23,8 @@ export function BookingForm() {
   const id = searchParams.get("id");
 
   const form = useForm<CreateBookingInput>({
-    resolver: zodResolver(CreateBookingSchema),
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    resolver: zodResolver(CreateBookingSchema) as any,
     defaultValues: {
       booking_type: type,
       taxi_id: type === "taxi" ? id || undefined : undefined,
@@ -43,7 +44,7 @@ export function BookingForm() {
       toast.success("Booking created successfully!");
       // Redirect to payment page
       router.push(`/customer/payments/${booking.id}`);
-    } catch (error) {
+    } catch {
       toast.error("Failed to create booking. Please try again.");
     }
   };

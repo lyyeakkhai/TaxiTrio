@@ -16,7 +16,7 @@ export default function AssistancePage() {
       <div className="bg-accent-primary/10 border border-accent-primary/20 rounded-2xl p-6 mb-8 flex items-start gap-4">
         <LifeBuoy className="h-8 w-8 text-accent-primary shrink-0" />
         <div>
-          <h3 className="font-semibold text-accent-primary mb-1">We're here to help!</h3>
+          <h3 className="font-semibold text-accent-primary mb-1">We&apos;re here to help!</h3>
           <p className="text-sm text-muted-foreground">
             Whether you need help with translations, finding the best route, or handling an emergency, our support team and guides are available 24/7.
           </p>

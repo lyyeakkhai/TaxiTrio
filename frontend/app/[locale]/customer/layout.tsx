@@ -2,9 +2,13 @@ import { ReactNode } from "react";
 import { Link } from "@/i18n/routing";
 import { LayoutDashboard, Car, Map, Compass, CalendarCheck, MessageSquareWarning, Bell, HelpCircle } from "lucide-react";
 import { NotificationBell } from "@/features/notifications/components/NotificationBell";
+import { ThemeToggle } from "@/components/ThemeToggle";
+import { LocaleSwitcher } from "@/components/LocaleSwitcher";
 import { UserButton } from "@clerk/nextjs";
+import { useTranslations } from "next-intl";
 
 export default function CustomerLayout({ children }: { children: ReactNode }) {
+  const t = useTranslations("Navigation");
   return (
     <div className="min-h-screen flex flex-col md:flex-row bg-background">
       <aside className="w-full md:w-64 bg-surface-dim border-r border-border md:h-screen md:sticky md:top-0 p-4 overflow-y-auto hidden md:block">
@@ -13,28 +17,28 @@ export default function CustomerLayout({ children }: { children: ReactNode }) {
         </div>
         <nav className="space-y-1">
           <Link href="/customer/dashboard" className="flex items-center px-4 py-2.5 text-sm font-medium rounded-xl hover:bg-white/5 transition-colors">
-            <LayoutDashboard className="mr-3 h-5 w-5 text-muted-foreground" /> Dashboard
+            <LayoutDashboard className="mr-3 h-5 w-5 text-muted-foreground" /> {t("dashboard")}
           </Link>
           <Link href="/customer/taxis" className="flex items-center px-4 py-2.5 text-sm font-medium rounded-xl hover:bg-white/5 transition-colors">
-            <Car className="mr-3 h-5 w-5 text-muted-foreground" /> Taxis
+            <Car className="mr-3 h-5 w-5 text-muted-foreground" /> {t("taxis")}
           </Link>
           <Link href="/customer/routes" className="flex items-center px-4 py-2.5 text-sm font-medium rounded-xl hover:bg-white/5 transition-colors">
-            <Map className="mr-3 h-5 w-5 text-muted-foreground" /> Route Packages
+            <Map className="mr-3 h-5 w-5 text-muted-foreground" /> {t("routes")}
           </Link>
           <Link href="/customer/tours" className="flex items-center px-4 py-2.5 text-sm font-medium rounded-xl hover:bg-white/5 transition-colors">
-            <Compass className="mr-3 h-5 w-5 text-muted-foreground" /> Tour Packages
+            <Compass className="mr-3 h-5 w-5 text-muted-foreground" /> {t("tours")}
           </Link>
           <Link href="/customer/bookings" className="flex items-center px-4 py-2.5 text-sm font-medium rounded-xl hover:bg-white/5 transition-colors">
-            <CalendarCheck className="mr-3 h-5 w-5 text-muted-foreground" /> My Bookings
+            <CalendarCheck className="mr-3 h-5 w-5 text-muted-foreground" /> {t("bookings")}
           </Link>
           <Link href="/customer/complaints" className="flex items-center px-4 py-2.5 text-sm font-medium rounded-xl hover:bg-white/5 transition-colors">
-            <MessageSquareWarning className="mr-3 h-5 w-5 text-muted-foreground" /> Complaints
+            <MessageSquareWarning className="mr-3 h-5 w-5 text-muted-foreground" /> {t("complaints")}
           </Link>
           <Link href="/customer/notifications" className="flex items-center px-4 py-2.5 text-sm font-medium rounded-xl hover:bg-white/5 transition-colors">
-            <Bell className="mr-3 h-5 w-5 text-muted-foreground" /> Notifications
+            <Bell className="mr-3 h-5 w-5 text-muted-foreground" /> {t("notifications")}
           </Link>
           <Link href="/customer/assistance" className="flex items-center px-4 py-2.5 text-sm font-medium rounded-xl hover:bg-white/5 transition-colors">
-            <HelpCircle className="mr-3 h-5 w-5 text-muted-foreground" /> Assistance
+            <HelpCircle className="mr-3 h-5 w-5 text-muted-foreground" /> {t("assistance")}
           </Link>
         </nav>
       </aside>
@@ -47,8 +51,10 @@ export default function CustomerLayout({ children }: { children: ReactNode }) {
           <div className="hidden md:block" />
           
           <div className="flex items-center gap-4">
+            <LocaleSwitcher />
+            <ThemeToggle />
             <NotificationBell />
-            <UserButton afterSignOutUrl="/" />
+            <UserButton />
           </div>
         </header>
         <main className="flex-1 p-4 md:p-6 lg:p-8">
