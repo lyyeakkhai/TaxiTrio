@@ -1,6 +1,7 @@
 import { useQuery } from "@tanstack/react-query";
 import { api } from "@/lib/api";
-import { TaxisResponseSchema, type Taxi } from "./schema";
+import { TaxisResponseSchema } from "./schema";
+import { type Taxi } from "./types";
 
 export function useTaxis() {
   return useQuery<Taxi[]>({

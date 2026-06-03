@@ -14,7 +14,7 @@ export default clerkMiddleware(async (auth, req) => {
     if (!authObj.userId) {
       return authObj.redirectToSignIn({ returnBackUrl: req.url });
     }
-    // @ts-ignore
+    // @ts-expect-error clerk types
     const role = authObj.sessionClaims?.metadata?.role || authObj.sessionClaims?.publicMetadata?.role;
     if (role !== 'customer') {
       return Response.redirect(new URL('/', req.url));
@@ -25,7 +25,7 @@ export default clerkMiddleware(async (auth, req) => {
     if (!authObj.userId) {
       return authObj.redirectToSignIn({ returnBackUrl: req.url });
     }
-    // @ts-ignore
+    // @ts-expect-error clerk types
     const role = authObj.sessionClaims?.metadata?.role || authObj.sessionClaims?.publicMetadata?.role;
     if (role !== 'driver') {
       return Response.redirect(new URL('/', req.url));

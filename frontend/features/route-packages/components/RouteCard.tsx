@@ -1,5 +1,6 @@
 import { RoutePackage } from "../types";
 import { Clock, Car } from "lucide-react";
+/* eslint-disable @next/next/no-img-element */
 import { Link } from "@/i18n/routing";
 
 interface RouteCardProps {

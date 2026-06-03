@@ -29,8 +29,9 @@ export function ReviewForm({ bookingId }: ReviewFormProps) {
       await createReview({ booking_id: bookingId, rating, message: message || undefined });
       toast.success("Review submitted successfully!");
       setSubmitted(true);
-    } catch (error: any) {
-      if (error?.response?.status === 400 && error?.response?.data?.message?.includes("already")) {
+    } catch (error: unknown) {
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      if ((error as any)?.response?.status === 400 && (error as any)?.response?.data?.message?.includes("already")) {
          setSubmitted(true);
          toast.info("You have already reviewed this trip.");
       } else {

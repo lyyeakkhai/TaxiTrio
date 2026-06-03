@@ -1,1 +1,13 @@
-{"Index": {"title": "TaxiTrio"}}
+{
+  "Index": { "title": "TaxiTrio" },
+  "Navigation": {
+    "dashboard": "Dashboard",
+    "taxis": "Taxis",
+    "routes": "Route Packages",
+    "tours": "Tour Packages",
+    "bookings": "My Bookings",
+    "complaints": "Complaints",
+    "notifications": "Notifications",
+    "assistance": "Assistance"
+  }
+}

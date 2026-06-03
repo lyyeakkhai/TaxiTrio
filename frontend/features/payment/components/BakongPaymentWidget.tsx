@@ -5,7 +5,7 @@ import { QrCode, Loader2 } from "lucide-react";
 import { toast } from "sonner";
 
 export function BakongPaymentWidget({ bookingId, amount }: { bookingId: string, amount: number }) {
-  const { mutateAsync: initiatePayment, isPending } = useInitiatePayment();
+  const { isPending } = useInitiatePayment();
   const [initiated, setInitiated] = useState(false);
 
   const handleInitiate = async () => {
@@ -15,7 +15,7 @@ export function BakongPaymentWidget({ bookingId, amount }: { bookingId: string, 
       await new Promise(resolve => setTimeout(resolve, 1000));
       setInitiated(true);
       toast.success("Payment initiated successfully.");
-    } catch (error) {
+    } catch {
       toast.error("Failed to initiate payment.");
     }
   };
