@@ -1,0 +1,1 @@
+export default function DriverDashboard() { return <div className="p-8"><h1 className="text-2xl font-bold">Driver Dashboard</h1></div>; }
