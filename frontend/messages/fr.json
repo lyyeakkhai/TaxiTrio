@@ -1,1 +1,13 @@
-{"Index": {"title": "TaxiTrio"}}
+{
+  "Index": { "title": "TaxiTrio" },
+  "Navigation": {
+    "dashboard": "Tableau de bord",
+    "taxis": "Taxis",
+    "routes": "Forfaits Itinéraires",
+    "tours": "Forfaits Touristiques",
+    "bookings": "Mes Réservations",
+    "complaints": "Plaintes",
+    "notifications": "Notifications",
+    "assistance": "Assistance"
+  }
+}

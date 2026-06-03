@@ -1,6 +1,9 @@
 import { ReactNode } from "react";
 import { Link } from "@/i18n/routing";
 import { Car, LayoutDashboard, Wallet, Star, MessageSquare } from "lucide-react";
+import { ThemeToggle } from "@/components/ThemeToggle";
+import { LocaleSwitcher } from "@/components/LocaleSwitcher";
+import { UserButton } from "@clerk/nextjs";
 
 export default function DriverLayout({ children }: { children: ReactNode }) {
   return (
@@ -27,9 +30,23 @@ export default function DriverLayout({ children }: { children: ReactNode }) {
           </Link>
         </nav>
       </aside>
-      <main className="flex-1 w-full max-w-full min-w-0">
-        {children}
-      </main>
+      <div className="flex-1 flex flex-col min-w-0 md:h-screen overflow-y-auto">
+        <header className="sticky top-0 z-10 bg-background/80 backdrop-blur-lg border-b border-border h-16 flex items-center justify-between px-6">
+          <div className="md:hidden">
+            <h2 className="font-display font-bold text-lg">Driver Portal</h2>
+          </div>
+          <div className="hidden md:block" />
+          
+          <div className="flex items-center gap-4">
+            <LocaleSwitcher />
+            <ThemeToggle />
+            <UserButton />
+          </div>
+        </header>
+        <main className="flex-1 p-4 md:p-6 lg:p-8">
+          {children}
+        </main>
+      </div>
     </div>
   );
 }

@@ -1,7 +1,8 @@
+/* eslint-disable @next/next/no-img-element */
 import { Taxi } from "../types";
 import { User, Star, Globe, ShieldCheck } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
-import Link from "next/link";
+import { Link } from "@/i18n/routing";
 
 interface TaxiCardProps {
   taxi: Taxi;

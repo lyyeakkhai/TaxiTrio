@@ -1,18 +1,18 @@
 "use client";
 
-import { useMe } from "@/features/auth/hooks";
+import { useUser } from "@clerk/nextjs";
 import { Skeleton } from "@/components/ui/skeleton";
 import { Car, Map, Palmtree, ArrowRight } from "lucide-react";
 import { Link } from "@/i18n/routing";
 
 export default function CustomerDashboard() {
-  const { data: user, isLoading } = useMe();
+  const { user, isLoaded } = useUser();
 
   return (
     <div className="container max-w-7xl mx-auto py-10 px-4 sm:px-6">
       <div className="mb-8">
         <h1 className="font-display text-3xl font-bold tracking-tight mb-2">
-          {isLoading ? <Skeleton className="h-9 w-64" /> : `Welcome back, ${user?.name || "Traveler"}`}
+          {!isLoaded ? <Skeleton className="h-9 w-64" /> : `Welcome back, ${user?.firstName || "Traveler"}`}
         </h1>
         <p className="text-muted-foreground">What would you like to book today?</p>
       </div>
