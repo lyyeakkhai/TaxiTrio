@@ -1,5 +1,6 @@
 import { useAuth, useUser, useClerk, useUserProfileModal } from '@clerk/expo'
 import { View, ActivityIndicator, Text } from 'react-native'
+import { AuthScreen } from '../components/AuthScreen'
 import { useAppSelector } from '../store/hooks'
 import { BottomNav } from '../components/BottomNav'
 import { HomeScreen } from '../screens/HomeScreen'
@@ -21,11 +22,7 @@ export default function MainScreen() {
   }
 
   if (!isSignedIn) {
-    return (
-      <View className="flex-1 justify-center items-center bg-[#0B0A08]">
-        <Text className="text-white text-lg">Please Sign In (AuthView removed for web compat)</Text>
-      </View>
-    );
+    return <AuthScreen />;
   }
 
   return (
