@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>TaxiTrio - Explore Cambodia</title>
+  <style>
+    body {
+      background: #141311;
+      color: #e7e2dd;
+      font-family: "Outfit", system-ui, sans-serif;
+      margin: 0;
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
+    .section-label {
+      color: #D4AF37;
+      font-size: 0.875rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      font-weight: 600;
+    }
+    .text-gold-gradient {
+      background: linear-gradient(135deg, #F9D976, #E9B649);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    .btn-gold {
+      background: linear-gradient(135deg, #E9B649, #B8860B);
+      color: #0B0A08;
+      border: none;
+      border-radius: 8px;
+      font-weight: 600;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      text-decoration: none;
+    }
+    .btn-glass {
+      background: rgba(255,255,255,0.05);
+      border: 1px solid rgba(255,255,255,0.1);
+      color: #F7F5F0;
+      border-radius: 8px;
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .payment-badge {
+      background: rgba(255,255,255,0.05);
+      border: 1px solid rgba(255,255,255,0.1);
+      padding: 4px 12px;
+      border-radius: 12px;
+      font-size: 0.875rem;
+    }
+    .glass-card {
+      background: rgba(255,255,255,0.03);
+      border: 1px solid rgba(212,175,55,0.15);
+      border-radius: 16px;
+      padding: 1.5rem;
+    }
+    .route-card {
+      background: rgba(0,0,0,0.4);
+      border: 1px solid rgba(212,175,55,0.1);
+      border-radius: 16px;
+      padding: 1.5rem;
+      position: relative;
+      overflow: hidden;
+    }
+    .testimonial-card {
+      background: rgba(255,255,255,0.02);
+      border: 1px solid rgba(255,255,255,0.05);
+      border-radius: 16px;
+      padding: 2rem;
+    }
+    .gold-divider {
+      width: 60px;
+      height: 2px;
+      background: #D4AF37;
+      margin: 0 auto;
+    }
+    a {
+      color: #A39E93;
+      text-decoration: none;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAVBAR -->
+  <nav aria-label="Main navigation" style="position: fixed; top: 14px; left: 14px; right: 14px; z-index: 100; background: rgba(11,10,8,0.72); backdrop-filter: blur(24px) saturate(150%); border-radius: 1.25rem; border: 1px solid rgba(212,175,55,0.12); box-shadow: 0 4px 24px rgba(0,0,0,0.4), inset 0 1px 0 rgba(255,255,255,0.04); padding: 0 1.5rem; height: 62px; display: flex; align-items: center; justify-content: space-between;">
+    <a href="#" style="display: flex; align-items: center; gap: 0.625rem; text-decoration: none;">
+      <div style="width: 36px; height: 36px; border-radius: 10px; background: linear-gradient(135deg, #F9D976 0%, #E9B649 50%, #B8860B 100%); display: flex; align-items: center; justify-content: center; flex-shrink: 0;">
+        <svg viewBox="0 0 24 24" fill="#0B0A08" width="19.8" height="19.8"><path d="M18.92 6.01C18.72 5.42 18.16 5 17.5 5h-11c-.66 0-1.21.42-1.42 1.01L3 12v8c0 .55.45 1 1 1h1c.55 0 1-.45 1-1v-1h12v1c0 .55.45 1 1 1h1c.55 0 1-.45 1-1v-8l-2.08-5.99zM6.5 16c-.83 0-1.5-.67-1.5-1.5S5.67 13 6.5 13 8 13.67 8 14.5 7.33 16 6.5 16zm11 0c-.83 0-1.5-.67-1.5-1.5s.67-1.5 1.5-1.5 1.5.67 1.5 1.5-.67 1.5-1.5 1.5zM5 11l1.5-4.5h11L19 11H5z"/></svg>
+      </div>
+      <span style="font-family: 'Playfair Display', Georgia, serif; font-size: 1.375rem; font-weight: 700; color: #F7F5F0; letter-spacing: -0.01em;">TaxiTrio</span>
+    </a>
+    <div style="display: flex; gap: 2rem; align-items: center;">
+      <a href="#features" style="color: #A39E93; text-decoration: none;">Features</a>
+      <a href="#routes" style="color: #A39E93; text-decoration: none;">Routes</a>
+      <a href="#how-it-works" style="color: #A39E93; text-decoration: none;">How it Works</a>
+      <a href="#testimonials" style="color: #A39E93; text-decoration: none;">Reviews</a>
+    </div>
+    <div style="display: flex; align-items: center; gap: 0.75rem;">
+      <button style="background: transparent; border: 1px solid rgba(212,175,55,0.3); border-radius: 9999px; padding: 0.4375rem 1.125rem; color: #D4AF37; font-size: 0.875rem; font-weight: 500; cursor: pointer;">Sign In</button>
+      <a href="taxitrio_booking_stitch.html" class="btn-gold" style="padding: 0.4375rem 1.25rem; font-size: 0.875rem; text-decoration: none;">Book Now</a>
+    </div>
+  </nav>
+
+  <!-- HERO SECTION -->
+  <section id="hero" style="position: relative; min-height: 100vh; display: flex; align-items: center; overflow: hidden; padding: 120px 24px 80px; background: url('hero-bg.png') center/cover no-repeat;">
+    <!-- Dark gradient overlay to make text readable -->
+    <div style="position: absolute; inset: 0; z-index: 1; background: linear-gradient(to right, rgba(11,10,8,0.92) 0%, rgba(11,10,8,0.75) 55%, rgba(11,10,8,0.3) 100%);"></div>
+    
+    <div style="position: relative; z-index: 2; width: 100%; max-width: 1200px; margin: 0 auto;">
+      <div style="max-width: 660px;">
+        <div class="section-label" style="margin-bottom: 1.5rem;">
+          Verified Drivers · 6 Languages · Real-Time Tracking
+        </div>
+
+        <h1 style="font-family: 'Playfair Display', Georgia, serif; font-size: 4rem; font-weight: 600; line-height: 1.1; margin-bottom: 1.5rem; color: #F7F5F0;">
+          Explore Cambodia<br />
+          <span class="text-gold-gradient">Without the Scams.</span>
+        </h1>
+
+        <p style="font-size: 1.125rem; color: rgba(231,226,221,0.75); line-height: 1.65; margin-bottom: 2.5rem; max-width: 520px;">
+          Book verified taxis, intercity routes, and guided tours across Cambodia. Transparent pricing, real-time tracking, and local payment methods.
+        </p>
+
+        <div style="display: flex; gap: 1rem; margin-bottom: 3rem;">
+          <a href="taxitrio_booking_stitch.html" class="btn-gold" style="padding: 1rem 2.25rem;">Book a Ride</a>
+          <a href="#how-it-works" class="btn-glass" style="padding: 1rem 2.25rem;">How it Works</a>
+        </div>
+
+        <div style="display: flex; gap: 2.5rem;">
+          <div>
+            <div class="text-gold-gradient" style="font-family: 'Playfair Display', Georgia, serif; font-size: 2rem; font-weight: 700;">12,000+</div>
+            <div style="font-size: 0.8rem; color: rgba(231,226,221,0.5);">Trips completed</div>
+          </div>
+          <div>
+            <div class="text-gold-gradient" style="font-family: 'Playfair Display', Georgia, serif; font-size: 2rem; font-weight: 700;">4.9★</div>
+            <div style="font-size: 0.8rem; color: rgba(231,226,221,0.5);">Average rating</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FEATURES -->
+  <section id="features" style="padding: 100px 24px; max-width: 1200px; margin: 0 auto;">
+    <div style="text-align: center; margin-bottom: 64px;">
+      <div class="section-label">Why TaxiTrio</div>
+      <div class="gold-divider" style="margin: 1.25rem auto;"></div>
+      <h2 style="font-family: 'Playfair Display', Georgia, serif; font-size: 3rem; color: #F7F5F0;">Travel smarter, safer, without surprises</h2>
+    </div>
+
+    <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.25rem;">
+      <div class="glass-card">
+        <h3 style="color: #F7F5F0; font-size: 1.25rem;">Verified Drivers</h3>
+        <p style="color: #A39E93;">Every driver is background-checked, licensed, and rated by past travelers.</p>
+      </div>
+      <div class="glass-card">
+        <h3 style="color: #F7F5F0; font-size: 1.25rem;">Intercity Routes</h3>
+        <p style="color: #A39E93;">Phnom Penh ↔ Siem Reap, Sihanoukville & more — fixed transparent fares.</p>
+      </div>
+      <div class="glass-card">
+        <h3 style="color: #F7F5F0; font-size: 1.25rem;">Local Payments</h3>
+        <p style="color: #A39E93;">Pay with Cash, ABA Pay, KHQR, Wing Pay, or card.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ROUTES -->
+  <section id="routes" style="padding: 100px 24px; background: rgba(15,14,12,0.6);">
+    <div style="max-width: 1200px; margin: 0 auto;">
+      <div style="text-align: center; margin-bottom: 64px;">
+        <div class="section-label">Popular Routes</div>
+        <div class="gold-divider" style="margin: 1.25rem auto;"></div>
+        <h2 style="font-family: 'Playfair Display', Georgia, serif; font-size: 3rem; color: #F7F5F0;">Fixed prices, no haggling</h2>
+      </div>
+
+      <div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 1.25rem;">
+        <div class="route-card">
+          <div style="color: #F7F5F0; font-size: 1.5rem; font-family: 'Playfair Display', serif;">Phnom Penh <br/>→ Siem Reap</div>
+          <div class="text-gold-gradient" style="font-size: 1.625rem; font-weight: 700; margin-top: 1rem;">from $25</div>
+        </div>
+        <div class="route-card">
+          <div style="color: #F7F5F0; font-size: 1.5rem; font-family: 'Playfair Display', serif;">Phnom Penh <br/>→ Sihanoukville</div>
+          <div class="text-gold-gradient" style="font-size: 1.625rem; font-weight: 700; margin-top: 1rem;">from $20</div>
+        </div>
+        <div class="route-card">
+          <div style="color: #F7F5F0; font-size: 1.5rem; font-family: 'Playfair Display', serif;">Siem Reap <br/>→ Kampot</div>
+          <div class="text-gold-gradient" style="font-size: 1.625rem; font-weight: 700; margin-top: 1rem;">from $22</div>
+        </div>
+        <div class="route-card">
+          <div style="color: #F7F5F0; font-size: 1.5rem; font-family: 'Playfair Display', serif;">Phnom Penh <br/>→ Kampot</div>
+          <div class="text-gold-gradient" style="font-size: 1.625rem; font-weight: 700; margin-top: 1rem;">from $18</div>
+        </div>
+      </div>
+    </div>
+  </section>
+  
+  <!-- FOOTER -->
+  <footer style="background: #0f0e0c; border-top: 1px solid rgba(212,175,55,0.1); padding: 3.5rem 24px 2rem;">
+    <div style="max-width: 1200px; margin: 0 auto;">
+      <div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 2.5rem; margin-bottom: 3rem;">
+        <div>
+          <div style="display: flex; align-items: center; gap: 0.625rem; margin-bottom: 1rem;">
+            <div style="width: 30px; height: 30px; border-radius: 8px; background: linear-gradient(135deg, #F9D976 0%, #E9B649 50%, #B8860B 100%); display: flex; align-items: center; justify-content: center; flex-shrink: 0;">
+              <svg viewBox="0 0 24 24" fill="#0B0A08" width="16.5" height="16.5"><path d="M18.92 6.01C18.72 5.42 18.16 5 17.5 5h-11c-.66 0-1.21.42-1.42 1.01L3 12v8c0 .55.45 1 1 1h1c.55 0 1-.45 1-1v-1h12v1c0 .55.45 1 1 1h1c.55 0 1-.45 1-1v-8l-2.08-5.99zM6.5 16c-.83 0-1.5-.67-1.5-1.5S5.67 13 6.5 13 8 13.67 8 14.5 7.33 16 6.5 16zm11 0c-.83 0-1.5-.67-1.5-1.5s.67-1.5 1.5-1.5 1.5.67 1.5 1.5-.67 1.5-1.5 1.5zM5 11l1.5-4.5h11L19 11H5z"/></svg>
+            </div>
+            <span style="font-family: 'Playfair Display', serif; font-size: 1.125rem; font-weight: 700; color: #F7F5F0;">TaxiTrio</span>
+          </div>
+          <p style="font-size: 0.875rem; color: #A39E93; line-height: 1.65; max-width: 200px;">Smart tourist transportation and tour booking for Cambodia.</p>
+        </div>
+        <div>
+          <h4 style="color: #D4AF37; font-weight: 600; margin-bottom: 1rem; font-size: 0.75rem; letter-spacing: 0.08em; text-transform: uppercase;">Services</h4>
+          <ul style="list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 0.5rem;">
+            <li><a href="#" style="font-size: 0.9rem;">City Taxi</a></li>
+            <li><a href="#" style="font-size: 0.9rem;">Intercity Routes</a></li>
+            <li><a href="#" style="font-size: 0.9rem;">Tour Packages</a></li>
+            <li><a href="#" style="font-size: 0.9rem;">Airport Transfers</a></li>
+          </ul>
+        </div>
+        <div>
+          <h4 style="color: #D4AF37; font-weight: 600; margin-bottom: 1rem; font-size: 0.75rem; letter-spacing: 0.08em; text-transform: uppercase;">Support</h4>
+          <ul style="list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 0.5rem;">
+            <li><a href="#" style="font-size: 0.9rem;">Help Center</a></li>
+            <li><a href="#" style="font-size: 0.9rem;">Contact Us</a></li>
+            <li><a href="#" style="font-size: 0.9rem;">Safety Info</a></li>
+            <li><a href="#" style="font-size: 0.9rem;">Tourist Police</a></li>
+          </ul>
+        </div>
+        <div>
+          <h4 style="color: #D4AF37; font-weight: 600; margin-bottom: 1rem; font-size: 0.75rem; letter-spacing: 0.08em; text-transform: uppercase;">Languages</h4>
+          <div style="display: flex; flex-wrap: wrap; gap: 0.5rem;">
+            <span style="background: rgba(212,175,55,0.08); border: 1px solid rgba(212,175,55,0.15); border-radius: 6px; padding: 0.25rem 0.625rem; font-size: 0.8rem; color: #D0C5AF;">🇺🇸 EN</span>
+            <span style="background: rgba(212,175,55,0.08); border: 1px solid rgba(212,175,55,0.15); border-radius: 6px; padding: 0.25rem 0.625rem; font-size: 0.8rem; color: #D0C5AF;">🇰🇭 KH</span>
+            <span style="background: rgba(212,175,55,0.08); border: 1px solid rgba(212,175,55,0.15); border-radius: 6px; padding: 0.25rem 0.625rem; font-size: 0.8rem; color: #D0C5AF;">🇨🇳 ZH</span>
+          </div>
+        </div>
+      </div>
+      <div style="border-top: 1px solid rgba(212,175,55,0.1); padding-top: 1.5rem; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem;">
+        <span style="font-size: 0.8125rem; color: #A39E93;">© 2026 TaxiTrio. Built for Cambodia's travelers.</span>
+        <div style="display: flex; gap: 1.5rem;">
+          <a href="#" style="font-size: 0.8125rem;">Privacy</a>
+          <a href="#" style="font-size: 0.8125rem;">Terms</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+</body>
+</html>

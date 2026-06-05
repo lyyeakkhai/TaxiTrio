@@ -27,6 +27,7 @@ export const API_ENDPOINTS = {
   COMPLAINTS: {
     MY: "/api/complaints/my",
     CREATE: "/api/complaints",
+    DETAIL: (id: string) => `/api/complaints/${id}`,
   },
   NOTIFICATIONS: {
     LIST: "/api/notifications",

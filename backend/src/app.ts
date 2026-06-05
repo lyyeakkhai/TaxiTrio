@@ -26,7 +26,7 @@ import webhookRouter from './modules/webhooks'
 const app = express()
 
 app.use(helmet())
-app.use(cors({ origin: env.FRONTEND_URL }))
+app.use(cors({ origin: [env.FRONTEND_URL, 'http://localhost:3001', 'http://localhost:3002'] }))
 app.use(rateLimit({ windowMs: 15 * 60 * 1000, max: 100 }))
 app.use(express.json())
 app.use(pinoHttp({ logger }))

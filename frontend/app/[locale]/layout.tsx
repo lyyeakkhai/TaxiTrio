@@ -50,7 +50,7 @@ export default async function RootLayout({
   const messages = await getMessages();
 
   return (
-    <html lang={locale} className={`${playfair.variable} ${outfit.variable} scroll-smooth`}>
+    <html lang={locale} className={`${playfair.variable} ${outfit.variable} scroll-smooth`} suppressHydrationWarning>
       <body className="min-h-screen antialiased">
         <ClerkProvider
           signInUrl="/sign-in"

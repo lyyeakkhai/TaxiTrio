@@ -28,6 +28,6 @@ export class UserController {
   }
 
   async getOne(req: Request, res: Response): Promise<void> {
-    res.json(await this.getUser.execute(req.params.id))
+    res.json(await this.getUser.execute(req.params.id as string))
   }
 }

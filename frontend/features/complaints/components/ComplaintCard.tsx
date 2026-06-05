@@ -1,5 +1,6 @@
 import { Complaint } from "../types";
-import { MessageSquare, AlertTriangle, ShieldCheck } from "lucide-react";
+import { MessageSquare, AlertTriangle, ShieldCheck, ChevronRight } from "lucide-react";
+import { Link } from "@/i18n/routing";
 
 export function ComplaintCard({ complaint }: { complaint: Complaint }) {
   const statusColors = {
@@ -15,7 +16,8 @@ export function ComplaintCard({ complaint }: { complaint: Complaint }) {
   };
 
   return (
-    <div className="glass-card p-6">
+    <Link href={`/customer/complaints/${complaint.id}`} className="block group">
+    <div className="glass-card p-6 transition-all group-hover:border-primary/40">
       <div className="flex justify-between items-start mb-4">
         <div>
           <span className="text-sm text-muted-foreground uppercase tracking-wider font-semibold">
@@ -38,9 +40,11 @@ export function ComplaintCard({ complaint }: { complaint: Complaint }) {
           <p className="text-sm">{complaint.admin_reply}</p>
         </div>
       )}
-      <div className="text-xs text-muted-foreground mt-4">
-        Submitted on {new Date(complaint.created_at).toLocaleDateString()}
+      <div className="text-xs text-muted-foreground mt-4 flex items-center justify-between">
+        <span>Submitted on {new Date(complaint.created_at).toLocaleDateString()}</span>
+        <ChevronRight className="h-4 w-4 text-muted-foreground group-hover:text-primary transition-colors" />
       </div>
     </div>
+    </Link>
   );
 }

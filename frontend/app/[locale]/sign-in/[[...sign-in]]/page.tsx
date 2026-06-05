@@ -1,3 +1,5 @@
+"use client";
+
 /* eslint-disable @next/next/no-html-link-for-pages */
 import { SignIn } from "@clerk/nextjs";
 

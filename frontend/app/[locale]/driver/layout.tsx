@@ -1,6 +1,6 @@
 import { ReactNode } from "react";
 import { Link } from "@/i18n/routing";
-import { Car, LayoutDashboard, Wallet, Star, MessageSquare } from "lucide-react";
+import { Car, LayoutDashboard, Wallet, Star, MessageSquare, UserCircle } from "lucide-react";
 import { ThemeToggle } from "@/components/ThemeToggle";
 import { LocaleSwitcher } from "@/components/LocaleSwitcher";
 import { UserButton } from "@clerk/nextjs";
@@ -27,6 +27,9 @@ export default function DriverLayout({ children }: { children: ReactNode }) {
           </Link>
           <Link href="/driver/telegram-link" className="flex items-center px-4 py-3 text-sm font-medium rounded-xl hover:bg-white/5 transition-colors">
             <MessageSquare className="mr-3 h-5 w-5" /> Telegram Link
+          </Link>
+          <Link href="/driver/profile" className="flex items-center px-4 py-3 text-sm font-medium rounded-xl hover:bg-white/5 transition-colors">
+            <UserCircle className="mr-3 h-5 w-5" /> My Profile
           </Link>
         </nav>
       </aside>

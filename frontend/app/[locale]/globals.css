@@ -7,45 +7,45 @@
 @custom-variant dark (&:is(.dark *));
 
 /* ═══════════════════════════════════════════════════════════════
-   VIBRANT DARK MODE — Design Tokens
+   PREMIUM DARK + GOLD — Design Tokens
 ═══════════════════════════════════════════════════════════════ */
 :root {
   /* ── Surfaces ─────────────────────────────────────────────── */
-  --background:               #09090b;
-  --on-background:            #fafafa;
-  --surface:                  #09090b;
-  --on-surface:               #fafafa;
-  --surface-dim:              #18181b;
+  --background:               #0B0A08;
+  --on-background:            #F7F5F0;
+  --surface:                  #0B0A08;
+  --on-surface:               #F7F5F0;
+  --surface-dim:              #141311;
   
-  /* ── Brand Colors (Vibrant Rose & Blue) ─────────────────────── */
-  --primary:                  #e11d48;
-  --primary-foreground:       #ffffff;
-  --secondary:                #2563eb;
-  --secondary-foreground:     #ffffff;
-  --accent:                   #fb7185;
-  --accent-foreground:        #09090b;
+  /* ── Brand Colors (Luxury Gold & Dark) ─────────────────────── */
+  --primary:                  #D4AF37;
+  --primary-foreground:       #0B0A08;
+  --secondary:                #2A2722;
+  --secondary-foreground:     #F7F5F0;
+  --accent:                   #E9B649;
+  --accent-foreground:        #0B0A08;
   --destructive:              #ef4444;
   --destructive-foreground:   #fafafa;
 
   /* ── shadcn compat ────────────────────────────────────────── */
-  --background-sc:            #09090b;
-  --foreground:               #fafafa;
-  --card:                     #18181b;
-  --card-foreground:          #fafafa;
-  --popover:                  #18181b;
-  --popover-foreground:       #fafafa;
-  --muted:                    #27272a;
-  --muted-foreground:         #a1a1aa;
-  --border:                   #27272a;
-  --input:                    #27272a;
-  --ring:                     #e11d48;
+  --background-sc:            #0B0A08;
+  --foreground:               #F7F5F0;
+  --card:                     #141311;
+  --card-foreground:          #F7F5F0;
+  --popover:                  #141311;
+  --popover-foreground:       #F7F5F0;
+  --muted:                    #2A2722;
+  --muted-foreground:         #A39E93;
+  --border:                   #2A2722;
+  --input:                    #2A2722;
+  --ring:                     #D4AF37;
   --radius:                   0.75rem;
 
   /* ── Glass ────────────────────────────────────────────────── */
-  --glass-light-bg:           rgba(24, 24, 27, 0.4);
-  --glass-heavy-bg:           rgba(9, 9, 11, 0.7);
-  --glass-border:             rgba(255, 255, 255, 0.1);
-  --glass-card-shadow:        0 8px 32px 0 rgba(0,0,0,0.4), inset 0 1px 0 0 rgba(255,255,255,0.05);
+  --glass-light-bg:           rgba(20, 19, 17, 0.6);
+  --glass-heavy-bg:           rgba(11, 10, 8, 0.8);
+  --glass-border:             rgba(212, 175, 55, 0.15);
+  --glass-card-shadow:        0 8px 32px 0 rgba(0,0,0,0.5), inset 0 1px 0 0 rgba(212,175,55,0.05);
 }
 
 @theme inline {
@@ -162,8 +162,8 @@ html { scroll-behavior: smooth; }
 }
 .btn-primary:hover {
   transform: translateY(-2px);
-  background: #f43f5e;
-  box-shadow: 0 8px 24px rgba(225, 29, 72, 0.4);
+  background: linear-gradient(135deg, #F9D976 0%, #E9B649 50%, #B8860B 100%);
+  box-shadow: 0 8px 24px rgba(212, 175, 55, 0.3);
 }
 .btn-primary:active { transform: scale(0.98); }
 

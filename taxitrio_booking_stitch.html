@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>TaxiTrio - Book Your Ride</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+    
+    body {
+      background: #141311;
+      color: #e7e2dd;
+      font-family: "Inter", system-ui, sans-serif;
+      margin: 0;
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
+    .text-gold-gradient {
+      background: linear-gradient(135deg, #F9D976, #E9B649);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    .btn-gold {
+      background: linear-gradient(135deg, #E9B649, #B8860B);
+      color: #0B0A08;
+      border: none;
+      border-radius: 8px;
+      font-weight: 600;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.5rem;
+      text-decoration: none;
+      transition: all 0.2s;
+    }
+    .btn-gold:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(212,175,55,0.3);
+    }
+    .glass-panel {
+      background: rgba(255,255,255,0.03);
+      border: 1px solid rgba(212,175,55,0.15);
+      border-radius: 16px;
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+    }
+    .input-field {
+      width: 100%;
+      background: rgba(0,0,0,0.5);
+      border: 1px solid rgba(255,255,255,0.1);
+      border-radius: 8px;
+      padding: 12px 16px;
+      color: #F7F5F0;
+      font-family: "Inter", sans-serif;
+      font-size: 1rem;
+      box-sizing: border-box;
+      outline: none;
+    }
+    .input-field:focus {
+      border-color: #D4AF37;
+    }
+    .car-option {
+      background: rgba(0,0,0,0.4);
+      border: 1px solid rgba(255,255,255,0.05);
+      border-radius: 12px;
+      padding: 16px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    .car-option:hover, .car-option.selected {
+      border-color: #D4AF37;
+      background: rgba(212,175,55,0.05);
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAVBAR -->
+  <nav aria-label="Main navigation" style="position: fixed; top: 14px; left: 14px; right: 14px; z-index: 100; background: rgba(11,10,8,0.72); backdrop-filter: blur(24px) saturate(150%); border-radius: 1.25rem; border: 1px solid rgba(212,175,55,0.12); box-shadow: 0 4px 24px rgba(0,0,0,0.4), inset 0 1px 0 rgba(255,255,255,0.04); padding: 0 1.5rem; height: 62px; display: flex; align-items: center; justify-content: space-between;">
+    <a href="taxitrio_stitch.html" style="display: flex; align-items: center; gap: 0.625rem; text-decoration: none;">
+      <div style="width: 36px; height: 36px; border-radius: 10px; background: linear-gradient(135deg, #F9D976 0%, #E9B649 50%, #B8860B 100%); display: flex; align-items: center; justify-content: center; flex-shrink: 0;">
+        <svg viewBox="0 0 24 24" fill="#0B0A08" width="19.8" height="19.8"><path d="M18.92 6.01C18.72 5.42 18.16 5 17.5 5h-11c-.66 0-1.21.42-1.42 1.01L3 12v8c0 .55.45 1 1 1h1c.55 0 1-.45 1-1v-1h12v1c0 .55.45 1 1 1h1c.55 0 1-.45 1-1v-8l-2.08-5.99zM6.5 16c-.83 0-1.5-.67-1.5-1.5S5.67 13 6.5 13 8 13.67 8 14.5 7.33 16 6.5 16zm11 0c-.83 0-1.5-.67-1.5-1.5s.67-1.5 1.5-1.5 1.5.67 1.5 1.5-.67 1.5-1.5 1.5zM5 11l1.5-4.5h11L19 11H5z"/></svg>
+      </div>
+      <span style="font-size: 1.375rem; font-weight: 700; color: #F7F5F0; letter-spacing: -0.01em;">TaxiTrio</span>
+    </a>
+    <div style="display: flex; align-items: center; gap: 0.75rem;">
+      <a href="taxitrio_stitch.html" style="background: transparent; border: 1px solid rgba(212,175,55,0.3); border-radius: 9999px; padding: 0.4375rem 1.125rem; color: #D4AF37; font-size: 0.875rem; font-weight: 500; cursor: pointer; text-decoration: none;">Cancel Booking</a>
+    </div>
+  </nav>
+
+  <!-- BOOKING LAYOUT -->
+  <main style="padding-top: 100px; padding-bottom: 40px; max-width: 1400px; margin: 0 auto; display: grid; grid-template-columns: 1fr 450px; gap: 2rem; height: calc(100vh - 140px); box-sizing: border-box; padding-left: 24px; padding-right: 24px;">
+    
+    <!-- LEFT SIDE: MAP -->
+    <div style="position: relative; border-radius: 1.5rem; overflow: hidden; background: #2A2A2A;">
+      <div style="position: absolute; inset: 0; background: url('https://images.unsplash.com/photo-1524661135-423995f22d0b?q=80&w=2000&auto=format&fit=crop') center/cover no-repeat; opacity: 0.4;"></div>
+      
+      <!-- Mock Map Route Line -->
+      <svg style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none;">
+        <path d="M 30% 40% L 45% 25% L 60% 35%" fill="none" stroke="#D4AF37" stroke-width="4" stroke-dasharray="8 8" />
+        <circle cx="30%" cy="40%" r="8" fill="#141311" stroke="#D4AF37" stroke-width="3" />
+        <circle cx="60%" cy="35%" r="8" fill="#D4AF37" />
+      </svg>
+      
+      <!-- Overlay gradient for depth -->
+      <div style="position: absolute; inset: 0; background: linear-gradient(to top, #141311 0%, transparent 30%);"></div>
+    </div>
+
+    <!-- RIGHT SIDE: BOOKING PANEL -->
+    <div class="glass-panel" style="display: flex; flex-direction: column; height: 100%; overflow-y: auto;">
+      <div style="padding: 24px; border-bottom: 1px solid rgba(255,255,255,0.05);">
+        <h1 style="font-size: 1.5rem; font-weight: 600; margin: 0 0 16px 0; color: #F7F5F0;">Book Your Ride</h1>
+        
+        <!-- Locations -->
+        <div style="position: relative; display: flex; flex-direction: column; gap: 12px;">
+          <!-- Connecting Line -->
+          <div style="position: absolute; left: 16px; top: 24px; bottom: 24px; width: 2px; background: rgba(255,255,255,0.1); z-index: 0;"></div>
+          
+          <div style="display: flex; align-items: center; gap: 12px; position: relative; z-index: 1;">
+            <div style="width: 10px; height: 10px; border-radius: 50%; background: #A39E93; flex-shrink: 0; margin-left: 12px;"></div>
+            <input type="text" class="input-field" placeholder="Pickup location (e.g. Phnom Penh Airport)">
+          </div>
+          <div style="display: flex; align-items: center; gap: 12px; position: relative; z-index: 1;">
+            <div style="width: 10px; height: 10px; background: #D4AF37; flex-shrink: 0; margin-left: 12px;"></div>
+            <input type="text" class="input-field" placeholder="Destination (e.g. Siem Reap City Center)">
+          </div>
+        </div>
+        
+        <!-- Date / Time -->
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-top: 16px;">
+          <input type="date" class="input-field">
+          <input type="time" class="input-field">
+        </div>
+      </div>
+
+      <!-- Car Selection -->
+      <div style="padding: 24px; flex-grow: 1;">
+        <h2 style="font-size: 1rem; color: #A39E93; margin: 0 0 16px 0; font-weight: 500;">Select Vehicle</h2>
+        <div style="display: flex; flex-direction: column; gap: 12px;">
+          
+          <div class="car-option">
+            <div style="display: flex; align-items: center; gap: 16px;">
+              <div style="font-size: 2rem;">🚕</div>
+              <div>
+                <div style="font-weight: 600; color: #F7F5F0;">Economy</div>
+                <div style="font-size: 0.875rem; color: #A39E93;">4 seats • Local Driver</div>
+              </div>
+            </div>
+            <div style="text-align: right;">
+              <div class="text-gold-gradient" style="font-weight: 700; font-size: 1.125rem;">$15.00</div>
+              <div style="font-size: 0.75rem; color: #A39E93;">~ 45 mins</div>
+            </div>
+          </div>
+
+          <div class="car-option selected">
+            <div style="display: flex; align-items: center; gap: 16px;">
+              <div style="font-size: 2rem;">🚘</div>
+              <div>
+                <div style="font-weight: 600; color: #F7F5F0;">Premium VIP</div>
+                <div style="font-size: 0.875rem; color: #A39E93;">4 seats • English Speaking</div>
+              </div>
+            </div>
+            <div style="text-align: right;">
+              <div class="text-gold-gradient" style="font-weight: 700; font-size: 1.125rem;">$25.00</div>
+              <div style="font-size: 0.75rem; color: #A39E93;">~ 45 mins</div>
+            </div>
+          </div>
+
+          <div class="car-option">
+            <div style="display: flex; align-items: center; gap: 16px;">
+              <div style="font-size: 2rem;">🚐</div>
+              <div>
+                <div style="font-weight: 600; color: #F7F5F0;">Minivan</div>
+                <div style="font-size: 0.875rem; color: #A39E93;">10 seats • Extra Luggage</div>
+              </div>
+            </div>
+            <div style="text-align: right;">
+              <div class="text-gold-gradient" style="font-weight: 700; font-size: 1.125rem;">$40.00</div>
+              <div style="font-size: 0.75rem; color: #A39E93;">~ 55 mins</div>
+            </div>
+          </div>
+          
+        </div>
+      </div>
+
+      <!-- Payment / CTA -->
+      <div style="padding: 24px; border-top: 1px solid rgba(255,255,255,0.05); background: rgba(0,0,0,0.2);">
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
+          <span style="color: #A39E93;">Payment Method</span>
+          <span style="color: #F7F5F0; font-weight: 500; display: flex; align-items: center; gap: 8px;">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="5" width="20" height="14" rx="2"/><line x1="2" y1="10" x2="22" y2="10"/></svg>
+            Card / KHQR
+          </span>
+        </div>
+        <a href="taxitrio_payment_profile_stitch.html" class="btn-gold" style="width: 100%; padding: 16px; font-size: 1.125rem; text-decoration: none; box-sizing: border-box;">
+          Confirm Booking • $25.00
+        </a>
+      </div>
+
+    </div>
+  </main>
+
+</body>
+</html>

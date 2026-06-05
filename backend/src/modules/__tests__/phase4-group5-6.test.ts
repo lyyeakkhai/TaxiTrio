@@ -118,7 +118,7 @@ describe('ResolveComplaintUseCase', () => {
 
 describe('CreateAssistanceUseCase', () => {
   it('creates record', async () => {
-    const dto = { category: 'emergency', title: 'Emergency', content: 'Call 911' }
+    const dto = { category: 'emergency' as const, title: 'Emergency', content: 'Call 911' }
     const created = { id: 'a-1', ...dto, is_active: true, created_at: new Date() }
     const mockPrisma = {
       touristAssistance: { create: vi.fn().mockResolvedValue(created) },

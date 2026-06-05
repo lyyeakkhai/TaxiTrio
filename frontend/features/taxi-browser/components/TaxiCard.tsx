@@ -10,7 +10,7 @@ interface TaxiCardProps {
 
 export function TaxiCard({ taxi }: TaxiCardProps) {
   return (
-    <Link href={`/bookings/new?type=taxi&id=${taxi.id}`} className="block group h-full cursor-pointer">
+    <Link href={`/customer/taxis/${taxi.id}`} className="block group h-full cursor-pointer">
       <div className="glass-card overflow-hidden h-full flex flex-col">
         <div className="relative h-48 w-full bg-muted">
           <img 

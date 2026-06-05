@@ -7,8 +7,8 @@
 ---
 
 **Project:** TaxiTrio
-**Generated:** 2026-06-03 15:27:52
-**Category:** Fitness/Gym App
+**Generated:** 2026-06-04 12:44:54
+**Category:** Cybersecurity Platform
 
 ---
 
@@ -18,24 +18,24 @@
 
 | Role | Hex | CSS Variable |
 |------|-----|--------------|
-| Primary | `#E11D48` | `--color-primary` |
-| Secondary | `#FB7185` | `--color-secondary` |
-| CTA/Accent | `#2563EB` | `--color-cta` |
-| Background | `#FFF1F2` | `--color-background` |
-| Text | `#881337` | `--color-text` |
+| Primary | `#1C1917` | `--color-primary` |
+| Secondary | `#44403C` | `--color-secondary` |
+| CTA/Accent | `#CA8A04` | `--color-cta` |
+| Background | `#FAFAF9` | `--color-background` |
+| Text | `#0C0A09` | `--color-text` |
 
-**Color Notes:** Vibrant rose + engagement blue
+**Color Notes:** Premium dark + gold accent
 
 ### Typography
 
-- **Heading Font:** Outfit
-- **Body Font:** Work Sans
-- **Mood:** geometric, modern, clean, balanced, contemporary, versatile
-- **Google Fonts:** [Outfit + Work Sans](https://fonts.google.com/share?selection.family=Outfit:wght@300;400;500;600;700|Work+Sans:wght@300;400;500;600;700)
+- **Heading Font:** Cormorant
+- **Body Font:** Montserrat
+- **Mood:** luxury, high-end, fashion, elegant, refined, premium
+- **Google Fonts:** [Cormorant + Montserrat](https://fonts.google.com/share?selection.family=Cormorant:wght@400;500;600;700|Montserrat:wght@300;400;500;600;700)
 
 **CSS Import:**
 ```css
-@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&family=Work+Sans:wght@300;400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Cormorant:wght@400;500;600;700&family=Montserrat:wght@300;400;500;600;700&display=swap');
 ```
 
 ### Spacing Variables
@@ -68,7 +68,7 @@
 ```css
 /* Primary Button */
 .btn-primary {
-  background: #2563EB;
+  background: #CA8A04;
   color: white;
   padding: 12px 24px;
   border-radius: 8px;
@@ -85,8 +85,8 @@
 /* Secondary Button */
 .btn-secondary {
   background: transparent;
-  color: #E11D48;
-  border: 2px solid #E11D48;
+  color: #1C1917;
+  border: 2px solid #1C1917;
   padding: 12px 24px;
   border-radius: 8px;
   font-weight: 600;
@@ -99,7 +99,7 @@
 
 ```css
 .card {
-  background: #FFF1F2;
+  background: #FAFAF9;
   border-radius: 12px;
   padding: 24px;
   box-shadow: var(--shadow-md);
@@ -125,9 +125,9 @@
 }
 
 .input:focus {
-  border-color: #E11D48;
+  border-color: #1C1917;
   outline: none;
-  box-shadow: 0 0 0 3px #E11D4820;
+  box-shadow: 0 0 0 3px #1C191720;
 }
 ```
 
@@ -153,13 +153,13 @@
 
 ## Style Guidelines
 
-**Style:** Vibrant & Block-based
+**Style:** Cyberpunk UI
 
-**Keywords:** Bold, energetic, playful, block layout, geometric shapes, high color contrast, duotone, modern, energetic
+**Keywords:** Neon, dark mode, terminal, HUD, sci-fi, glitch, dystopian, futuristic, matrix, tech noir
 
-**Best For:** Startups, creative agencies, gaming, social media, youth-focused, entertainment, consumer
+**Best For:** Gaming platforms, tech products, crypto apps, sci-fi applications, developer tools, entertainment
 
-**Key Effects:** Large sections (48px+ gaps), animated patterns, bold hover (color shift), scroll-snap, large type (32px+), 200-300ms
+**Key Effects:** Neon glow (text-shadow), glitch animations (skew/offset), scanlines (::before overlay), terminal fonts
 
 ### Page Pattern
 
@@ -176,8 +176,8 @@
 
 ## Anti-Patterns (Do NOT Use)
 
-- ❌ Static design
-- ❌ No gamification
+- ❌ Light mode
+- ❌ Poor data viz
 
 ### Additional Forbidden Patterns
 

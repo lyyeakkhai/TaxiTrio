@@ -1,6 +1,6 @@
 import { ReactNode } from "react";
 import { Link } from "@/i18n/routing";
-import { LayoutDashboard, Car, Map, Compass, CalendarCheck, MessageSquareWarning, Bell, HelpCircle } from "lucide-react";
+import { LayoutDashboard, Car, Map, Compass, CalendarCheck, MessageSquareWarning, Bell, HelpCircle, UserCircle } from "lucide-react";
 import { NotificationBell } from "@/features/notifications/components/NotificationBell";
 import { ThemeToggle } from "@/components/ThemeToggle";
 import { LocaleSwitcher } from "@/components/LocaleSwitcher";
@@ -39,6 +39,9 @@ export default function CustomerLayout({ children }: { children: ReactNode }) {
           </Link>
           <Link href="/customer/assistance" className="flex items-center px-4 py-2.5 text-sm font-medium rounded-xl hover:bg-white/5 transition-colors">
             <HelpCircle className="mr-3 h-5 w-5 text-muted-foreground" /> {t("assistance")}
+          </Link>
+          <Link href="/customer/profile" className="flex items-center px-4 py-2.5 text-sm font-medium rounded-xl hover:bg-white/5 transition-colors">
+            <UserCircle className="mr-3 h-5 w-5 text-muted-foreground" /> Profile
           </Link>
         </nav>
       </aside>
